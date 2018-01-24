@@ -1,4 +1,9 @@
 	<div class='container-fluid'>
+		<ol class="breadcrumb">
+			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
+			  <li class="active">ข้อมูลสารสนเทศ</li>
+			</ol>
+
 		<div class="row">
 			
 

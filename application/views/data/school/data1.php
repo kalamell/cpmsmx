@@ -1,12 +1,7 @@
 
-<?php echo form_open_multipart('', array('id' => ''));?>
+<?php echo form_open('', array('id' => ''));?>
 
 
-<div class="col-md-12" style="margin-bottom: 20px;">
-	<button class="btn btn-success" type="submit">บันทึกข้อมูลพื้นฐาน 1</button>
-</div>
-
-<div class="clearfix"></div>
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
@@ -204,15 +199,9 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">ภาพป้ายหน้าโรงเรียน</div>
 		<div class="panel-body">
-			<p class="text-center" style="color: red;">** ภาพป้ายหน้าโรงเรียน มีขนาดไฟล์ไม่เกิน 1MB</p>
-
-			<div class="form-group col-md-12">
-				<label for="username">แนบไฟล์ภาพ</label>
-				<?php if ($rs->sign_school !=''):?>
-					<img src="<?php echo base_url();?>upload/<?php echo $rs->sign_school;?>" class="img-responsive"> <br />
-				<?php endif;?>
-		    	<input type="file" name="sign_school" class="form-control">
-			</div>
+			<?php if ($rs->sign_school !=''):?>
+				<img src="<?php echo base_url();?>upload/<?php echo $rs->sign_school;?>" class="img-responsive"> <br />
+			<?php endif;?>
 
 		</div>
 	</div>
@@ -227,13 +216,9 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">แผนที่โรงเรียน</div>
 		<div class="panel-body">
-			<p class="text-center" style="color: red;">** ท่านสามารถกดลากเพื่อเปลี่ยนหมุดได้</p>
+			
 		</div>
 	</div>
-</div>
-
-<div class="col-md-12">
-	<button class="btn btn-success" type="submit">บันทึกข้อมูลพื้นฐาน 1</button>
 </div>
 <?php echo form_close();?>
 	

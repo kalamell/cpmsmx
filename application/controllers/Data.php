@@ -6,6 +6,7 @@ class Data extends Base {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('school_model', 'sm');
 	}
 	public function index()
 	{
@@ -34,5 +35,12 @@ class Data extends Base {
 		$this->rs = $this->db->get('school')->result();
 		
 		$this->render('data/school', $this);
+	}
+
+	public function id($id)
+	{
+		$this->rs = $this->sm->getSchool($id);
+		$this->render('data/id', $this);
+
 	}
 }
