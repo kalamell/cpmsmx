@@ -121,6 +121,81 @@
 </div>
 
 
+<div class='col-md-12'>
+	<div class="panel panel-default">
+	  <div class="panel-heading">เป็นโรงเรียนในโครงการพระราชดำริ (เลือกได้มากกว่า 1 ข้อ)</div>
+	  <div class="panel-body">
+	  	<table class="table table-striped table-bordered">
+	  		<tbody>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>ไม่อยู่ในโครงการ</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>โครงการราชประชานุเคราะห์</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>โครงการพระราชดำริของสมเด็จพระเทพรัตนราชสุดาฯ</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>โครงการพระราชดำริด้วยรักและห่วงใย</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>โรงเรียนที่ตั้งอยู่ในศูนย์การศึกษาการพัฒนาเนื่องมาจากพระราชดำริ</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>โครงการพระราชดำริบ้านเล็กในป่าใหญ่</td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+
+	  </div>
+	</div>
+</div>
+
+<div class='col-md-12'>
+	<div class="panel panel-default">
+	  <div class="panel-heading">ประเภทและลักษณะโครงการของโรงเรียน,โครงการที่โรงเรียนเข้าร่วม (เลือกได้มากกว่า 1 ข้อ)</div>
+	  <div class="panel-body">
+	  	<table class="table table-striped table-bordered">
+	  		<tbody>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>เป็นโรงเรียนที่อนุญาตให้หน่วยงานทางการศึกษาใช้เป็นสถานที่ตั้งสำนักงาน / เปิดทำการสอน</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>เป็นโรงเรียนที่อนุญาตให้ กศน. ใช้เป็นสถานที่ตั้งสำนักงาน / เปิดทำการสอน</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>เป็นโรงเรียนที่อนุญาตให้องค์กรปกครองส่วนท้องถิ่นใช้เป็นสถานที่ตั้งสำนักงาน</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>เป็นโรงเรียนที่อนุญาตให้องค์กรปกครองส่วนท้องถิ่นใช้จัดการเรียนการสอนอนุบาล 3 ขวบ</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>เป็นโรงเรียนสาขาของโรงเรียน</td>
+	  			</tr>
+	  			<tr>
+	  				<td><input type="checkbox" name=""></td>
+	  				<td>เป็นโรงเรียนสาขาห้องเรียนของโรงเรียน</td>
+	  			</tr>
+	  		</tbody>
+	  	</table>
+
+	  </div>
+	</div>
+</div>
+
+
 <div class="col-md-12">
 	<button class="btn btn-success" type="submit">บันทึกข้อมูลพื้นฐาน 2</button>
 </div>
