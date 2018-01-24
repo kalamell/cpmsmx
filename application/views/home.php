@@ -1,7 +1,7 @@
 
 	<div class='container'>
 
-		<div class="row">
+		<div class="row" style="display: none;">
 			<div class="col-md-12">
 				<div id="myCarousel " style="margin-bottom: 20px;" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
