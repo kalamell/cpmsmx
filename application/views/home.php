@@ -66,7 +66,11 @@
 					    
 					    <div class="list-group">
 						  
-						  <a href="<?php echo site_url('member');?>" class="list-group-item"><i class="glyphicon glyphicon-home"></i> ข้อมูลพื้นฐาน</a>
+						  <a href="<?php echo site_url('member');?>" class="list-group-item"><i class="glyphicon glyphicon-user"></i> ข้อมูลผู้ใช้งาน</a>
+
+						  <a href="<?php echo site_url('member/school');?>" class="list-group-item"><i class="glyphicon glyphicon-home"></i> ข้อมูลพื้นฐานโรงเรียน</a>
+
+
   <a href="<?php echo site_url('logout');?>" onclick="javascript: return confirm('ต้องการออกจากระบบหรือไม่');" class="list-group-item"><i class="glyphicon glyphicon-log-out"></i> ออกจากระบบ</a>
 						</div>
 					  </div>

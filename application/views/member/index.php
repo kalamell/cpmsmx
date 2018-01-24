@@ -1,5 +1,13 @@
 <div class='container-fluid'>
 	<div class="row">
+
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
+			  <li class="active">ข้อมูลสมาชิก</li>
+			</ol>
+		</div>
+
 		
 		<div class="col-md-3">
 			<div class="panel panel-default">
