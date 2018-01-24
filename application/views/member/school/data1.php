@@ -205,6 +205,12 @@
 		<div class="panel-heading">ภาพป้ายหน้าโรงเรีนย</div>
 		<div class="panel-body">
 			<p class="text-center" style="color: red;">** ภาพป้ายหน้าโรงเรียน มีขนาดไฟล์ไม่เกิน 1MB</p>
+
+			<div class="form-group col-md-12">
+				<label for="username">แนบไฟล์ภาพ</label>
+		    	<input type="file" class="form-control">
+			</div>
+
 		</div>
 	</div>
 </div>

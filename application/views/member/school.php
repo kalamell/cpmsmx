@@ -27,7 +27,9 @@
 			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane active" id="tab1">
 			    	<?php $this->load->view('member/school/data1', $this);?>
 			    </div>
-			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane fade " id="tab2">...</div>
+			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane fade " id="tab2">
+			    	<?php $this->load->view('member/school/data2', $this);?>
+			    </div>
 			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane fade " id="tab3">...</div>
 			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane fade " id="computer">...</div>
 			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane fade " id="water">...</div>
