@@ -1,57 +1,68 @@
 
 	<div class='container'>
 
-		<div class="row" style="display: none;">
-			<div class="col-md-12">
-				<div id="myCarousel " style="margin-bottom: 20px;" class="carousel slide" data-ride="carousel">
-				  <!-- Indicators -->
-				  <ol class="carousel-indicators">
-				    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				    <li data-target="#myCarousel" data-slide-to="1"></li>
-				    <li data-target="#myCarousel" data-slide-to="2"></li>
-				  </ol>
-
-				  <!-- Wrapper for slides -->
-				  <div class="carousel-inner">
-				    <div class="item active">
-				      <img src="http://esan67.sillapa.net/sm-cpm30/images/header/header_sm-cpm30.jpg?15165884" alt="">
-				    </div>
-
-				    <div class="item">
-				      <img src="http://esan67.sillapa.net/sm-cpm30/images/header/header_sm-cpm30.jpg?15165884" alt="">
-				    </div>
-				  </div>
-
-				  <!-- Left and right controls -->
-				  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-				    <span class="glyphicon glyphicon-chevron-left"></span>
-				    <span class="sr-only">Previous</span>
-				  </a>
-				  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-				    <span class="glyphicon glyphicon-chevron-right"></span>
-				    <span class="sr-only">Next</span>
-				  </a>
-				</div>
-
-				
-			</div>
-			
-		</div>
+		
 		<div class="row">
-			<div class='col-md-3'>
-				<div class="list-group">
-				  <button class="list-group-item active">เมนูหลัก</button>
-				  <a href="<?php echo site_url();?>" class="list-group-item">หน้าหลัก</a>
-				  <a href="<?php echo site_url('data');?>" class="list-group-item">ข้อมูลสารสนเทศ</a>
-				</div>
-
-			</div>
-
-			<div class='col-md-6'>
+			<div class='col-md-9'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ข่าวสารประชาสัพมธ์</div>
+				  <div class="panel-heading">ปริมานงานของการสำรวจและจัดทำ school mapping</div>
 				  <div class="panel-body">
-				    ข้อมูลการประชาสัมพันธ์
+				    <ul>
+				    	<li>สำรวจและจัดทำข้อมูลประกอบด้วย
+				    		<ul>
+				    			<li><a href="<?php echo site_url('data/listschool');?>">ตารางแสดงที่ตั้งสถานศึกษา แยกสังกัด แยกอำเภอ</a></li>
+				    			<li>ตารางแสดงจำนวนนักเรียน
+				    				<ul>
+				    					<li><a href="<?php echo site_url('data/listgender');?>">ชาย หญิง</a></li>
+				    					<li><a href="<?php echo site_url('data/listgender_level');?>">ชาย หญิง แยกแต่ละชั้น</a></li>
+				    					<li><a href="<?php echo site_url('data/listroom');?>">ห้องเรียน แยกแต่ละชั้น</a></li>
+				    					<li><a href="<?php echo site_url('data');?>">แยกสังกัด</a></li>
+				    					<li><a href="<?php echo site_url('data');?>">จำนวนนักเรียน เฉาพะ 3-5 ขวบ ทั้งหมดในเขตบริการ (ทร 14)</a></li>
+				    					<li><a href="<?php echo site_url('data');?>">จำนวนนักเรียนทั้งหมดในเขตบริการ (ทร  14) ท่เข้าเรียนในสถานศึกษารายโรง / คน</a></li>
+				    				</ul>
+				    			</li>
+				    			<li>ตารางแสดงจำนวนครู
+				    				<ul>
+				    					<li><a href="<?php echo site_url('data/listteacher');?>">จำแนกตามวุฒิการศึกษา แยกแต่ละชั้น</a></li>
+				    					<li><a href="<?php echo site_url('data/academic_standing');?>">วิทยฐานะ แยกแต่ละชั้น</a></li>
+				    					<li><a href="">อายุ แยกแต่ละชั้น</a></li>
+				    					<li><a href="">แยกสังกัด แยกแต่ละชั้น</a></li>
+				    					<li><a href="">จำนวนครูที่มีวุฒิการศึกษาตรงตามสาา (การศึกษาปฐมวัย)/คน แยกแต่ละชั้น</a></li>
+				    					<li><a href="">จำนวนครู<u>ที่ไม่มี</u>วุฒิการศึกษาตรงตามสาา (การศึกษาปฐมวัย)/คน แยกแต่ละชั้น</a></li>
+				    					<li><a href="">จำนวนครูพี่เลี้ยงที่มีวุฒิการศึกษาตรงตามสาา (การศึกษาปฐมวัย)/คน แยกแต่ละชั้น</a></li>
+				    					<li><a href="">จำนวนครูพี่เลี้ยง <u>ที่ไม่มี</u>วุฒิการศึกษาตรงตามสาา (การศึกษาปฐมวัย)/คน แยกแต่ละชั้น</a></li>
+				    				</ul>
+				    			</li>
+				    			<li>
+				    				ตารางคาดคะเนจำนวนนักเรียน ระดับจังหวัด
+				    				<ul>
+				    					<li><a href="">คาดประชากรอายุ 1-7 ปี</a></li>
+				    					<li><a href="">คาดคะเนอัตรการเข้าเรียน (Admission rate) ของนักเรียนชั้น อ.1( 3 ขวบ)</a></li>
+				    					<li><a href="">คาดคะเนอัตราการเลื่อนชั้น (Admission rate) อ.1 - อ.3</a></li>
+				    					<li><a href=""></a></li>
+				    					<li><a href="">คาดคะเนอัตรการเข้าเรียนต่อ (Admission rate) ของนักเรียนชั้น อ.3</a></li>
+				    				</ul>
+				    			</li>
+				    			<li>
+				    				าตารางคาดคะเนจำนวนนักเรียน ระดับสถานศึกษา
+				    				<ul>
+				    					<li><a href="">คาดประชากรอายุ 1-7 ปี</a></li>
+				    					<li><a href="">คาดคะเนอัตรการเข้าเรียน (Admission rate) ของนักเรียนชั้น อ.1( 3 ขวบ)</a></li>
+				    					<li><a href="">คาดคะเนอัตราการเลื่อนชั้น (Admission rate) อ.1 - อ.3</a></li>
+				    					<li><a href=""></a></li>
+				    					<li><a href="">คาดคะเนอัตรการเข้าเรียนต่อ (Admission rate) ของนักเรียนชั้น อ.3</a></li>
+				    					<li><a href="">ตารางแสดงขนาดพื้นที่โรงเรียน</a></li>
+				    					<li><a href="">พิกัดดาวเทียม GPS</a></li>
+				    				</ul>
+				    			</li>
+				    			<li>
+				    				<a href="">แผนที่ดาวเทียวแยกสังกัด แยกอำเภอ</a>
+				    			</li>
+
+				    		</ul>
+				    	</li>
+
+				    </ul>
 				  </div>
 				</div>
 			</div>
