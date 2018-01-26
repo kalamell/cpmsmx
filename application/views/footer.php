@@ -1,5 +1,5 @@
 <footer class="container" style="margin-top: 50px;">
-		<p class="text-center">&copy 2018 ระบบบริหารจัดการข้อมูลประชากรวัยเรียน ศธจ.ชัยภูมิ</p>
+		<p class="text-center">&copy 2018  School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ</p>
 		
 	</footer>
 

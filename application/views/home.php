@@ -42,7 +42,13 @@
 				<div class="list-group">
 				  <button class="list-group-item active">เมนูหลัก</button>
 				  <a href="<?php echo site_url();?>" class="list-group-item">หน้าหลัก</a>
-				  <a href="<?php echo site_url('data');?>" class="list-group-item">ข้อมูลสารสนเทศ</a>
+				  <a href="" class="list-group-item">แสดงที่ตั้งสถานศึกษา</a>
+				  <a href="" class="list-group-item">แสดงจำนวนนักเรียน</a>
+				  <a href="" class="list-group-item">แสดงจำนวนครู</a>
+				  <a href="" class="list-group-item">คาดคะเนะจำนวนนรักเรียน ระดับจังหวัด</a>
+				  <a href="" class="list-group-item">คาดคะเนจำนวนนักเรียน ระดับสถานศึกษา</a>
+				  <a href="" class="list-group-item">แผนที่ดาวเทียม</a>
+				  <a href="" class="list-group-item">สถานศึกษาเป้าหมาย</a>
 				</div>
 
 			</div>
