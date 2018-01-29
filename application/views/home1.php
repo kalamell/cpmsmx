@@ -1,44 +1,17 @@
 
 	<div class='container'>
 
-		<div class="row" style="margin-bottom: 20px">
-			<div class="col-md-12">
-
-				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-				  <!-- Indicators -->
-				  <ol class="carousel-indicators">
-				    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-				  </ol>
-
-				  <!-- Wrapper for slides -->
-				  <div class="carousel-inner" role="listbox">
-				    <div class="item active">
-				      <img src="<?php echo base_url();?>assets/img/banner.jpg" />
-				      
-				    </div>
-				  </div>
-
-				  <!-- Controls -->
-				  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-				    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				  </a>
-				  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-				    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				  </a>
-				</div>
-
-			</div>
-		</div>
-
+		
 		<div class="row">
 			
-			<div class='col-md-3'>
+			<div class='col-md-9'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">school mapping</div>
+				  <div class="panel-heading">ปริมานงานของการสำรวจและจัดทำ school mapping</div>
 				  <div class="panel-body">
-				    <ul class="nav">
+				    <ul>
 				    	<li>สำรวจและจัดทำข้อมูลประกอบด้วย
-				    		<li><a href="<?php echo site_url('data/listschool');?>">ตารางแสดงที่ตั้งสถานศึกษา แยกสังกัด แยกอำเภอ</a></li>
+				    		<ul>
+				    			<li><a href="<?php echo site_url('data/listschool');?>">ตารางแสดงที่ตั้งสถานศึกษา แยกสังกัด แยกอำเภอ</a></li>
 				    			<li>ตารางแสดงจำนวนนักเรียน
 				    				<ul>
 				    					<li><a href="<?php echo site_url('data/listgender');?>">ชาย หญิง</a></li>
@@ -91,16 +64,6 @@
 				    	</li>
 
 				    </ul>
-				  </div>
-				</div>
-			</div>
-
-
-			<div class='col-md-6'>
-				<div class="panel panel-default">
-				  <div class="panel-heading">ข่าวประชาสัมพันธ์</div>
-				  <div class="panel-body">
-				    
 				  </div>
 				</div>
 			</div>

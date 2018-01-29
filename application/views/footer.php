@@ -1,5 +1,5 @@
 <footer class="container" style="margin-top: 50px;">
-		<p class="text-center">&copy 2018  School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ</p>
+		<p class="text-center">© 2018 School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ <br>ถนนองค์การบริหารส่วนจังหวัดชัยภูมิ  ตำบลในเมือง อำเภอเมือง จังหวัดชัยภูมิ 36000  <br>โทรศัพท์ 044-136598, 061-6462469 โทรสาร 044-136798 e-mail : issaree@esdc.go.th</p>
 		
 	</footer>
 
