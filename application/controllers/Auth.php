@@ -16,7 +16,8 @@ class Auth extends Base {
 
 	public function register()
 	{
-		$this->area = $this->db->select('f1, f2')->group_by('f1')->get('school')->result();
+//		$this->area = $this->db->select('f1, f2')->group_by('f1')->get('school')->result();
+		$this->area = $this->db->get('area_type')->result();
 		
 		$this->render('auth/register', $this);
 	}

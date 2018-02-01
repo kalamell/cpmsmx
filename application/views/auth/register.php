@@ -64,23 +64,18 @@
 								  </div>
 
 								  <div class="form-group col-md-12">
-								    <label class="" for="area">เขตพื้นที่การศึกษา</label>
+								    <label class="" for="area">หน่วยงาน</label>
 								    <select class="form-control required" name="area" id="area">
-								    	<option value="">- - - เขตพื้นที่การศึกษา - - -</option>
+								    	<option value="">- - - หน่วยงาน - - -</option>
 								    	<?php foreach($area as $a):?>
-								    		<option value="<?php echo $a->f1;?>"><?php echo $a->f2;?></option>
+								    		<option value="<?php echo $a->area_type_id;?>"><?php echo $a->area_type_name;?></option>
 								    	<?php endforeach;?>
 								    </select>
 								  </div>
 
 								  <div class="form-group col-md-12">
 								    <label class="" for="school">โรงเรียน</label>
-								    <select class="form-control required" name="school" id="school">
-								    	<option value="">- - - โรงเรียน - - -</option>
-								    	<?php foreach($area as $a):?>
-								    		<option value="<?php echo $a->f1;?>"><?php echo $a->f2;?></option>
-								    	<?php endforeach;?>
-								    </select>
+								    <input type="text" name="school" value="" class="form-control">
 								  </div>
 
 
