@@ -4,18 +4,25 @@
 		<div class="row" style="margin-bottom: 20px">
 			<div class="col-md-12">
 
+				<?php $banner = banner(); $inx = 0;?>
+
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
 				  <ol class="carousel-indicators">
-				    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				    <?php foreach($banner as $b):?>
+				    	<li data-target="#carousel-example-generic" data-slide-to="<?php echo $inx;?>" class="active"></li>
+				    <?php $inx++; endforeach;?>
 				  </ol>
 
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner" role="listbox">
-				    <div class="item active">
-				      <img src="<?php echo base_url();?>assets/img/banner.jpg" />
-				      
+				  	<?php $no = 0; foreach ($banner as $b):?>
+				  	
+				    <div class="item <?php echo $no==0?'active':'';?>">
+				      <img src="<?php echo base_url();?>upload/banner/<?php echo $b->path;?>" />
 				    </div>
+
+					<?php $no++; endforeach;?>
 				  </div>
 
 				  <!-- Controls -->
@@ -101,6 +108,17 @@
 				  <div class="panel-heading">ข่าวประชาสัมพันธ์</div>
 				  <div class="panel-body">
 				    
+				    <?php foreach($news as $n):?>
+
+				    	<div class="media" style="border-bottom: 1px solid #e4e4e4; padding-bottom: 20px;">
+						  
+						  <div class="media-body">
+						    <h4 class="media-heading"><?php echo $n->title;?></h4>
+						    <?php echo $n->description;?>
+						  </div>
+						</div>
+
+				    <?php endforeach;?>
 				  </div>
 				</div>
 			</div>
@@ -130,12 +148,12 @@
 				    <?php echo form_open('auth/do_login', array('id' => 'login'));?>
 					  <div class="form-group">
 					    <label for="username">ชื่อผู้ใช้งาน</label>
-					    <input type="text" class="form-control required" maxlength="13" minlength="13" id="username" name="username" placeholder="ชื่อผู้ใช้งาน">
+					    <input type="text" class="form-control required" maxlength="20" minlength="1" id="username" name="username" placeholder="ชื่อผู้ใช้งาน">
 					    <span class="help-block">ใช้หมายเลขบัตรประชาชน</span>
 					  </div>
 					  <div class="form-group">
 					    <label for="password">รหัสผ่าน</label>
-					    <input type="password" class="form-control required" minlength="8" id="password"  name="password" placeholder="รหัสผ่าน">
+					    <input type="password" class="form-control required" minlength="1" id="password"  name="password" placeholder="รหัสผ่าน">
 					    <span class="help-block">รหัสผ่าน 8 หลัก</span>
 					  </div>
 					  

@@ -53,6 +53,9 @@ $route['login'] = 'auth/index';
 $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
 
+
+$route['backend'] = 'backend/config';
+
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

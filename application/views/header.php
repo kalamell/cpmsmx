@@ -8,6 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/fontawesome-all.min.css">
+
+	<style type="text/css">
+		@media (max-width: 768px) { 
+			.navbar-brand { width: 50%; }
+		}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -23,7 +30,7 @@
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
 	      	<img src="<?php echo base_url();?>assets/img/logo.png" style="    width: 40px;
     margin-left: -9px;
-    margin-top: -11px; float: left">  School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ </a>
+    margin-top: -11px; float: left; margin-right: 4px;">  School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ </a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,6 +54,13 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="<?php echo site_url('member');?>">ข้อมูลส่วนตัว</a></li>
 		            <li><a href="<?php echo site_url('member/school');?>">ข้อมูลพื้นฐานโรงเรียน</a></li>
+
+		            <?php if (isStaff()):?>
+		            	<li role="separator" class="divider"></li>
+		            	<li>
+		            		<a href="<?php echo site_url('backend');?>">เข้าจัดการ Backend</a>
+		            	</li>
+		            <?php endif;?>
 		            <li role="separator" class="divider"></li>
 		            <li><a href="<?php echo site_url('logout');?>" onclick="javascript: return confirm('ต้องการออกจากระบบหรือไม่ ?');">ออกจากระบบ</a></li>
 

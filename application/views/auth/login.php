@@ -19,7 +19,7 @@
 						    <?php echo form_open('auth/do_login', array('id' => 'login'));?>
 							  <div class="form-group">
 							    <label for="username">ชื่อผู้ใช้งาน</label>
-							    <input type="text" class="form-control required" id="username" name="username" maxlength="13" minlength="13" placeholder="ชื่อผู้ใช้งาน">
+							    <input type="text" class="form-control required" id="username" name="username" maxlength="20" minlength="1" placeholder="ชื่อผู้ใช้งาน">
 							    <span class="help-block">ใช้หมายเลขบัตรประชาชน</span>
 							  </div>
 							  <div class="form-group">
