@@ -27,12 +27,24 @@
 			  <div class="panel-body">
 
 			  	<?php echo save();?>
+
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">ตั้งค่าเว็บไซต์</a></li>
+			    <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">ตั้งค่าเมนู</a></li>
+			    
+			  </ul>
+
+			  <div class="tab-content">
+			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane active" id="tab1">
+			    	<?php $this->load->view('backend/config/config', $this);?>
+			    </div>
+			    <div role="tabpanel" style="padding-top: 20px;" class="tab-pane fade " id="tab2">
+			    	<?php $this->load->view('backend/config/menu', $this);?>
+			    </div>
+			</div>
 			  
 				 
-				  <div class="form-group">
-				  	<label>Footer</label>
-				  	<textarea name="footer" class="form-control" rows="5"><?php echo $r->footer;?></textarea>
-				  </div>
+				  
 
 
 			  </div>

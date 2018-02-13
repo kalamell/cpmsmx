@@ -380,7 +380,7 @@ $config['encryption_key'] = 'ciH8ok#$9';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = ENVIRONMENT == 'production' ? 'tmp' : null;
+$config['sess_save_path'] = ENVIRONMENT == 'production' ? 'tmp' : 'tmp';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 7200;
 $config['sess_regenerate_destroy'] = FALSE;
