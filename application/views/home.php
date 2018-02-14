@@ -1,10 +1,14 @@
 
 	<div class='container'>
 
+		<?php $banner = banner(); $inx = 0;?>
+
+		<?php if(count($banner)>0):?>
+
 		<div class="row" style="margin-bottom: 20px">
 			<div class="col-md-12">
 
-				<?php $banner = banner(); $inx = 0;?>
+				
 
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
@@ -36,6 +40,7 @@
 
 			</div>
 		</div>
+		<?php endif;?>
 
 		<div class="row">
 			
