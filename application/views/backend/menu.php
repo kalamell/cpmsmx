@@ -1,5 +1,7 @@
 <div class="list-group">						  
   <a href="<?php echo site_url('backend');?>" class="list-group-item <?php echo $this->uri->segment(2)==''? 'active': '';?>"><i class="fab fa-whmcs"></i> ตั้งค่าเว็บไซต์</a>
+
+  <a href="<?php echo site_url('backend/menu');?>" class="list-group-item <?php echo $this->uri->segment(2)=='menu'? 'active': '';?>"><i class="fa fa-list-ul"></i> เมนู</a>
   
   <a href="<?php echo site_url('backend/banner');?>" class="list-group-item"><i class="far fa-images"></i> ตั้งค่า Banner</a>
   
