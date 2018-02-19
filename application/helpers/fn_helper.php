@@ -65,3 +65,16 @@ function banner()
 	$rs = $ci->db->get('banner');
 	return $rs->result();
 }
+
+function getRoomLevel($school_id, $term, $year, $rmid)
+{
+	$ci =& get_instance();
+
+	$rs = $ci->db->where(array(
+		'school_id' => $school_id,
+		'term_id' => $term,
+		'year_id' => $year,
+		'rmid' => $rmid
+	))->get('school_room_level');
+	return $rs->result();
+}

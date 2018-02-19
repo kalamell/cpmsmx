@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/fontawesome-all.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/js/datetimepicker/bootstrap-datetimepicker.min.css">
 
 	<style type="text/css">
 		@media (max-width: 768px) { 

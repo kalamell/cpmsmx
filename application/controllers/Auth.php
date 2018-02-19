@@ -16,7 +16,7 @@ class Auth extends Base {
 
 	public function register()
 	{
-//		$this->area = $this->db->select('f1, f2')->group_by('f1')->get('school')->result();
+		$this->school = $this->db->select('school_id, school_name')->order_by('school_name', 'asc')->get('school')->result();
 		$this->area = $this->db->get('area_type')->result();
 		
 		$this->render('auth/register', $this);
@@ -93,16 +93,12 @@ class Auth extends Base {
 			),
 
 			array(
-				'field' => 'area',
+				'field' => 'area_id',
 				'label' => 'area',
 				'rules' => 'required'
 			),
 
-			array(
-				'field' => 'school',
-				'label' => 'school',
-				'rules' => 'required'
-			),
+			
 		);
 		$this->form_validation->set_rules($config);
 		$ar['result'] = false;
@@ -116,12 +112,14 @@ class Auth extends Base {
 				'email' => $this->input->post('email'),
 				'mobile' => $this->input->post('mobile'),
 				'telephone' => $this->input->post('telephone'),
-				'area' => $this->input->post('area'),
+				'area_id' => $this->input->post('area_id'),
 				'school' => $this->input->post('school'),
 				'ip' => $this->input->ip_address(),
 				'status' => 'member',
 				'active' => 'Y',
 			));
+
+			
 			$ar['result'] = true;
 		} else {
 			$ar['msg'] = validation_errors();
@@ -157,7 +155,7 @@ class Auth extends Base {
 
 	public function list_school()
 	{
-		$rs = $this->db->where('f1', $this->input->post('area'))->get('school');
+		$rs = $this->db->where('area_id', $this->input->post('area'))->get('school');
 		$ar = $rs->result_array();
 		echo json_encode($ar);
 
@@ -167,5 +165,25 @@ class Auth extends Base {
 	{
 		$this->session->sess_destroy();
 		redirect('');
+	}
+
+	public function getamphur()
+	{
+		$rs = $this->db->where('PROVINCE_ID', $this->input->post('province_id'))->get('amphur');
+		echo json_encode($rs->result_array());
+	}
+
+	public function getdistrict()
+	{
+		$rs = $this->db->where('AMPHUR_ID', $this->input->post('amphur_id'))->get('district');
+		echo json_encode($rs->result_array());
+	}
+
+	public function list_school_area()
+	{
+		$rs = $this->db->where('area_id', $this->input->post('area_id'))->get('school');
+		$ar = $rs->result_array();
+		echo json_encode($ar);
+
 	}
 }

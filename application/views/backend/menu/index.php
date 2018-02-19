@@ -5,7 +5,7 @@
 			<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
 			  <li class=""><a href="<?php echo site_url('backend');?>">Backend</a></li>
-			  <li class="active">โรงเรียน</li>
+			  <li class="active"> Menu</li>
 			</ol>
 		</div>
 
@@ -21,18 +21,18 @@
 
 		<div class='col-md-9'>
 			<div class="panel panel-default">
-			  <div class="panel-heading">โรงเรียน</div>
+			  <div class="panel-heading"> Menu</div>
 			  <div class="panel-body">
-			  	<p><a href="<?php echo site_url('backend/school/add');?>" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
+			  	<p><a href="<?php echo site_url('backend/menu/add');?>" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
 
 			  	<?php echo save();?>
 
 			  	<table class="table table-bordered table-striped">
 			  		<thead>
 			  			<tr>
-			  				<th>รหัสโรงเรียน</th>
-			  				<th>โรงเรียน</th>
-			  				<th>หน่วยงาน</th>
+			  				<th>ชื่อเมนู</th>
+			  				<th>อยู่หมวดหมู่</th>
+			  				<th>Link</th>
 			  				
 			  				<th>&nbsp;</th>
 			  			</tr>
@@ -40,13 +40,11 @@
 			  		<tbody>
 			  			<?php foreach($rs as $r):?>
 			  				<tr>
-			  					<td><?php echo $r->school_id;?></td>
-			  					<td><?php echo $r->school_name;?></td>
-			  					<td><?php echo $r->area_name;?></td>
+			  					
 			  					<td width="120">
 			  						<div class="btn-group">
-			  							<a href="" class="btn btn-default btn-sm">แก้ไข</a>
-			  							<a href="" class="btn btn-default btn-sm" onclick="javascript:return confirm('คุณต้องการลบข้อมูลหรือไม่ ?');"><i class="fa fa-trash"></i></a>
+			  							<a href="<?php echo site_url('backend/menu/edit/'.$r->id);?>" class="btn btn-default btn-sm"><i class="fa fa-edit"></i></a>
+			  							<a href="<?php echo site_url('backend/menu/delete/'.$r->id);?>" class="btn btn-default btn-sm" onclick="javascript:return confirm('คุณต้องการลบข้อมูลหรือไม่ ?');"><i class="fa fa-trash"></i></a>
 			  						</div>
 			  					</td>
 			  				</tr>
@@ -56,6 +54,11 @@
 			  </div>
 			</div>
 		</div>
+
+
+		
+
 	</div>
 </div>
 
+	

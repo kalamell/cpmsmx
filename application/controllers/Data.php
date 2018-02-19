@@ -10,24 +10,24 @@ class Data extends Base {
 	}
 	public function index()
 	{
-		$this->area = $this->db->select('f1, f2')->group_by('f1')->get('school')->result();
+		$this->area = $this->db->select('area_id, area_name')->group_by('area_id')->get('school')->result();
 		$this->type = $this->db->select('f24')->group_by('f24')->where('f24 !=', '')->order_by('f24', 'asc')->get('school')->result();
 		$this->ar = '';
 		$this->p_type = '';
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			if ($this->input->post('f1') == NULL && $this->input->post('f24') == NULL) {
+			if ($this->input->post('area_id') == NULL && $this->input->post('f24') == NULL) {
 				redirect('data');
 			}
 			
-			if ($this->input->post('f1') != '') {
-				$this->db->where('f1', $this->input->post('f1'));
+			if ($this->input->post('area_id') != '') {
+				$this->db->where('area_id', $this->input->post('area_id'));
 			}
 
 			if ($this->input->post('f24') != '') {
 				$this->db->where('f24', $this->input->post('f24'));
 			}
-			$this->ar = $this->input->post('f1');
+			$this->ar = $this->input->post('area_id');
 			$this->p_type = $this->input->post('f24');
 
 		}
@@ -46,7 +46,7 @@ class Data extends Base {
 
 	public function listschool()
 	{
-		$this->rs = $this->db->group_by('f13')->get('school')->result();
+		$this->rs = $this->db->join('amphur', 'school.amphur_id = amphur.AMPHUR_ID')->group_by('school.amphur_id')->get('school')->result();
 		$this->render('data/listschool', $this);
 	}
 

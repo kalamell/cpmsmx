@@ -10,7 +10,7 @@ class School_model extends CI_Model {
 
 	public function getSchool($f6)
 	{
-		$rs = $this->db->where('f6', $f6)->get('school');
+		$rs = $this->db->where('school_id', $f6)->get('school');
 		if ($rs->num_rows() > 0) {
 			return $rs->row();
 		}

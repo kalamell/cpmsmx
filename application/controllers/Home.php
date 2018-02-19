@@ -13,4 +13,16 @@ class Home extends Base {
 		
 		$this->render('home', $this);
 	}
+
+	public function genid()
+	{
+		$rs = $this->db->get('school');
+		$i = 1;
+		foreach($rs->result() as $r) {
+			$this->db->where('f6', $r->f6)->update('school', array(
+				'id' => $i
+			));
+			$i++;
+		}
+	}
 }

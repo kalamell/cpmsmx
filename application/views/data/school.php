@@ -21,7 +21,7 @@
 							    <select class="form-control" name="f1">
 							    	<option value="">- - - เขตพื้นที่การศึกษา - - -</option>
 							    	<?php foreach($area as $a):?>
-							    		<option value="<?php echo $a->f1;?>" <?php echo $ar == $a->f1 ? 'selected':'';?>><?php echo $a->f2;?></option>
+							    		<option value="<?php echo $a->area_id;?>" <?php echo $ar == $a->area_id ? 'selected':'';?>><?php echo $a->area_name;?></option>
 							    	<?php endforeach;?>
 							    </select>
 							  </div>
@@ -67,11 +67,11 @@
 			                  <tbody>
 			                    <?php foreach($rs as $r):?>
 			                      <tr>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->f6);?>"><?php echo $r->f6;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->f6);?>"><?php echo $r->f3;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->f6);?>"><?php echo $r->f9;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->f6);?>"><?php echo $r->f17;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->f6);?>"><?php echo $r->f18;?></a></td>
+			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->school_id;?></a></td>
+			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->school_name;?></a></td>
+			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->f9;?></a></td>
+			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->website;?></a></td>
+			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->f18;?></a></td>
 			                      </tr>
 			                    <?php endforeach;?>
 			                  </tbody>
