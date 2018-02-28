@@ -7,9 +7,9 @@
 	
 
 
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/datetimepicker/moment.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>assets/js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpKdMqkUBho4XDmt4SiAAvTSB1cVJ-U5I&signed_in=true&callback=initMap" type="text/javascript"></script>

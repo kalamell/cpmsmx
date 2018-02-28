@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active">ตารางแสดงจำนวนห้องเรียนจำแนกตามชั้นเรียนในแต่ละอำเภอ</li>
+			  <li class="active"> ตารางแสดงนักเรียนใน สพฐ.กับหน่วยงานอื่น จำแนกตามอำเภอ</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ตารางแสดงจำนวนห้องเรียนจำแนกตามชั้นเรียนในแต่ละอำเภอ</div>
+				  <div class="panel-heading"> ตารางแสดงนักเรียนใน สพฐ.กับหน่วยงานอื่น จำแนกตามอำเภอ</div>
 				  <div class="panel-body">
 
 				  	
@@ -24,7 +24,7 @@
 			                      <?php foreach($level as $l):?>
 			                      	<th><?php echo $l['level_name'];?></th>
 			                      <?php endforeach;?>
-			                      <th width="100">รวม</th>
+			                      <th width="100">อัตราส่วน</th>
 			                    </tr>
 			                  </thead>
 			                  <tbody>
@@ -42,6 +42,13 @@
 			                    		foreach($level as $l):?>
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
+
+				                      			if ($l['level_id'] == '01') {
+				                      				$num = countSchoolAmphurOnly($am->AMPHUR_ID);
+				                      			
+				                      			} else {
+				                      				$num = 0;
+				                      			}
 
 				                      			$num = 0;
 

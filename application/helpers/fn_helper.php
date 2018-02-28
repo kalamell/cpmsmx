@@ -58,6 +58,39 @@ function footer()
 
 
 
+function getTitle()
+{
+	$ci =& get_instance();
+
+	$rs = $ci->db->limit(1)->get('config');
+	if ($rs->num_rows()>0) {
+		return $rs->row()->title;
+	}
+
+	return 'School Mapping สำนักงานศึกษาธิการจังหวัด...';
+}
+
+
+function getLogo()
+{
+	/*
+	<img src="<?php echo base_url();?>assets/img/logo.png" style="    width: 40px;
+    margin-left: -9px;
+    margin-top: -11px; float: left; margin-right: 4px;">
+    */
+	$ci =& get_instance();
+
+	$rs = $ci->db->limit(1)->get('config');
+	if ($rs->num_rows()>0) {
+		if ($rs->row()->logo !='') {
+			return '<img src="'.base_url('upload/'.$rs->row()->logo).'" style="width: 40px;margin-left: -9px; margin-top: -11px; float: left; margin-right: 4px;">';
+		}
+	}
+
+	return '';
+}
+
+
 function banner()
 {
 	$ci =& get_instance();
@@ -195,4 +228,10 @@ function getMenuWebsite()
 			}
 		}
 	}
+}
+
+function getSchoolFromDistrict($district_id)
+{
+	$ci =& get_instance();
+	return $ci->db->where('district_id', $district_id)->get('school')->result();
 }

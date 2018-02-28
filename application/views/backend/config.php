@@ -22,7 +22,7 @@
 		<div class='col-md-9'>
 			<div class="panel panel-default">
 			  <div class="panel-heading">ตั้งค่าข้อมูลเว็บไซต์</div>
-			  <?php echo form_open('backend/config/update');?>
+			  <?php echo form_open_multipart('backend/config/update');?>
 			  <input type="hidden" name="id" value="<?php echo $r->id;?>"/>
 			  <div class="panel-body">
 

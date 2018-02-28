@@ -4,11 +4,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<title>ระบบ School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ</title>
+	<title><?php echo getTitle();?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fontawesome/css/fontawesome-all.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/js/datetimepicker/bootstrap-datetimepicker.min.css">
 
 	<style type="text/css">
@@ -29,9 +29,7 @@
 	        <span class="icon-bar"></span> 
 	      </button>
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
-	      	<img src="<?php echo base_url();?>assets/img/logo.png" style="    width: 40px;
-    margin-left: -9px;
-    margin-top: -11px; float: left; margin-right: 4px;">  School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ</a>
+	      	<?php echo getLogo();?> <?php echo getTitle();?></a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->

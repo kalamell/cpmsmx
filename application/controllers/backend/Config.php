@@ -35,6 +35,19 @@ class Config extends Backend {
 				'title' => $this->input->post('title'),
 				'footer' => $this->input->post('footer')
 			));
+
+			$config = array(
+				'upload_path' => './upload/',
+				'allowed_types' => 'jpg|png|JPEG|PNG',
+				'file_name' => 'logo',
+			);
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('logo')) {
+				$data = $this->upload->data();
+				$this->db->where('id', $this->input->post('id'))->update('config', array(
+					'logo' => $data['file_name'],
+				));
+			}
 		}
 
 		$menu = $this->input->post('menu_sub');
