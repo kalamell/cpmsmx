@@ -13,6 +13,7 @@ class Config extends Backend {
 		$this->menu_config = $this->db->order_by('sort', 'asc')->get('menu_config')->result();
 		$this->menu_sub = $this->db->order_by('sub_sort', 'asc')->get('menu_sub')->result();
 		$this->menu_website = $this->db->where('province_id', $this->province_id)->get('menu_website')->result();
+		$this->provinces = $this->db->order_by('CONVERT( PROVINCE_NAME USING tis620 ) ASC', null)->get('province')->result();
 		$this->render('config', $this);
 	}
 
@@ -33,6 +34,7 @@ class Config extends Backend {
 		if ($this->form_validation->run()) {
 			$this->db->where('id', $this->input->post('id'))->update('config', array(
 				'title' => $this->input->post('title'),
+				'province_id' => $this->input->post('province_id'),
 				'footer' => $this->input->post('footer')
 			));
 
