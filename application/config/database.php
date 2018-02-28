@@ -106,9 +106,9 @@ Password:	U4GqDtk7
 $db['host'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'smxcente',
-	'password' => '044126251x@',
-	'database' => 'smxcente_30',
+	'username' => 'smxcente_36',
+	'password' => '044126251',
+	'database' => 'smxcente_36',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

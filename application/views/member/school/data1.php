@@ -22,8 +22,8 @@
 		    <input type="text" class="form-control required" name="school_id" value="<?php echo $rs->school_id;?>"  placeholder="">
 		</div>
 		<div class="form-group col-md-6">
-			<label for="f7">รหัสเขต 8 หลัก</label>
-		    <input type="text" class="form-control required" name="f7" value="<?php echo $rs->f7;?>"  placeholder="">
+			<label for="area_id">รหัสเขต 8 หลัก</label>
+		    <input type="text" class="form-control required" name="area_id" value="<?php echo sprintf('%08d', $rs->area_id);?>"  placeholder="">
 		 </div>
 
 		<div class="form-group col-md-6">
@@ -31,8 +31,8 @@
 		    <input type="text" class="form-control required" name="f8" value="<?php echo $rs->f8;?>"  placeholder="">
 		</div>
 		<div class="form-group col-md-6">
-			<label for="province_school_id">รหัสกระทรวง 10 หลัก</label>
-		    <input type="text" class="form-control " name="province_school_id" value="<?php echo $rs->province_school_id;?>"  placeholder="">
+			<label for="obec_id">รหัสกระทรวง 10 หลัก</label>
+		    <input type="text" class="form-control " name="obec_id" value="<?php echo $rs->obec_id;?>"  placeholder="">
 		 </div>
 
 		 <div class="form-group col-md-6">
@@ -54,40 +54,52 @@
 	  <div class="panel-body">
 		 <div class="form-group col-md-6">
 			<label for="username">สังกัด</label>
-		    <select name="area_id" class="form-control">
+		    <select name="org_type_id" class="form-control">
 		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-		    	<?php foreach($area as $a):?>
-		    		<option value="<?php echo $a->area_id;?>" <?php echo $rs->area_id == $a->area_id ? 'selected' : '';?>><?php echo $a->area_type_name;?></option>
+		    	<?php foreach($org_type as $a):?>
+		    		<option value="<?php echo $a->org_type_id;?>" <?php echo $rs->org_type_id == $a->org_type_id ? 'selected' : '';?>><?php echo $a->org_type_name;?></option>
 		    	<?php endforeach;?>
 		    </select>
 		</div>
 
 		<div class="form-group col-md-6">
-			<label for="username">กระทรวง</label>
-		    <select class="form-control">
+			<label for="">กระทรวง</label>
+		    <select class="form-control" name="m_id">
 		    	<option value=""> - - - เลือกข้อมูล - - -</option>
+		    	<?php foreach($ministry as $m):?>
+		    		<option value="<?php echo $m->m_id;?>" <?php echo $rs->m_id == $m->m_id ? 'selected' : '';?>><?php echo $m->m_name;?></option>
+		    	<?php endforeach;?>
 			</select> 
 		</div>
 
 		 <div class="form-group col-md-6">
-			<label for="username">สำนัก</label>
-		    <select class="form-control">
+			<label for="dep_id">สำนัก</label>
+		    <select class="form-control" name="dep_id">
 		    	<option value=""> - - - เลือกข้อมูล - - -</option>
+		    	<?php foreach($department as $m):?>
+		    		<option value="<?php echo $m->dep_id;?>" <?php echo $rs->dep_id == $m->dep_id ? 'selected' : '';?>><?php echo $m->dep_name;?></option>
+		    	<?php endforeach;?>
 			</select> 
 		</div>
 
 		 <div class="form-group col-md-6">
 			<label for="username">เขตเทศบาล</label>
-		    <select class="form-control">
+		    <select class="form-control" name="mun_id">
 		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-			</select> 
+		    	<?php foreach($municipal as $m):?>
+		    		<option value="<?php echo $m->mun_id;?>" <?php echo $rs->mun_id == $m->mun_id ? 'selected' : '';?>><?php echo $m->mun_name;?></option>
+		    	<?php endforeach;?>
+			</select>  
 		</div>
 
 		 <div class="form-group col-md-6">
 			<label for="username">เขตตรวจราชการ</label>
-		    <select class="form-control">
+		    <select class="form-control" name="ins_id">
 		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-			</select> 
+		    	<?php foreach($inspect as $m):?>
+		    		<option value="<?php echo $m->ins_id;?>" <?php echo $rs->ins_id == $m->ins_id ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
+		    	<?php endforeach;?>
+			</select>  
 		</div>
 	</div>
 </div>

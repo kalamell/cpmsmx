@@ -23,6 +23,14 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading">โรงเรียน</div>
 			  <div class="panel-body">
+
+			  	<?php echo form_open_multipart('backend/school/import', array('class' => 'form-inline'));?>
+			  		<div class="form-group">
+			  			<label>อัพโหลดไฟล์ .csv</label>
+			  			<input type="file" name="file" cl>
+			  		</div>
+			  		<button type="submit" class="btn btn-info btn-sm">อัพโหลด</button>
+			  	<?php echo form_close();?> <br><br>
 			  	<p><a href="<?php echo site_url('backend/school/add');?>" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
 
 			  	<?php echo save();?>
@@ -42,7 +50,7 @@
 			  				<tr>
 			  					<td><?php echo $r->school_id;?></td>
 			  					<td><?php echo $r->school_name;?></td>
-			  					<td><?php echo $r->area_name;?></td>
+			  					<td><?php echo $r->area_code_name;?></td>
 			  					<td width="120">
 			  						<div class="btn-group">
 			  							<a href="" class="btn btn-default btn-sm">แก้ไข</a>
@@ -53,6 +61,8 @@
 			  			<?php endforeach;?>
 			  		</tbody>
 			  	</table>
+
+			  	<?php echo $this->pagination->create_links();?>
 			  </div>
 			</div>
 		</div>

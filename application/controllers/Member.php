@@ -11,6 +11,8 @@ class Member extends Base_Member {
 		$this->load->model('school_model', 'sm');
 		$this->member_id = $this->session->userdata('id');
 		$this->school_id = $this->mm->getSchool();
+
+
 	}
 	public function index()
 	{
@@ -45,7 +47,7 @@ class Member extends Base_Member {
 				}
 
 				$this->db->where('school_id', $this->school_id)->update('school', array(
-					'f7'                 => $this->input->post('f7'),
+					//'f7'                 => $this->input->post('f7'),
 					'f8'                 => $this->input->post('f8'),
 					'province_school_id' => $this->input->post('province_school_id'),
 					'school_name'        => $this->input->post('school_name'),
@@ -71,6 +73,11 @@ class Member extends Base_Member {
 					'wat'                => $this->input->post('wat'),
 					'lat'                => $this->input->post('lat'),
 					'lng'                => $this->input->post('lng'),
+					'org_type_id'                => $this->input->post('org_type_id'),
+					'm_id'                => $this->input->post('m_id'),
+					'dep_id'                => $this->input->post('dep_id'),
+					'mun_id'                => $this->input->post('mun_id'),
+					'ins_id'                => $this->input->post('ins_id'),
 				));
 
 				redirect('member/school/'.$term.'/'.$year.'#tab1');
@@ -158,6 +165,13 @@ class Member extends Base_Member {
 		$this->province = $this->db->where('PROVINCE_ID', 25)->get('province')->result();
 		$this->amphur = $this->db->where('PROVINCE_ID', 25)->get('amphur')->result();
 		$this->district = $this->db->where('AMPHUR_ID', $this->rs->amphur_id)->get('district')->result();
+
+
+		$this->org_type = $this->db->get('org_type')->result(); //สังกัด
+		$this->ministry = $this->db->get('ministry')->result(); //กระทยวง
+		$this->department = $this->db->get('department')->result(); //สำนัก
+		$this->municipal = $this->db->get('municipal')->result(); //เขตเทศบาล
+		$this->inspect = $this->db->get('inspect')->result(); // เขตตรวจราชการ
 
 		
 

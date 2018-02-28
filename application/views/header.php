@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<title>ระบบ School Mapping สำนักงานศึกษาธิการจังหวัดนครราชสีมา</title>
+	<title>ระบบ School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/main.css">
@@ -31,7 +31,7 @@
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
 	      	<img src="<?php echo base_url();?>assets/img/logo.png" style="    width: 40px;
     margin-left: -9px;
-    margin-top: -11px; float: left; margin-right: 4px;">  School Mapping สำนักงานศึกษาธิการจังหวัดนครราชสีมา </a>
+    margin-top: -11px; float: left; margin-right: 4px;">  School Mapping สำนักงานศึกษาธิการจังหวัดชัยภูมิ</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->

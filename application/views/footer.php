@@ -36,7 +36,9 @@
 		    min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
 		});
 		$(function() {
-
+			$("#checkall").on('click', function() {
+				$("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+			})
 			$("#md").on('show.bs.modal', function(e) {
 	           // e.preventDefault();
 	            var link = $(e.relatedTarget);

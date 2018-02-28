@@ -3,9 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Base extends CI_Controller {
 
+	protected $province_code;
+	protected $province_id;
 	public function __construct()
 	{
 		parent::__construct();
+		$this->province_code = $this->config->item('province_code');
+		$rs = $this->db->where('PROVINCE_CODE', $this->province_code)->get('province');
+		$this->province_id = $rs->row()->PROVINCE_ID;
 
 
 	}
@@ -23,6 +28,8 @@ class Base extends CI_Controller {
 */
 class Backend extends CI_Controller
 {
+	protected $province_code;
+	protected $province_id;
 	
 	public function __construct()
 	{
@@ -34,6 +41,10 @@ class Backend extends CI_Controller
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->session->set_flashdata('save', 1);
 		}
+
+		$this->province_code = $this->config->item('province_code');
+		$rs = $this->db->where('PROVINCE_CODE', $this->province_code)->get('province');
+		$this->province_id = $rs->row()->PROVINCE_ID;
 		
 	}
 

@@ -21,32 +21,39 @@
 							<table class="table table-bordered table-striped">
 			                  <thead>
 			                    <tr>
-			                      <th width="">ที่ตั้ง (อำเภอ)</th>
-			                      <th width="100">สพม.30</th>
-			                      <th width="100">สพป.ชย1</th>
-			                      <th width="100">สพป.ชย2</th>
-			                      <th width="100">สพป.ชย3</th>
-			                      <th width="100">เอกชน</th>
-			                      <th width="100">อื่นๆ</th>
-			                      <th width="100">รวม</th>
+			                      <th width="120">อำเภอ</th>
+			                      <?php foreach($school_type as $st):?>
+			                      	<th><?php echo $st->school_type_name;?></th>
+			                      <?php endforeach;?>
 			                    </tr>
 			                  </thead>
 			                  <tbody>
-			                    <?php foreach($rs as $r):?>
-			                      <tr>
-			                        <td><?php echo $r->f13;?></td>
-			                        <td>&nbsp;</td>
-			                         <td>&nbsp;</td>
-			                          <td>&nbsp;</td>
-			                           <td>&nbsp;</td>
-			                            <td>&nbsp;</td>
-			                             <td>&nbsp;</td>
-			                              <td>&nbsp;</td>
-			                      </tr>
+			                    <?php foreach($amphur as $am):?>
+			                    	<tr style="background-color: #000;">
+			                    		<td style='color: #fff;' colspan="<?php echo count($school_type) + 1;?>"><?php echo $am->AMPHUR_NAME;?></td>
+			                    	</tr>
+			                    	
+			                    		<?php foreach($district as $ds):?>
+			                    			<?php if ($ds->AMPHUR_ID == $am->AMPHUR_ID):?>
+			                    				<tr>
+					                    			<td>ตำบล <?php echo $ds->DISTRICT_NAME;?></td>
+					                    			<?php foreach($school_type as $st):?>
+							                      		<td width="100" style="text-align: right;">
+							                      			<?php 
+							                      			$num = countSchool($st->school_type_id, $ds->PROVINCE_ID, $ds->AMPHUR_ID, $ds->DISTRICT_ID);
+							                      			echo $num == 0 ? '&nbsp;' : $num;
+							                      			?>
+							                      		</td>
+							                    	<?php endforeach;?>
+							                    </tr>
+						                    <?php endif;?>
+					                    <?php endforeach;?>
+			                    	
 			                    <?php endforeach;?>
 			                  </tbody>
 			                  
 			                </table>
+
 			            </div>
 			        </div>
 

@@ -19,7 +19,7 @@
 			    <li role="presentation"><a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab">ข้อมูลไฟฟ้า</a></li>
 			    <li role="presentation"><a href="#tab6" aria-controls="tab6" role="tab" data-toggle="tab">ข้อมูลแหล่งน้ำ</a></li>
 
-			    <li role="presentation"><a href="#tab7" aria-controls="tab7" role="tab" data-toggle="tab">ชั้นเรียนที่เปิดสอน</a></li>å
+			    <li role="presentation"><a href="#tab7" aria-controls="tab7" role="tab" data-toggle="tab">ชั้นเรียนที่เปิดสอน</a></li>
 			    <li role="presentation"><a href="#tab8" aria-controls="tab8" role="tab" data-toggle="tab">จำนวนห้องในแต่ละชั้น</a></li>
 			  </ul>
 

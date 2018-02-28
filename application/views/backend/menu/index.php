@@ -31,7 +31,7 @@
 			  		<thead>
 			  			<tr>
 			  				<th>ชื่อเมนู</th>
-			  				<th>อยู่หมวดหมู่</th>
+			  				<th>ลำดับ</th>
 			  				<th>Link</th>
 			  				
 			  				<th>&nbsp;</th>
@@ -40,7 +40,9 @@
 			  		<tbody>
 			  			<?php foreach($rs as $r):?>
 			  				<tr>
-			  					
+			  					<td><?php echo $r->name;?></td>
+			  					<td><?php echo $r->sort;?></td>
+			  					<td style="text-align: center;"><a class='btn btn-sm btn-default' href="<?php echo site_url('backend/menu/sub_menu/'.$r->id);?>">Link</a></td>
 			  					<td width="120">
 			  						<div class="btn-group">
 			  							<a href="<?php echo site_url('backend/menu/edit/'.$r->id);?>" class="btn btn-default btn-sm"><i class="fa fa-edit"></i></a>
