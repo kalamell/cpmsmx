@@ -77,8 +77,9 @@
 				  	<thead>
 				  		<tr>
 				  			<th width="100">ลำดับ</th>
-				  			<th>ชื่อลิ้ง</th>
+				  			
 				  			<th>ลิ้ง</th>
+				  			<th>ชื่อลิ้ง</th>
 				  			<th>ชนิดลิ้ง</th>
 				  			<th width="100">&nbsp;</th>
 				  		</tr>
@@ -87,9 +88,8 @@
 				  		<?php foreach($rs as $r):?>
 				  			<tr>
 				  				<td><input class="form-control" type="tex" name="sub_id[<?php echo $r->sub_id;?>]" value="<?php echo $r->sub_sort;?>"></td>
-				  				<td><input type="text" class="form-control" name="link[<?php echo $r->sub_id;?>]" value="<?php echo $r->link;?>"></td>
-				  				<td><?php echo $r->sub_name;?></td>
-				  				<td><?php echo $r->link;?></td>
+				  				<td><input type="text" class="form-control" name="link2[<?php echo $r->sub_id;?>]" value="<?php echo $r->link;?>"></td>
+				  				<td><input type="text" class="form-control" name="sub_name2[<?php echo $r->sub_id;?>]" value="<?php echo $r->sub_name;?>" /></td>
 				  				<td><?php echo $r->type == 'IN' ? 'ภายใน' : 'ภายนอก';?></td>
 				  				<td style="text-align: center;"><a onclick="javascript:return confirm('ต้องการลบหรือไม่ ?');" class="btn btn-sm btn-default" href="<?php echo site_url('backend/menu/del_sub/'.$r->link_id.'/'.$r->sub_id);?>"><i class="fa fa-trash"></i></a></td>
 				  			</tr>

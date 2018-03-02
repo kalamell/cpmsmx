@@ -20,7 +20,7 @@
 							<table class="table table-bordered table-striped">
 			                  <thead>
 			                    <tr>
-			                      <th width="120" rowspan="2">อำเภอ</th>
+			                      <th width="220" rowspan="2">อำเภอ</th>
 			                      <th width="150" colspan="3">อายุ 3 - 5 ขวบ</th>
 			                    </tr>
 			                    <tr>
@@ -50,7 +50,7 @@
 
 					                    			<?php foreach($school as $s):?>
 					                    				<tr>
-						                    			<td><?php echo $s->school_name;?></td>
+						                    			<td><?php echo 'โรงเรียน '.$s->school_name;?></td>
 						                    			<td style="text-align: right;">0</td>
 						                    			<td style="text-align: right;">0</td>					                    	
 					                    				<td style="text-align: right"><strong>0</strong></td>

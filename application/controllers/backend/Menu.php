@@ -57,7 +57,6 @@ class Menu extends Backend {
 				));
 			} 
 
-
 			$sub_id = $this->input->post('sub_id');
 			if (count($sub_id) > 0) {
 				foreach($sub_id as $sid => $v) {
@@ -68,7 +67,7 @@ class Menu extends Backend {
 			}
 
 
-			$link = $this->input->post('link');
+			$link = $this->input->post('link2');
 			if (count($link) > 0) {
 				foreach($link as $sid => $v) {
 					$this->db->where('sub_id', $sid)->update('menu_sub', array(
@@ -77,7 +76,16 @@ class Menu extends Backend {
 				}
 			}
 
-			redirect('backend/menu/sub_menu/'.$id);
+			$sub_name2 = $this->input->post('sub_name2');
+			if (count($sub_name2) > 0) {
+				foreach($sub_name2 as $sid => $v) {
+					$this->db->where('sub_id', $sid)->update('menu_sub', array(
+						'sub_name' => $v
+					));
+				}
+			}
+
+			//redirect('backend/menu/sub_menu/'.$id);
 		}
 		$this->rs = $this->db->where('link_id', $id)->get('menu_sub')->result();
 		$this->render('menu/sub', $this);
