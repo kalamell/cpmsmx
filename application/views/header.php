@@ -40,7 +40,7 @@
 	        <li class="dropdown <?php echo $this->uri->segment(1)=='data'?'active':'';?>">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-book"></i>  ข้อมูลสารสนเทศ / คู่มือ <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="<?php echo site_url('data');?>">ข้อมูลสารสนเทศ</a></li>
+	            <li><a href="<?php echo site_url('data');?>">รายงานข้อมูลจากเงื่อนไขที่กำหนด</a></li>
 	            <li><a href="#">คู่มือ</a></li>
 	          </ul>
 	        </li>

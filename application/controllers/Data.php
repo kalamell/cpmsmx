@@ -11,7 +11,36 @@ class Data extends Base {
 
 	public function index()
 	{
-		redirect('');
+		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
+		$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
+				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
+
+		$this->_search();
+		$this->rs = $this->db->where('province_id', $this->province_id)->get('school')->result();		
+		$this->render('data/school', $this);
+	}
+
+	public function search()
+	{
+		$this->session->set_userdata(array(
+			'area_id' => $this->input->post('area_id'),
+			'school_size_id' => $this->input->post('school_size_id'),
+		));
+		redirect('data');
+	}
+
+	private function _search()
+	{
+		$area_id = $this->session->userdata('area_id');
+		$school_size_id = $this->session->userdata('school_size_id');
+
+		if ($area_id) {
+			$this->db->where('area_id', $area_id);
+		}
+
+		if ($school_size_id) {
+			$this->db->where('school_size_id', $school_size_id);
+		}
 	}
 
 	public function school($type)

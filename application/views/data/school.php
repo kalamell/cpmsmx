@@ -15,20 +15,20 @@
 				  	<div class='row' style="margin-bottom: 10px;">
 				  		<div class='col-md-12'>
 				    
-						    <?php echo form_open('', array('class' => 'form-inline'));?>
+						    <?php echo form_open('data/search', array('class' => 'form-inline'));?>
 							  <div class="form-group">
 							    <label class="sr-only" for="exampleInputEmail3">เขตพื้นที่การศึกษา</label>
-							    <select class="form-control" name="f1">
+							    <select class="form-control" name="area_id">
 							    	<option value="">- - - เขตพื้นที่การศึกษา - - -</option>
 							    	<?php foreach($area as $a):?>
-							    		<option value="<?php echo $a->area_id;?>" <?php echo $ar == $a->area_id ? 'selected':'';?>><?php echo $a->area_name;?></option>
+							    		<option value="<?php echo $a->area_code;?>" <?php echo $a->area_code == $this->session->userdata('area_id')  ? 'selected':'';?>><?php echo $a->area_code_name;?></option>
 							    	<?php endforeach;?>
 							    </select>
 							  </div>
 
 							  <?php
 					            $type_dat = array(
-					              '' => '',
+					              'ป' => 'อื่นๆ',
 					              'type1' => 'เล็ก',
 					              'type2' => 'กลาง',
 					              'type3' => 'ใหญ่',
@@ -38,10 +38,10 @@
 
 							  <div class="form-group">
 							    <label class="sr-only" for="exampleInputEmail3">ขนาดโรงเรียน</label>
-							    <select class="form-control" name="f24">
+							    <select class="form-control" name="school_size_id">
 							    	<option value="">- - - ขนาดโรงเรียน - - -</option>
-							    	<?php foreach($type as $t):?>
-					                  <option value="<?php echo $t->f24;?>" <?php echo $t->f24 == $p_type ? 'selected' : '';?>><?php echo $type_dat[$t->f24];?></option>
+							    	<?php foreach($type_dat as $t => $v):?>
+					                  <option value="<?php echo $t;?>" <?php echo $t == $this->session->userdata('school_size_id') ? 'selected' : '';?>><?php echo $v;?></option>
 					                <?php endforeach;?>
 							    </select>
 							  </div>
