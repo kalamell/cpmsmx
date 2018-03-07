@@ -191,8 +191,7 @@ class School extends Backend {
 			
 
 			$this->db->insert('school', array(
-				'school_id'          => $this->input->post('school_id'),
-				//'f7'                 => $this->input->post('f7'),
+				'school_id'                 => $this->input->post('school_id'),
 				'f8'                 => $this->input->post('f8'),
 				'province_school_id' => $this->input->post('province_school_id'),
 				'school_name'        => $this->input->post('school_name'),
@@ -218,7 +217,14 @@ class School extends Backend {
 				'wat'                => $this->input->post('wat'),
 				'lat'                => $this->input->post('lat'),
 				'lng'                => $this->input->post('lng'),
+				'org_type_id'                => $this->input->post('org_type_id'),
+				'm_id'                => $this->input->post('m_id'),
+				'dep_id'                => $this->input->post('dep_id'),
+				'mun_id'                => $this->input->post('mun_id'),
+				'ins_id'                => $this->input->post('ins_id'),
 			));
+
+			
 
 			$upload = array(
 				'upload_path' => './upload/',
@@ -236,8 +242,26 @@ class School extends Backend {
 			redirect('backend/school/add');
 		}
 
-		$this->area = $this->db->get('area_type')->result();
-		$this->province = $this->db->get('province')->result();
+		$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
+				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
+
+		$this->province = $this->db->where('PROVINCE_ID', $this->province_id)->get('province')->result();
+		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
+		$this->district = $this->db->where('AMPHUR_ID', $this->rs->amphur_id)->get('district')->result();
+
+
+		$this->org_type = $this->db->get('org_type')->result(); //สังกัด
+		$this->ministry = $this->db->get('ministry')->result(); //กระทยวง
+		$this->department = $this->db->get('department')->result(); //สำนัก
+		$this->municipal = $this->db->get('municipal')->result(); //เขตเทศบาล
+		$this->inspect = $this->db->get('inspect')->result(); // เขตตรวจราชการ
+
+		
+
+		$this->school_sub = $this->db->where('area_id', $this->rs->area_id)->get('school')->result();
+		$this->school_room_sub = $this->db->where('school_id', $this->school_id)->get('school_room_sub')->result();
+
+		$this->room_level = $this->db->order_by('rmid', 'ASC')->order_by('sort', 'ASC')->get('room_level')->result();
 
 		$this->render('school/add', $this);
 	}
