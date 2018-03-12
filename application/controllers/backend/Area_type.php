@@ -11,9 +11,18 @@ class Area_type extends Backend {
 	{
 
 		
-		$this->rs = $this->db->get('area_type')->result();
+		$this->rs = $this->db->where('province_id', $this->province_id)->get('area_type')->result();
+		//echo $this->db->last_query();
 		$this->render('area_type/index', $this);
 	}
+
+
+	public function getdata()
+	{
+		$this->rs = $this->db->where('province_id', $this->province_id)->where("type", $this->input->post('type'))->get('area_type')->result();
+		$this->load->view('backend/area_type/getdata', $this);
+	}
+
 
 	public function add()
 	{
@@ -45,6 +54,8 @@ class Area_type extends Backend {
 
 		$this->db->insert('area_type', array(
 			'area_type_name' => $this->input->post('area_type_name'),
+			'type' => $this->input->post('type'),
+			'province_id' => $this->province_id
 		));
 
 		redirect('backend/area_type');
@@ -67,6 +78,8 @@ class Area_type extends Backend {
 
 		$this->db->where('area_type_id', $this->input->post('area_type_id'))->update('area_type', array(
 			'area_type_name' => $this->input->post('area_type_name'),
+			'type' => $this->input->post('type'),
+			'province_id' => $this->province_id
 		));
 
 		redirect('backend/area_type');

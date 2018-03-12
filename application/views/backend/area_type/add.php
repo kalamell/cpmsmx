@@ -31,6 +31,28 @@
 				  	<input type="text" name="area_type_name" class="form-control" value="">
 				  </div>
 
+				  <div class="form-group">
+				  	<label>สังกัด</label>
+				  	<div class="radio">
+				  		<label>
+				  			<input type="radio" name="type" value="spt"> สพฐ
+				  		</label>
+				  	</div>
+
+				  	<div class="radio">
+				  		<label>
+				  			<input type="radio" name="type" value="oth"> อื่นๆ
+				  		</label>
+				  	</div>
+
+
+				  </div>
+
+				  <div class="form-group">
+				  	<label>ชื่อหน่วยงาน</label>
+				  	<input type="text" name="area_type_name" class="form-control" value="">
+				  </div>
+
 
 
 			  </div>

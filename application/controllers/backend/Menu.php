@@ -87,7 +87,7 @@ class Menu extends Backend {
 
 			//redirect('backend/menu/sub_menu/'.$id);
 		}
-		$this->rs = $this->db->where('link_id', $id)->get('menu_sub')->result();
+		$this->rs = $this->db->where('link_id', $id)->order_by('sub_sort', 'ASC')->get('menu_sub')->result();
 		$this->render('menu/sub', $this);
 	}
 

@@ -31,6 +31,7 @@
 			  		<thead>
 			  			<tr>
 			  				<th>ชื่อหน่วยงาน</th>
+			  				<th>สังกัด</th>
 			  				
 			  				<th>&nbsp;</th>
 			  			</tr>
@@ -39,6 +40,7 @@
 			  			<?php foreach($rs as $r):?>
 			  				<tr>
 			  					<td><?php echo $r->area_type_name;?></td>
+			  					<td><?php echo $r->type == 'spt' ? 'สพฐ' : 'อื่นๆ';?></td>
 			  					<td width="120">
 			  						<div class="btn-group">
 			  							<a href="<?php echo site_url('backend/area_type/edit/'.$r->area_type_id);?>" class="btn btn-default btn-sm">แก้ไข</a>

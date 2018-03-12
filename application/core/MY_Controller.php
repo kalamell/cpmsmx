@@ -49,6 +49,10 @@ class Base extends CI_Controller {
 				'province_id' => $province_id
 			));
 		}
+
+		//ALTER TABLE `school` ADD `level_id` INT NULL AFTER `type_school`;
+
+		//ALTER TABLE `area_type` ADD `type` VARCHAR(10) NOT NULL AFTER `area_type_name`, ADD `province_id` INT NOT NULL AFTER `type`;
 	}
 }
 

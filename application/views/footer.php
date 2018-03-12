@@ -36,6 +36,14 @@
 		    min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
 		});
 		$(function() {
+			$("input[name=type_school]").on('click', function() {
+				var type = $(this).val();
+				$.post('<?php echo site_url('backend/area_type/getdata');?>', { type: type }, function(res) {
+					$("select[name=area_type_id]").html(res);
+				});
+			})
+
+			
 			$("#checkall").on('click', function() {
 				$("input[type=checkbox]").prop('checked', $(this).prop('checked'));
 			})
