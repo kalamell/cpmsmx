@@ -38,7 +38,7 @@
 		$(function() {
 			$("input[name=type_school]").on('click', function() {
 				var type = $(this).val();
-				$.post('<?php echo site_url('backend/area_type/getdata');?>', { type: type }, function(res) {
+				$.post('<?php echo site_url('data/area_type_getdata');?>', { type: type }, function(res) {
 					$("select[name=area_type_id]").html(res);
 				});
 			})
@@ -99,9 +99,9 @@
 				}, 'json');
 			})
 
-			$("select#area").on('change', function() {
+			$("select#area_type_id").on('change', function() {
 		      var val = $(this).val();
-		      $.post('<?php echo site_url('auth/list_school');?>', { area: val }, function(res) {
+		      $.post('<?php echo site_url('auth/list_school2');?>', { area: val }, function(res) {
 		        var opt = '';
 		        $("select[name=school]").html('<option value="">- - - โรงเรียน - - -</option>')
 		        $.each(res, function(key, val) {

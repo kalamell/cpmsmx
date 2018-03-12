@@ -70,7 +70,7 @@
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->school_id;?></a></td>
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->school_name;?></a></td>
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->f9;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->website;?></a></td>
+			                        <td><a href="<?php echo $r->website;?>" target="_blank"><?php echo $r->website;?></a></td>
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->f18;?></a></td>
 			                      </tr>
 			                    <?php endforeach;?>

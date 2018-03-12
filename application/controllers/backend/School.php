@@ -32,7 +32,7 @@ class School extends Backend {
 		$config['total_rows'] = $this->db->where('province_id', $this->province_id)->count_all_results('school');
 		$config['per_page'] = 100;
 		$config['uri_segment'] = 4;
-		$this->rs = $this->db->join('level', 'school.level_id = level.level_id', 'LEFT')
+		$this->rs = $this->db->join('area_type', 'school.area_type_id = area_type.area_type_id', 'LEFT')
 					->where('school.province_id', $this->province_id)
 					->order_by('school.id', 'ASC')
 					->limit($config['per_page'], $this->uri->segment(4))
@@ -227,7 +227,8 @@ class School extends Backend {
 				'mun_id'             => $this->input->post('mun_id'),
 				'ins_id'             => $this->input->post('ins_id'),
 				'type_school'        => $this->input->post('type_school'),
-				'level_id'           => $this->input->post('level_id')
+				'level_id'           => $this->input->post('level_id'),
+				'area_type_id'           => $this->input->post('area_type_id')
 			));
 
 			
@@ -312,7 +313,8 @@ class School extends Backend {
 				'mun_id'             => $this->input->post('mun_id'),
 				'ins_id'             => $this->input->post('ins_id'),
 				'type_school'        => $this->input->post('type_school'),
-				'level_id'           => $this->input->post('level_id')
+				'level_id'           => $this->input->post('level_id'),
+				'area_type_id'           => $this->input->post('area_type_id')
 			));
 
 			
@@ -333,12 +335,16 @@ class School extends Backend {
 			redirect('backend/school/edit/'.$this->input->post('id'));
 		}
 
+		$r = $this->db->where('id', $id)->get('school')->row();
+		$this->r = $r;
+
+
 		$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
 				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
 
 		$this->province = $this->db->where('PROVINCE_ID', $this->province_id)->get('province')->result();
 		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
-		$this->district = $this->db->where('AMPHUR_ID', $this->rs->amphur_id)->get('district')->result();
+		$this->district = $this->db->where('AMPHUR_ID', $r->amphur_id)->get('district')->result();
 
 
 		$this->org_type = $this->db->get('org_type')->result(); //สังกัด
@@ -356,9 +362,7 @@ class School extends Backend {
 
 		$this->level = $this->db->get('level')->result();
 
-		$r = $this->db->where('id', $id)->get('school')->row();
-		$this->r = $r;
-
+		
 		$this->area_type = $this->db->where('province_id', $this->province_id)->where("type", $r->type_school)->get('area_type')->result();
 
 		$this->render('school/edit', $this);

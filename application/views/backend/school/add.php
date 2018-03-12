@@ -118,7 +118,7 @@
 					    <select class="form-control" name="m_id">
 					    	<option value=""> - - - เลือกข้อมูล - - -</option>
 					    	<?php foreach($ministry as $m):?>
-					    		<option value="<?php echo $m->m_id;?>" <?php echo $rs->m_id == $m->m_id ? 'selected' : '';?>><?php echo $m->m_name;?></option>
+					    		<option value="<?php echo $m->m_id;?>" <?php echo $m->m_id == '12' ? 'selected' : '';?>><?php echo $m->m_name;?></option>
 					    	<?php endforeach;?>
 						</select> 
 					</div>
@@ -144,7 +144,7 @@
 					    <select class="form-control" name="ins_id">
 					    	<option value=""> - - - เลือกข้อมูล - - -</option>
 					    	<?php foreach($inspect as $m):?>
-					    		<option value="<?php echo $m->ins_id;?>" <?php echo $rs->ins_id == $m->ins_id ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
+					    		<option value="<?php echo $m->ins_id;?>" <?php echo $m->ins_id == '14' ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
 					    	<?php endforeach;?>
 						</select>  
 					</div>

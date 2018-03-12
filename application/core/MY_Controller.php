@@ -53,6 +53,8 @@ class Base extends CI_Controller {
 		//ALTER TABLE `school` ADD `level_id` INT NULL AFTER `type_school`;
 
 		//ALTER TABLE `area_type` ADD `type` VARCHAR(10) NOT NULL AFTER `area_type_name`, ADD `province_id` INT NOT NULL AFTER `type`;
+
+		//ALTER TABLE `school` ADD `area_type_id` INT NULL AFTER `level_id`;
 	}
 }
 
@@ -87,6 +89,10 @@ class Backend extends CI_Controller
 
 class Base_Member extends CI_Controller {
 
+	protected $province_code;
+	protected $province_id;
+	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -95,6 +101,10 @@ class Base_Member extends CI_Controller {
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->session->set_flashdata('save', 1);
 		}
+
+		$rs = $this->db->select('province_id')->get('config');
+		$this->province_id = $rs->row()->province_id;
+		
 		
 	}
 

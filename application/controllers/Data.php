@@ -1545,4 +1545,10 @@ class Data extends Base {
 	{
 		$this->render('data/map');
 	}
+
+	public function area_type_getdata()
+	{
+		$this->rs = $this->db->where('province_id', $this->province_id)->where("type", $this->input->post('type'))->get('area_type')->result();
+		$this->load->view('backend/area_type/getdata', $this);
+	}
 }

@@ -53,8 +53,8 @@
 			  				<tr>
 			  					<td><?php echo $r->school_id;?></td>
 			  					<td><?php echo $r->school_name;?></td>
-			  					<td><?php echo $r->level_name;?></td>
-			  					<td><?php echo $r->type_school;?></td>
+			  					<td><?php echo $r->area_type_name;?></td>
+			  					<td><?php echo $r->type_school == 'spt' ? 'สพฐ' : 'อื่นๆ';?></td>
 			  					<td width="120">
 			  						<div class="btn-group">
 			  							<a href="<?php echo site_url('backend/school/edit/'.$r->id);?>" class="btn btn-default btn-sm">แก้ไข</a>

@@ -64,11 +64,11 @@
 								  </div>
 
 								  <div class="form-group col-md-12">
-								    <label class="" for="area_id">หน่วยงาน</label>
-								    <select class="form-control required" name="area_id" id="area">
+								    <label class="" for="area_type_id">หน่วยงาน</label>
+								    <select class="form-control required" name="area_type_id" id="area_type_id">
 								    	<option value="">- - - หน่วยงาน - - -</option>
 								    	<?php foreach($area as $a):?>
-								    		<option value="<?php echo $a->area_id;?>"><?php echo $a->area_type_name;?></option>
+								    		<option value="<?php echo $a->area_type_id;?>"><?php echo $a->area_type_name;?></option>
 								    	<?php endforeach;?>
 								    </select>
 								  </div>
