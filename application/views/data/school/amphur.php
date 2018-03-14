@@ -22,7 +22,7 @@
 			                    <tr>
 			                      <th width="120">อำเภอ</th>
 			                      <?php foreach($area as $a):?>
-			                      	<th><?php echo $a->area_code_name;?></th>
+			                      	<th><?php echo $a->area_type_name;?></th>
 			                      <?php endforeach;?>
 			                      <th width="100">รวม</th>
 			                    </tr>
@@ -43,12 +43,12 @@
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
-				                      			$num = countSchoolAreaCodeAmphur($a->area_code, $am->AMPHUR_ID);
+				                      			$num = countSchoolAreaCodeAmphur($a->area_type_id, $am->AMPHUR_ID);
 				                      			echo $num == 0 ? '&nbsp;' : $num;
 
 				                      			$sum_num += $num;
 												
-												$ar[$a->area_code] = isset($ar[$a->area_code]) ?  $num + $ar[$a->area_code] : $num;
+												$ar[$a->area_type_id] = isset($ar[$a->area_type_id]) ?  $num + $ar[$a->area_type_id] : $num;
 				                      			
 				                      			?>
 				                      		</td>

@@ -11,25 +11,7 @@
 			<h2 class="page-header">ข้อมูลพื้นฐานโรงเรียน</h2>
 
 			<div class="panel panel-default">
-	  			<div class="panel-heading">ช่วงปีการศึกษา</div>
-				  <div class="panel-body">
-				  	<div class="form-group col-md-6">
-						<label for="username">ปีการศึกษา</label>
-					    <select class="form-control">
-					    	<option value=""> - - - เลือกข้อมูล - - -</option>
-					    </select>
-					</div>
-
-					<div class="form-group col-md-6">
-						<label for="username">เทอม</label>
-					    <select class="form-control">
-					    	<option value=""> - - - เลือกข้อมูล - - -</option>
-						</select> 
-					</div>
-
-					 
-				   </div>
-				</div>
+	  			
 
 			  <ul class="nav nav-tabs" role="tablist">
 			    <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">ข้อมูลพื้นฐาน 1</a></li>

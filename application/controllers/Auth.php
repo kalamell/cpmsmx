@@ -17,7 +17,7 @@ class Auth extends Base {
 	public function register()
 	{
 		$this->school = $this->db->select('school_id, school_name')->order_by('school_name', 'asc')->get('school')->result();
-		$this->area = $this->db->get('area_type')->result();
+		$this->area = $this->db->where('province_id', $this->province_id)->get('area_type')->result();
 		
 		$this->render('auth/register', $this);
 	}

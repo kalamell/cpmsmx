@@ -164,8 +164,8 @@ class Member extends Base_Member {
 		$this->term = $this->db->where('term_id', $term)->get('term')->row();
 		$this->year = $this->db->where('year_id', $year)->get('years')->row();
 		$this->area = $this->db->get('area_type')->result();
-		$this->province = $this->db->where('PROVINCE_ID', 25)->get('province')->result();
-		$this->amphur = $this->db->where('PROVINCE_ID', 25)->get('amphur')->result();
+		$this->province = $this->db->where('PROVINCE_ID', $this->province_id)->get('province')->result();
+		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
 		$this->district = $this->db->where('AMPHUR_ID', $this->rs->amphur_id)->get('district')->result();
 
 

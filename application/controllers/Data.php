@@ -12,8 +12,7 @@ class Data extends Base {
 	public function index()
 	{
 		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
-		$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
-				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
+		$this->area = $this->db->where('province_id', $this->province_id)->get('area_type')->result();
 
 		$this->_search();
 		$this->rs = $this->db->where('province_id', $this->province_id)->get('school')->result();		
@@ -23,8 +22,9 @@ class Data extends Base {
 	public function search()
 	{
 		$this->session->set_userdata(array(
-			'area_id' => $this->input->post('area_id'),
+			'area_id' => $this->input->post('area_type_id'),
 			'school_size_id' => $this->input->post('school_size_id'),
+			'school_name' => $this->input->post('school_name')
 		));
 		redirect('data');
 	}
@@ -33,20 +33,79 @@ class Data extends Base {
 	{
 		$area_id = $this->session->userdata('area_id');
 		$school_size_id = $this->session->userdata('school_size_id');
+		$school_name = $this->session->userdata('school_name');
 
 		if ($area_id) {
-			$this->db->where('area_id', $area_id);
+			$this->db->where('area_type_id', $area_id);
 		}
 
 		if ($school_size_id) {
 			$this->db->where('school_size_id', $school_size_id);
 		}
+
+		if ($school_name) {
+			$this->db->like('school_name', $school_name);
+		}
 	}
 
-	public function id($id)
+	public function id($school_id)
 	{
-		$this->rs = $this->sm->getSchool($id);
+		//$this->rs = $this->sm->getSchool($id);
+		//$this->render('data/id', $this);
+		$term = '01';
+		$year_id = '2017';
+		
+		$this->rs = $this->sm->getSchool($school_id);
+
+		$chk = $this->db->where(array(
+			'school_id' => $school_id,
+			'term_id' => $term,
+			'year_id' => $year,
+		))->get('school_room');
+		if ($chk->num_rows() == 0) {
+			$this->db->insert('school_room', array(
+				'school_id' => $school_id,
+				'term_id' => $term,
+				'year_id' => $year,
+			));
+
+			$this->school_room = $this->db->where(array(
+				'school_id' => $school_id,
+				'term_id' => $term,
+				'year_id' => $year,
+			))->get('school_room')->row();
+		}  else {
+			$this->school_room = $chk->row();
+		}
+
+		$this->term = $this->db->where('term_id', $term)->get('term')->row();
+		$this->year = $this->db->where('year_id', $year)->get('years')->row();
+		$this->area = $this->db->get('area_type')->result();
+		$this->province = $this->db->where('PROVINCE_ID', $this->province_id)->get('province')->result();
+		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
+		$this->district = $this->db->where('AMPHUR_ID', $this->rs->amphur_id)->get('district')->result();
+
+
+		$this->org_type = $this->db->get('org_type')->result(); //สังกัด
+		$this->ministry = $this->db->get('ministry')->result(); //กระทยวง
+		$this->department = $this->db->get('department')->result(); //สำนัก
+		$this->municipal = $this->db->get('municipal')->result(); //เขตเทศบาล
+		$this->inspect = $this->db->get('inspect')->result(); // เขตตรวจราชการ
+
+		
+
+		$this->school_sub = $this->db->where('area_id', $this->rs->area_id)->get('school')->result();
+		$this->school_room_sub = $this->db->where('school_id', $school_id)->get('school_room_sub')->result();
+
+		$this->room_level = $this->db->order_by('rmid', 'ASC')->order_by('sort', 'ASC')->get('room_level')->result();
+
+		$r = $this->rs;
+		$this->area_type = $this->db->where('province_id', $this->province_id)->where("type", $r->type_school)->get('area_type')->result();
+
+		$this->r = $r;
+
 		$this->render('data/id', $this);
+	
 
 	}
 
@@ -114,15 +173,17 @@ class Data extends Base {
 		if ($type == 'amphur') {
 			$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
 			$this->district = $this->db->where('PROVINCE_ID', $this->province_id)->get('district')->result();
-			$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
-				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
+			
+			$this->area = $this->db->select('area_type.area_type_id, area_type.area_type_name')
+				->where('province_id', $this->province_id)->get('area_type')->result();
 
 			$this->render('data/school/amphur', $this);
 		} else if ($type == 'district') {
 			$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
 			$this->district = $this->db->where('PROVINCE_ID', $this->province_id)->get('district')->result();
-			$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
-				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
+			
+			$this->area = $this->db->select('area_type.area_type_id, area_type.area_type_name')
+				->where('province_id', $this->province_id)->get('area_type')->result();
 
 			$this->render('data/school/district', $this);
 		} else if ($type == 'level-amphur') {
@@ -178,11 +239,11 @@ class Data extends Base {
 
 			$this->level = array(
 								array(
-									'level_id' => '01', 
+									'level_id' => 'spt', 
 									'level_name' => 'สพฐ.'
 								),
 								array(
-									'level_id' => '02', 
+									'level_id' => 'oth', 
 									'level_name' => 'อื่นๆ'
 								),
 								
@@ -194,11 +255,11 @@ class Data extends Base {
 			$this->district = $this->db->where('PROVINCE_ID', $this->province_id)->get('district')->result();
 			$this->level = array(
 								array(
-									'level_id' => '01', 
+									'level_id' => 'spt', 
 									'level_name' => 'สพฐ.'
 								),
 								array(
-									'level_id' => '02', 
+									'level_id' => 'oth', 
 									'level_name' => 'อื่นๆ'
 								),
 								

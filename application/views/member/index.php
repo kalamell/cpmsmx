@@ -87,9 +87,7 @@
 				    <label class="" for="school">โรงเรียน</label>
 				    <select class="form-control required" name="school" id="school" >
 				    	<option value="">- - - โรงเรียน - - -</option>
-				    	<?php foreach($school as $s):?>
-				    		<option value="<?php echo $s->school_id;?>" <?php echo $s->school_id == $r->school ? 'selected' : '';?>><?php echo $s->school_name;?></option>
-				    	<?php endforeach;?>
+				    	
 				    </select>
 				  </div>
 

@@ -322,7 +322,7 @@ function initMap() {
   var myLatLng = {lat: <?php echo $rs->lat == 0 ? '15.806900' : $rs->lat;?>, lng: <?php echo $rs->lng == 0 ? '102.031559' : $rs->lng;?>};
 
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
+    zoom: 12,
     center: myLatLng
   });
 

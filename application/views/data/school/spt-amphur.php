@@ -43,12 +43,7 @@
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
-				                      			if ($l['level_id'] == '01') {
-				                      				$num = countSchoolAmphurOnly($am->AMPHUR_ID);
-				                      			
-				                      			} else {
-				                      				$num = 0;
-				                      			}
+				                      			$num = countSchoolSptAmphurOnly($am->AMPHUR_ID, $l['level_id']);
 
 				                      			echo $num;
 				                      			$sum_num += $num;

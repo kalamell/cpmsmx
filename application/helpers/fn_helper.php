@@ -157,18 +157,42 @@ function countSchoolAreaCodeAmphur($code_id, $amphur_id)
 {
 	$ci =& get_instance();
 	return $ci->db->where(array(
-		'area_id' => $code_id,
+		'area_type_id' => $code_id,
 		'amphur_id' => $amphur_id
 	))->count_all_results('school');
 
 }
 
 
+function countSchoolSptAmphurOnly($amphur_id, $type)
+{
+	$ci =& get_instance();
+	$count = $ci->db->where(array(
+		'amphur_id' => $amphur_id,
+		'type_school' => $type,
+	))->count_all_results('school');
+
+
+
+	return $count;
+
+}
+
 function countSchoolAmphurOnly($amphur_id)
 {
 	$ci =& get_instance();
 	return $ci->db->where(array(
 		'amphur_id' => $amphur_id
+	))->count_all_results('school');
+
+}
+
+function countSchoolSptDistrictOnly($district_id, $type)
+{
+	$ci =& get_instance();
+	return $ci->db->where(array(
+		'district_id' => $district_id,
+		'type_school' => $type
 	))->count_all_results('school');
 
 }
@@ -186,7 +210,7 @@ function countSchoolAreaCodeDistrcit($code_id, $district_id)
 {
 	$ci =& get_instance();
 	return $ci->db->where(array(
-		'area_id' => $code_id,
+		'area_type_id' => $code_id,
 		'district_id' => $district_id
 	))->count_all_results('school');
 
@@ -227,6 +251,15 @@ function getMenuWebsite()
 				echo '</li>';
 			}
 		}
+	}
+}
+
+function url($var)
+{
+	if(strpos($var, 'http://') !== 0) {
+	  return 'http://' . $var;
+	} else {
+	  return $var;
 	}
 }
 
