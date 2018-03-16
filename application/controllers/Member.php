@@ -20,8 +20,8 @@ class Member extends Base_Member {
 
 		$this->r = $r;
 
-		$this->area = $this->db->select('area_id, area_name')->group_by('area_id')->get('school')->result();
-		$this->school = $this->db->where(array('area_id' => $r->area_id))->get('school')->result();		
+		$this->area = $this->db->where('province_id', $this->province_id)->get('area_type')->result();
+		$this->school = $this->db->where(array('area_type_id' => $r->area_type_id))->get('school')->result();		
 
 		$this->render('member/index', $this);
 	}
@@ -78,6 +78,8 @@ class Member extends Base_Member {
 					'dep_id'                => $this->input->post('dep_id'),
 					'mun_id'                => $this->input->post('mun_id'),
 					'ins_id'                => $this->input->post('ins_id'),
+					'area_type_id'       => $this->input->post('area_type_id'),
+					'type_school'       => $this->input->post('type_school'),
 				));
 
 				redirect('member/school/'.$term.'/'.$year.'#tab1');
@@ -162,8 +164,8 @@ class Member extends Base_Member {
 		$this->term = $this->db->where('term_id', $term)->get('term')->row();
 		$this->year = $this->db->where('year_id', $year)->get('years')->row();
 		$this->area = $this->db->get('area_type')->result();
-		$this->province = $this->db->where('PROVINCE_ID', 25)->get('province')->result();
-		$this->amphur = $this->db->where('PROVINCE_ID', 25)->get('amphur')->result();
+		$this->province = $this->db->where('PROVINCE_ID', $this->province_id)->get('province')->result();
+		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
 		$this->district = $this->db->where('AMPHUR_ID', $this->rs->amphur_id)->get('district')->result();
 
 
@@ -179,6 +181,11 @@ class Member extends Base_Member {
 		$this->school_room_sub = $this->db->where('school_id', $this->school_id)->get('school_room_sub')->result();
 
 		$this->room_level = $this->db->order_by('rmid', 'ASC')->order_by('sort', 'ASC')->get('room_level')->result();
+
+		$r = $this->rs;
+		$this->area_type = $this->db->where('province_id', $this->province_id)->where("type", $r->type_school)->get('area_type')->result();
+
+		$this->r = $r;
 
 		$this->render('member/school', $this);
 	}
@@ -253,7 +260,7 @@ class Member extends Base_Member {
 			'surname' => $this->input->post('surname'),
 			'mobile' => $this->input->post('mobile'),
 			'telephone' => $this->input->post('telephone'),
-			'area_id' => $this->input->post('area_id'),
+			'area_type_id' => $this->input->post('area_type_id'),
 			'school_id' => $this->input->post('school_id'),
 		));
 

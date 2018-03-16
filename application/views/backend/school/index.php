@@ -42,21 +42,26 @@
 			  				<th>โรงเรียน</th>
 			  				<th>สังกัด</th>
 			  				<th>สพฐ/อื่นๆ</th>
-			  				
+			  				<th>หน่วยงาน</th>
+			  				<th>สังกัด</th>			  				
 			  				<th>&nbsp;</th>
 			  			</tr>
 			  		</thead>
 			  		<tbody>
 			  			<?php foreach($rs as $r):?>
+
+			  				
 			  				<tr>
 			  					<td><?php echo $r->school_id;?></td>
 			  					<td><?php echo $r->school_name;?></td>
 			  					<td><?php echo $r->org_type_name;?></td>
 			  					<td><?php echo $r->type_school;?></td>
+			  					<td><?php echo $r->area_type_name;?></td>
+			  					<td><?php echo $r->type_school == 'spt' ? 'สพฐ' : 'อื่นๆ';?></td>
 			  					<td width="120">
 			  						<div class="btn-group">
-			  							<a href="" class="btn btn-default btn-sm">แก้ไข</a>
-			  							<a href="" class="btn btn-default btn-sm" onclick="javascript:return confirm('คุณต้องการลบข้อมูลหรือไม่ ?');"><i class="fa fa-trash"></i></a>
+			  							<a href="<?php echo site_url('backend/school/edit/'.$r->id);?>" class="btn btn-default btn-sm">แก้ไข</a>
+			  							<a href="<?php echo site_url('backend/school/delete/'.$r->id);?>" class="btn btn-default btn-sm" onclick="javascript:return confirm('คุณต้องการลบข้อมูลหรือไม่ ?');"><i class="fa fa-trash"></i></a>
 			  						</div>
 			  					</td>
 			  				</tr>

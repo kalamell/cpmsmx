@@ -18,10 +18,10 @@
 						    <?php echo form_open('data/search', array('class' => 'form-inline'));?>
 							  <div class="form-group">
 							    <label class="sr-only" for="exampleInputEmail3">เขตพื้นที่การศึกษา</label>
-							    <select class="form-control" name="area_id">
+							    <select class="form-control" name="area_type_id">
 							    	<option value="">- - - เขตพื้นที่การศึกษา - - -</option>
 							    	<?php foreach($area as $a):?>
-							    		<option value="<?php echo $a->area_code;?>" <?php echo $a->area_code == $this->session->userdata('area_id')  ? 'selected':'';?>><?php echo $a->area_code_name;?></option>
+							    		<option value="<?php echo $a->area_type_id;?>" <?php echo $a->area_type_id == $this->session->userdata('area_id')  ? 'selected':'';?>><?php echo $a->area_type_name;?></option>
 							    	<?php endforeach;?>
 							    </select>
 							  </div>
@@ -44,6 +44,11 @@
 					                  <option value="<?php echo $t;?>" <?php echo $t == $this->session->userdata('school_size_id') ? 'selected' : '';?>><?php echo $v;?></option>
 					                <?php endforeach;?>
 							    </select>
+							  </div>
+
+							  <div class="form-group">
+							  	<label>ชื่อโรงเรียน</label>
+							  	<input type="text" name="school_name" value="<?php echo $this->session->userdata('school_name');?>" class='form-control'>
 							  </div>
 							  
 							  <button type="submit" class="btn btn-default btn-sm">เรียกข้อมูล</button>
@@ -68,9 +73,9 @@
 			                    <?php foreach($rs as $r):?>
 			                      <tr>
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->school_id;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->school_name;?></a></td>
+			                        <td><?php echo $r->school_name;?></td>
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->f9;?></a></td>
-			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->website;?></a></td>
+			                        <td><a href="<?php echo url($r->website);?>" target="_blank"><?php echo $r->website;?></a></td>
 			                        <td><a href="<?php echo site_url('data/id/'.$r->school_id);?>"><?php echo $r->f18;?></a></td>
 			                      </tr>
 			                    <?php endforeach;?>

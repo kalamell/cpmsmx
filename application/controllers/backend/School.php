@@ -32,7 +32,14 @@ class School extends Backend {
 		$config['total_rows'] = $this->db->where('province_id', $this->province_id)->count_all_results('school');
 		$config['per_page'] = 100;
 		$config['uri_segment'] = 4;
-		$this->rs = $this->db->join('org_type', 'school.org_type_id = org_type.org_type_id', 'LEFT')->where('school.province_id', $this->province_id)->limit($config['per_page'], $this->uri->segment(4))->get('school')->result();
+
+		
+		$this->rs = $this->db->join('area_type', 'school.area_type_id = area_type.area_type_id', 'LEFT')
+					->where('school.province_id', $this->province_id)
+					->order_by('school.id', 'ASC')
+					->limit($config['per_page'], $this->uri->segment(4))
+					->get('school')->result();
+
 
 		$this->pagination->initialize($config);
 
@@ -222,7 +229,9 @@ class School extends Backend {
 				'dep_id'             => $this->input->post('dep_id'),
 				'mun_id'             => $this->input->post('mun_id'),
 				'ins_id'             => $this->input->post('ins_id'),
-				'type_school'        => $this->input->post('type_school')
+				'type_school'        => $this->input->post('type_school'),
+				'level_id'           => $this->input->post('level_id'),
+				'area_type_id'           => $this->input->post('area_type_id')
 			));
 
 			
@@ -264,7 +273,108 @@ class School extends Backend {
 
 		$this->room_level = $this->db->order_by('rmid', 'ASC')->order_by('sort', 'ASC')->get('room_level')->result();
 
+		$this->level = $this->db->get('level')->result();
+
 		$this->render('school/add', $this);
+	}
+
+	public function edit($id)
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+
+			$this->db->where('id', $this->input->post('id'))->update('school', array(
+				'school_id'                 => $this->input->post('school_id'),
+				'f8'                 => $this->input->post('f8'),
+				'province_school_id' => $this->input->post('province_school_id'),
+				'school_name'        => $this->input->post('school_name'),
+				'school_name_en'     => $this->input->post('school_name_en'),
+				'area_id'            => $this->input->post('area_id'),
+				'school_head'        => $this->input->post('school_head'),
+				'f21'                => $this->input->post('f21'),
+				'school_no'          => $this->input->post('school_no'),
+				'f11'                => $this->input->post('f11'),
+				'moo'                => $this->input->post('moo'),
+				'road'               => $this->input->post('road'),
+				'district_id'        => $this->input->post('district_id'),
+				'amphur_id'          => $this->input->post('amphur_id'),
+				'province_id'        => $this->province_id,
+				'zipcode'            => $this->input->post('zipcode'),
+				'telephone'          => $this->input->post('telephone'),
+				'telephone2'         => $this->input->post('telephone2'),
+				'fax'                => $this->input->post('fax'),
+				'fax2'               => $this->input->post('fax2'),
+				'email'              => $this->input->post('email'),
+				'website'            => $this->input->post('website'),
+				'land'               => $this->input->post('land'),
+				'wat'                => $this->input->post('wat'),
+				'lat'                => $this->input->post('lat'),
+				'lng'                => $this->input->post('lng'),
+				'org_type_id'        => $this->input->post('org_type_id'),
+				'm_id'               => $this->input->post('m_id'),
+				'dep_id'             => $this->input->post('dep_id'),
+				'mun_id'             => $this->input->post('mun_id'),
+				'ins_id'             => $this->input->post('ins_id'),
+				'type_school'        => $this->input->post('type_school'),
+				'level_id'           => $this->input->post('level_id'),
+				'area_type_id'           => $this->input->post('area_type_id')
+			));
+
+			
+
+			$upload = array(
+				'upload_path' => './upload/',
+				'allowed_types' => 'jpg|png|gif|JPEG|PNG',
+				'file_name' => $this->input->post('school_id'),
+			);
+			$this->load->library('upload', $upload);
+			if ($this->upload->do_upload('sign_school')) {
+				$data = $this->upload->data();
+				$this->db->where('school_id', $this->input->post('school_id'))->update('school', array(
+					'sign_school' => $data['file_name']
+				));
+			}
+
+			redirect('backend/school/edit/'.$this->input->post('id'));
+		}
+
+		$r = $this->db->where('id', $id)->get('school')->row();
+		$this->r = $r;
+
+
+		$this->area = $this->db->select('area.area_code, area.area_code_name')->join('school', 'area.area_code = school.area_id')
+				->where('school.province_id', $this->province_id)->group_by('area.area_code')->get('area')->result();
+
+		$this->province = $this->db->where('PROVINCE_ID', $this->province_id)->get('province')->result();
+		$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
+		$this->district = $this->db->where('AMPHUR_ID', $r->amphur_id)->get('district')->result();
+
+
+		$this->org_type = $this->db->get('org_type')->result(); //สังกัด
+		$this->ministry = $this->db->get('ministry')->result(); //กระทยวง
+		$this->department = $this->db->get('department')->result(); //สำนัก
+		$this->municipal = $this->db->get('municipal')->result(); //เขตเทศบาล
+		$this->inspect = $this->db->get('inspect')->result(); // เขตตรวจราชการ
+
+		
+
+		$this->school_sub = $this->db->where('area_id', $this->rs->area_id)->get('school')->result();
+		$this->school_room_sub = $this->db->where('school_id', $this->school_id)->get('school_room_sub')->result();
+
+		$this->room_level = $this->db->order_by('rmid', 'ASC')->order_by('sort', 'ASC')->get('room_level')->result();
+
+		$this->level = $this->db->get('level')->result();
+
+		
+		$this->area_type = $this->db->where('province_id', $this->province_id)->where("type", $r->type_school)->get('area_type')->result();
+
+		$this->render('school/edit', $this);
+	}
+
+	public function delete($id)
+	{
+		$this->db->where('id', $id)->delete('school');
+		redirect('backend/school');
 	}
 
 }

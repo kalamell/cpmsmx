@@ -19,90 +19,102 @@
 	  <div class="panel-body">
 		<div class="form-group col-md-6">
 			<label for="school_id">รหัสโรงเรียน</label>
-		    <input type="text" class="form-control required" name="school_id" value="<?php echo $rs->school_id;?>"  placeholder="">
+		    <input type="text" class="form-control" name="school_id" value="<?php echo $r->school_id;?>"  placeholder="">
 		</div>
-		<div class="form-group col-md-6">
-			<label for="area_id">รหัสเขต 8 หลัก</label>
-		    <input type="text" class="form-control required" name="area_id" value="<?php echo sprintf('%08d', $rs->area_id);?>"  placeholder="">
-		 </div>
 
+
+		
+		
 		<div class="form-group col-md-6">
-			<label for="f8">รหัส 6 หลัก</label>
-		    <input type="text" class="form-control required" name="f8" value="<?php echo $rs->f8;?>"  placeholder="">
+			<label for="district_id">สพฐ / หน่วยงานอื่นๆ</label>
+	    	<div class="radio">
+	    		<label>
+	    			<input type="radio" name="type_school" value="spt" <?php echo $r->type_school == 'spt' ? 'checked' : '';?>> สพฐ
+	    		</label>				    		
+	    	</div>
+
+	    	<div class="radio">
+	    		<label>
+	    			<input type="radio" name="type_school" value="oth"  <?php echo $r->type_school == 'oth' ? 'checked' : '';?>> อื่นๆ
+	    		</label>				    		
+	    	</div>
 		</div>
-		<div class="form-group col-md-6">
-			<label for="obec_id">รหัสกระทรวง 10 หลัก</label>
-		    <input type="text" class="form-control " name="obec_id" value="<?php echo $rs->obec_id;?>"  placeholder="">
-		 </div>
 
-		 <div class="form-group col-md-6">
+		 <div class="form-group col-md-12">
 			<label for="school_name">ชื่อโรงเรียน (ภาษาไทย)</label>
-		    <input type="text" class="form-control required" name="school_name" value="<?php echo $rs->school_name;?>" name="school_name" placeholder="">
+		    <input type="text" class="form-control" name="school_name" value="<?php echo $r->school_name;?>" name="school_name" placeholder="">
 		</div>
+
 		<div class="form-group col-md-6">
+			<label for="amphur_id">อำเภอ</label>
+	    	<select name="amphur_id" id="amphur_id" class="form-control">
+	    		<option value=""> อำเภอ </option>
+	    		<?php foreach($amphur as $am):?>
+	    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $r->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
+	    		<?php endforeach;?>
+
+	    	</select>
+		</div>
+
+		<div class="form-group col-md-6">
+			<label for="district_id">ตำบล</label>
+	    	<select name="district_id" id="district_id" class="form-control">
+	    		<option value=""> ตำบล </option>
+	    		<?php foreach($district as $dt):?>
+	    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $r->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
+	    		<?php endforeach;?>
+	    	</select>
+		</div>
+
+
+
+		
+
+
+		<!--<div class="form-group col-md-12">
 			<label for="school_name_en">ชื่อโรงเรียน (ภาษาอังกฤษ)</label>
-		    <input type="text" class="form-control required" name="school_name_en" value="<?php echo $rs->school_name_en;?>" name="school_name_en" placeholder="">
-		 </div>
+		    <input type="text" class="form-control" name="school_name_en" value="<?php echo $r->school_name_en;?>" name="school_name_en" placeholder="">
+		 </div>-->
 	  </div>
 	</div>
-</div>
+	</div>
 
 
-<div class='col-md-6'>
-	<div class="panel panel-default">
-	  <div class="panel-heading">ข้อมูลสังกัด</div>
-	  <div class="panel-body">
-		 <div class="form-group col-md-6">
-			<label for="username">สังกัด</label>
-		    <select name="org_type_id" class="form-control">
-		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-		    	<?php foreach($org_type as $a):?>
-		    		<option value="<?php echo $a->org_type_id;?>" <?php echo $rs->org_type_id == $a->org_type_id ? 'selected' : '';?>><?php echo $a->org_type_name;?></option>
-		    	<?php endforeach;?>
-		    </select>
-		</div>
+	<div class='col-md-6'>
+		<div class="panel panel-default">
+		  <div class="panel-heading">ข้อมูลสังกัด</div>
+		  <div class="panel-body">
+			 <div class="form-group col-md-6">
+				<label for="username">หน่วยงาน</label>
+			    <select name="area_type_id" class="form-control">
+			    	<?php foreach($area_type as $at):?>
+			    		<option value="<?php echo $at->area_type_id;?>" <?php echo $at->area_type_id == $r->area_type_id ? 'selected' : '';?>><?php echo $at->area_type_name;?></option>
+			    	<?php endforeach;?>
+			    </select>
+			</div>
 
-		<div class="form-group col-md-6">
-			<label for="">กระทรวง</label>
-		    <select class="form-control" name="m_id">
-		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-		    	<?php foreach($ministry as $m):?>
-		    		<option value="<?php echo $m->m_id;?>" <?php echo $rs->m_id == $m->m_id ? 'selected' : '';?>><?php echo $m->m_name;?></option>
-		    	<?php endforeach;?>
-			</select> 
-		</div>
+			<div class="form-group col-md-6">
+				<label for="">กระทรวง</label>
+			    <select class="form-control" name="m_id">
+			    	<option value=""> - - - เลือกข้อมูล - - -</option>
+			    	<?php foreach($ministry as $m):?>
+			    		<option value="<?php echo $m->m_id;?>" <?php echo $r->m_id == $m->m_id ? 'selected' : $r->m_id==NULL && $m->m_id == '12' ? 'selected' : '';?>><?php echo $m->m_name;?></option>
+			    	<?php endforeach;?>
+				</select> 
+			</div>
 
-		 <div class="form-group col-md-6">
-			<label for="dep_id">สำนัก</label>
-		    <select class="form-control" name="dep_id">
-		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-		    	<?php foreach($department as $m):?>
-		    		<option value="<?php echo $m->dep_id;?>" <?php echo $rs->dep_id == $m->dep_id ? 'selected' : '';?>><?php echo $m->dep_name;?></option>
-		    	<?php endforeach;?>
-			</select> 
-		</div>
-
-		 <div class="form-group col-md-6">
-			<label for="username">เขตเทศบาล</label>
-		    <select class="form-control" name="mun_id">
-		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-		    	<?php foreach($municipal as $m):?>
-		    		<option value="<?php echo $m->mun_id;?>" <?php echo $rs->mun_id == $m->mun_id ? 'selected' : '';?>><?php echo $m->mun_name;?></option>
-		    	<?php endforeach;?>
-			</select>  
-		</div>
-
-		 <div class="form-group col-md-6">
-			<label for="username">เขตตรวจราชการ</label>
-		    <select class="form-control" name="ins_id">
-		    	<option value=""> - - - เลือกข้อมูล - - -</option>
-		    	<?php foreach($inspect as $m):?>
-		    		<option value="<?php echo $m->ins_id;?>" <?php echo $rs->ins_id == $m->ins_id ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
-		    	<?php endforeach;?>
-			</select>  
+			
+			 <div class="form-group col-md-6">
+				<label for="username">เขตตรวจราชการ</label>
+			    <select class="form-control" name="ins_id">
+			    	<option value=""> - - - เลือกข้อมูล - - -</option>
+			    	<?php foreach($inspect as $m):?>
+			    		<option value="<?php echo $m->ins_id;?>" <?php echo $r->ins_id == $m->ins_id ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
+			    	<?php endforeach;?>
+				</select>  
+			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 
@@ -310,7 +322,7 @@ function initMap() {
   var myLatLng = {lat: <?php echo $rs->lat == 0 ? '15.806900' : $rs->lat;?>, lng: <?php echo $rs->lng == 0 ? '102.031559' : $rs->lng;?>};
 
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
+    zoom: 12,
     center: myLatLng
   });
 

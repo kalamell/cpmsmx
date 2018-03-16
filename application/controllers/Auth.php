@@ -17,7 +17,7 @@ class Auth extends Base {
 	public function register()
 	{
 		$this->school = $this->db->select('school_id, school_name')->order_by('school_name', 'asc')->get('school')->result();
-		$this->area = $this->db->get('area_type')->result();
+		$this->area = $this->db->where('province_id', $this->province_id)->get('area_type')->result();
 		
 		$this->render('auth/register', $this);
 	}
@@ -93,7 +93,7 @@ class Auth extends Base {
 			),
 
 			array(
-				'field' => 'area_id',
+				'field' => 'area_type_id',
 				'label' => 'area',
 				'rules' => 'required'
 			),
@@ -112,12 +112,14 @@ class Auth extends Base {
 				'email' => $this->input->post('email'),
 				'mobile' => $this->input->post('mobile'),
 				'telephone' => $this->input->post('telephone'),
-				'area_id' => $this->input->post('area_id'),
+				'area_type_id' => $this->input->post('area_type_id'),
 				'school' => $this->input->post('school'),
 				'ip' => $this->input->ip_address(),
 				'status' => 'member',
 				'active' => 'Y',
 			));
+
+			//echo $this->db->last_query();
 
 			
 			$ar['result'] = true;
@@ -156,6 +158,15 @@ class Auth extends Base {
 	public function list_school()
 	{
 		$rs = $this->db->where('area_id', $this->input->post('area'))->get('school');
+		$ar = $rs->result_array();
+		echo json_encode($ar);
+
+	}
+
+
+	public function list_school2()
+	{
+		$rs = $this->db->where('area_type_id', $this->input->post('area'))->get('school');
 		$ar = $rs->result_array();
 		echo json_encode($ar);
 

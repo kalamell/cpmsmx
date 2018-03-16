@@ -78,6 +78,25 @@
 				  	</div>
 				  </div>
 
+				  <div class="form-group col-md-12">
+				    <label class="" for="area_id">หน่วยงาน</label>
+				    <select class="form-control required" name="area_id" id="area">
+				    	<option value="">- - - หน่วยงาน - - -</option>
+				    	<?php foreach($area as $a):?>
+				    		<option value="<?php echo $a->area_id;?>"><?php echo $a->area_type_name;?></option>
+				    	<?php endforeach;?>
+				    </select>
+				  </div>
+
+				  <div class="form-group col-md-12">
+				    <label class="" for="school">โรงเรียน</label>
+				    <select name="school" class="form-control">
+				    	<option value="">โรงเรียน</option>
+				    	
+				    </select>
+				  </div>
+
+
 
 
 				

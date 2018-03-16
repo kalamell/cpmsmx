@@ -32,6 +32,24 @@
 				  	<input type="text" name="area_type_name" class="form-control" value="<?php echo $r->area_type_name;?>">
 				  </div>
 
+				  <div class="form-group">
+				  	<label>สังกัด</label>
+				  	<div class="radio">
+				  		<label>
+				  			<input type="radio" name="type" value="spt" <?php echo $r->type == 'spt' ? 'checked' : '';?>> สพฐ
+				  		</label>
+				  	</div>
+
+				  	<div class="radio">
+				  		<label>
+				  			<input type="radio" name="type" value="oth"  <?php echo $r->type == 'oth' ? 'checked' : '';?>> อื่นๆ
+				  		</label>
+				  	</div>
+
+
+				  </div>
+
+
 
 
 			  </div>
