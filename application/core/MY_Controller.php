@@ -49,6 +49,10 @@ class Base extends CI_Controller {
 				'province_id' => $province_id
 			));
 		}
+
+		/*
+		ALTER TABLE `school` ADD `type_school` VARCHAR(10) NULL AFTER `ins_id`;
+		*/
 	}
 }
 

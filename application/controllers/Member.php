@@ -260,4 +260,191 @@ class Member extends Base_Member {
 
 		redirect('member');
 	}
+
+
+
+
+	public function student()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$this->db->where(array(
+				'term_id' => $this->input->post('term'),
+				'year_id' => $this->input->post('years'),
+			));
+		}
+		$this->rs = $this->db->where('school_id', $this->school_id)->join('room_level', 'students.rmid = room_level.rmid', 'LEFT')->get('students')->result();
+
+		
+		$this->term = $this->db->get('term')->result();
+		$this->years = $this->db->get('years')->result();
+
+		$this->_t = $this->input->post('term');
+		$this->_y = $this->input->post('years');
+
+		$this->render('member/student/index', $this);
+	}
+
+	public function student_add()
+	{
+		$this->term = $this->db->get('term')->result();
+		$this->years = $this->db->get('years')->result();
+		$this->room_level = $this->db->get('room_level')->result();
+		$this->render('member/student/add', $this);
+	}
+
+	public function student_edit($id)
+	{
+		$this->r = $this->db->where('id', $id)->get('students')->row();
+		$this->term = $this->db->get('term')->result();
+		$this->years = $this->db->get('years')->result();
+		$this->room_level = $this->db->get('room_level')->result();
+		$this->render('member/student/edit', $this);
+	}
+
+	public function student_delete($id)
+	{
+		$this->db->where('id', $id)->delete('students');
+		redirect('member/student');
+	}
+
+	public function save_student()
+	{
+		$config = array(
+			array(
+				'field' => 'idcard',
+				'label' => 'idcard',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'prefix',
+				'label' => 'prefix',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'name',
+				'label' => 'name',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'surname',
+				'label' => 'surname',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'term_id',
+				'label' => 'term_id',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'year_id',
+				'label' => 'year_id',
+				'rules' => 'required'
+			),		
+		);
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run()) {
+			$this->db->insert('students', array(
+				'school_id' => $this->school_id,
+				'prefix' => $this->input->post('prefix'),
+				'idcard' => $this->input->post('idcard'),
+				'name' => $this->input->post('name'),
+				'surname' => $this->input->post('surname'),
+				'term_id' => $this->input->post('term_id'),
+				'year_id' => $this->input->post('year_id'),
+				'birthdate' => $this->input->post('birthdate'),
+				'rmid' => $this->input->post('rmid'),
+				'room_no' => $this->input->post('room_no'),
+			));
+
+			$id = $this->db->insert_id();
+
+			$config = array(
+				'upload_path' => './upload/student/',
+				'allowed_types' => 'jpg|jpeg|PNG|png',
+				'file_name' => $this->school_id.'-'.do_hash($this->input->post('idcard')),
+			);
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('thumbnail')) {
+				$data = $this->upload->data();
+				$this->db->where('id', $id)->update('students', array(
+					'thumbnail' => $data['file_name']
+				));
+			}
+		}
+		redirect('member/student');
+	}
+
+	public function update_student()
+	{
+		$config = array(
+			array(
+				'field' => 'id',
+				'label' => 'id',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'idcard',
+				'label' => 'idcard',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'prefix',
+				'label' => 'prefix',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'name',
+				'label' => 'name',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'surname',
+				'label' => 'surname',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'term_id',
+				'label' => 'term_id',
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'year_id',
+				'label' => 'year_id',
+				'rules' => 'required'
+			),		
+		);
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run()) {
+			$this->db->where('id', $this->input->post('id'))->update('students', array(
+				'school_id' => $this->school_id,
+				'idcard' => $this->input->post('idcard'),
+				'prefix' => $this->input->post('prefix'),
+				'name' => $this->input->post('name'),
+				'surname' => $this->input->post('surname'),
+				'term_id' => $this->input->post('term_id'),
+				'year_id' => $this->input->post('year_id'),
+				'birthdate' => $this->input->post('birthdate'),
+				'rmid' => $this->input->post('rmid'),
+				'room_no' => $this->input->post('room_no'),
+			));
+
+			$id = $this->input->post('id');
+
+			$config = array(
+				'upload_path' => './upload/student/',
+				'allowed_types' => 'jpg|jpeg|PNG|png',
+				'file_name' => $this->school_id.'-'.do_hash($this->input->post('idcard')),
+			);
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('thumbnail')) {
+				$data = $this->upload->data();
+				$this->db->where('id', $id)->update('students', array(
+					'thumbnail' => $data['file_name']
+				));
+			}
+		}
+		redirect('member/student');
+	}
+
+
 }

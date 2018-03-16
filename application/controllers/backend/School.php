@@ -29,10 +29,10 @@ class School extends Backend {
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$config['base_url'] = site_url('backend/school/index');
-		$config['total_rows'] = $this->db->count_all_results('school');
+		$config['total_rows'] = $this->db->where('province_id', $this->province_id)->count_all_results('school');
 		$config['per_page'] = 100;
 		$config['uri_segment'] = 4;
-		$this->rs = $this->db->join('area', 'school.area_id = area.area_code')->limit($config['per_page'], $this->uri->segment(4))->get('school')->result();
+		$this->rs = $this->db->join('org_type', 'school.org_type_id = org_type.org_type_id', 'LEFT')->where('school.province_id', $this->province_id)->limit($config['per_page'], $this->uri->segment(4))->get('school')->result();
 
 		$this->pagination->initialize($config);
 
@@ -205,7 +205,7 @@ class School extends Backend {
 				'road'               => $this->input->post('road'),
 				'district_id'        => $this->input->post('district_id'),
 				'amphur_id'          => $this->input->post('amphur_id'),
-				'province_id'        => $this->input->post('province_id'),
+				'province_id'        => $this->province_id,
 				'zipcode'            => $this->input->post('zipcode'),
 				'telephone'          => $this->input->post('telephone'),
 				'telephone2'         => $this->input->post('telephone2'),
@@ -217,11 +217,12 @@ class School extends Backend {
 				'wat'                => $this->input->post('wat'),
 				'lat'                => $this->input->post('lat'),
 				'lng'                => $this->input->post('lng'),
-				'org_type_id'                => $this->input->post('org_type_id'),
-				'm_id'                => $this->input->post('m_id'),
-				'dep_id'                => $this->input->post('dep_id'),
-				'mun_id'                => $this->input->post('mun_id'),
-				'ins_id'                => $this->input->post('ins_id'),
+				'org_type_id'        => $this->input->post('org_type_id'),
+				'm_id'               => $this->input->post('m_id'),
+				'dep_id'             => $this->input->post('dep_id'),
+				'mun_id'             => $this->input->post('mun_id'),
+				'ins_id'             => $this->input->post('ins_id'),
+				'type_school'        => $this->input->post('type_school')
 			));
 
 			

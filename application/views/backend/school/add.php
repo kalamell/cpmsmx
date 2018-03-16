@@ -45,7 +45,7 @@
 					</div>
 
 
-					<div class="form-group col-md-6">
+					<!--<div class="form-group col-md-6">
 						<label for="area_id">เขตพื้นที่การศึกษา</label>
 					    <select name="area_id" class="form-control">
 					    	<option value=""> เลือก เขตพื้นที่การศึกษา</option>
@@ -53,12 +53,52 @@
 					    		<option value="<?php echo $a->area_code;?>"><?php echo $a->area_code_name;?></option>
 					    	<?php endforeach;?>
 					    </select>
-					</div>
+					</div>-->
 					
 					 <div class="form-group col-md-12">
 						<label for="school_name">ชื่อโรงเรียน (ภาษาไทย)</label>
 					    <input type="text" class="form-control" name="school_name" value="<?php echo $rs->school_name;?>" name="school_name" placeholder="">
 					</div>
+
+					<div class="form-group col-md-6">
+						<label for="amphur_id">อำเภอ</label>
+				    	<select name="amphur_id" id="amphur_id" class="form-control">
+				    		<option value=""> อำเภอ </option>
+				    		<?php foreach($amphur as $am):?>
+				    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $rs->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
+				    		<?php endforeach;?>
+
+				    	</select>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="district_id">ตำบล</label>
+				    	<select name="district_id" id="district_id" class="form-control">
+				    		<option value=""> ตำบล </option>
+				    		<?php foreach($district as $dt):?>
+				    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $rs->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
+				    		<?php endforeach;?>
+				    	</select>
+					</div>
+
+
+
+					<div class="form-group col-md-6">
+						<label for="district_id">สพฐ / หน่วยงานอื่นๆ</label>
+				    	<div class="radio">
+				    		<label>
+				    			<input type="radio" name="type_school" value="สพฐ"> สพฐ
+				    		</label>				    		
+				    	</div>
+
+				    	<div class="radio">
+				    		<label>
+				    			<input type="radio" name="type_school" value="อื่นๆ"> อื่นๆ
+				    		</label>				    		
+				    	</div>
+					</div>
+
+
 					<!--<div class="form-group col-md-12">
 						<label for="school_name_en">ชื่อโรงเรียน (ภาษาอังกฤษ)</label>
 					    <input type="text" class="form-control" name="school_name_en" value="<?php echo $rs->school_name_en;?>" name="school_name_en" placeholder="">
@@ -164,7 +204,7 @@
 				    	<input type="text" class="form-control" name="road" value="<?php echo $rs->road;?>" placeholder="">
 					</div>
 
-					<div class="form-group col-md-6">
+					<!--<div class="form-group col-md-6">
 						<label for="province_id">จังหวัด</label>
 				    	<select name="province_id" id="province_id" class="form-control">
 				    		<option value=""> จังหวัด </option>
@@ -172,28 +212,9 @@
 				    			<option value="<?php echo $p->PROVINCE_ID;?>" selected><?php echo $p->PROVINCE_NAME;?></option>
 				    		<?php endforeach;?>
 				    	</select>
-					</div>
+					</div>-->
 
-					<div class="form-group col-md-6">
-						<label for="amphur_id">อำเภอ</label>
-				    	<select name="amphur_id" id="amphur_id" class="form-control">
-				    		<option value=""> อำเภอ </option>
-				    		<?php foreach($amphur as $am):?>
-				    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $rs->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
-				    		<?php endforeach;?>
-
-				    	</select>
-					</div>
-
-					<div class="form-group col-md-6">
-						<label for="district_id">ตำบล</label>
-				    	<select name="district_id" id="district_id" class="form-control">
-				    		<option value=""> ตำบล </option>
-				    		<?php foreach($district as $dt):?>
-				    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $rs->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
-				    		<?php endforeach;?>
-				    	</select>
-					</div>
+					
 
 					<div class="form-group col-md-6">
 						<label for="zipcode">รหัสไปรษณีย์</label>
