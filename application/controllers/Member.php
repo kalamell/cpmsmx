@@ -453,5 +453,220 @@ class Member extends Base_Member {
 		redirect('member/student');
 	}
 
+	public function upload_student()
+	{
+		$config['upload_path']          = './upload/data/';
+        $config['allowed_types']        = 'csv';
+        $config['file_name']            = 'student-'.$this->school_id;
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file'))
+        {
+        	$data = $this->upload->data();
+        	$handle = fopen("./upload/data/".$data['file_name'], "r");
+			$k = 0;
+			while (($data = fgets($handle)) !== FALSE) {
+			    if ($k > 0) {
+			    	list($school_id, $school_name, $idcard, $level, $room_no, $student_id, $gender, $prefix, $name, $surname, $name_en, $surname_en, $birthdate, $age, $age_month, $blood, $ch1, $s1, $religion, $bro1, $bro2, $sis1, $sis2, $me, $relation, $idcard1, $prefix1, $name1, $surname1, $salary1, $mobile1, $idcard2, $prefix2, $name2, $surname2, $salary2, $mobile2, $relation2, $idcard3, $prefix3, $name3, $surname3, $salary3, $mobile3, $address, $addr_no, $moo, $road, $tumbon, $amphur, $province, $zipcode, $addr_phone, $address2, $addr_no2, $moo2, $road2, $tumbon2, $amphur2, $province2, $zipcode2, $addr_phone2, $weight, $height, $m1, $m2, $m3, $m4, $m5, $m6, $m7, $k1, $k2, $k3, $k4, $way, $student_type, $remark) = explode(",", $data);
+
+			    	$rs = $this->db->where(array(
+			    		'student_id' => $student_id,
+			    		'school_id' => $this->school_id,
+			    		'term_id' => $this->input->post('term_id'),
+			    		'year_id' => $this->input->post('year_id'),
+			    	))->get('students');
+
+			    	if ($rs->num_rows() == 0) {
+			    		$this->db->insert('students', array(
+			    			'term_id' => $this->input->post('term_id'),
+			    			'year_id' => $this->input->post('year_id'),
+			    			'school_id' => $this->school_id,
+			    			'idcard' => $idcard,
+			    			'room_level' => $level,
+			    			'room_no' => $room_no,
+			    			'student_id' => $student_id,
+			    			'gender' => $gender,
+			    			'prefix' => $prefix,
+			    			'name' => $name,
+			    			'surname' => $surname,
+			    			'name_en' => $name_en,
+			    			'surname_en' => $surname_en,
+			    			'birthdate' => $birthdate,
+			    			'age' => $age,
+			    			'blood' => $blood,
+			    			'race' => $ch1,
+			    			'nationality' => $s1,
+			    			'religion' => $religion,
+			    			'old_bro' => $bro1,
+			    			'little_bro' => $bro2,
+			    			'old_sis' => $sis1,
+			    			'little_sis' => $sis2,
+			    			'son_of_man' => $me,
+			    			'relation_parent' => $relation,
+			    			'idcard_father' => $idcard1,
+			    			'prefix_father' => $prefix1,
+			    			'name_father' => $name1,
+			    			'surname_father' => $surname1,
+			    			'salary_father' => $salary1,
+			    			'mobile_father' => $mobile1,
+			    			'idcard_mother' => $idcard2,
+			    			'prefix_mother' => $prefix2,
+			    			'name_mother' => $name2,
+			    			'surname_mother' => $surname2,
+			    			'salary_mother' => $salary2,
+			    			'mobile_mother' => $mobile2,
+			    			'relation' => $relation2,
+			    			'idcard_relation' => $idcard3,
+			    			'prefix_relation' => $prefix3,
+			    			'name_relation' => $name3,
+			    			'surname_relation' => $surname3,
+			    			'salary_relation' => $salary3,
+			    			'mobile_relation' => $mobile3,
+
+			    			
+			    			'address_id' => $address,
+			    			'address_no' => $addr_no,
+			    			'moo' => $moo,
+			    			'road' => $road,
+			    			'tumbon' => $tumbon,
+			    			'amphur' => $amphur,
+			    			'province' => $province,
+			    			'zipcode' => $zipcode,
+			    			'address_mobile' => $addr_phone,
+
+			    			'address_id_2' => $address2,
+			    			'address_no_2' => $addr_no2,
+			    			'moo_2' => $moo2,
+			    			'road_2' => $road2,
+			    			'tumbon_2' => $tumbon2,
+			    			'amphur_2' => $amphur2,
+			    			'province_2' => $province2,
+			    			'zipcode_2' => $zipcode2,
+			    			'address_mobile_2' => $addr_phone2,
+
+			    			'weight' => $weight,
+			    			'height' => $height,
+
+
+
+			    			'disadvantage' => $m1,
+			    			'live' => $m2,
+			    			'grab' => $m3,
+			    			'stationary' => $m4,
+			    			'lose_class' => $m5,
+			    			'lose_food' => $m6,
+			    			'disabled' => $m7,
+
+			    			'gravel_road' => $k1,
+			    			'paved_road' => $k2,
+			    			'home_water' => $k3,
+			    			'home_school' => $k4,
+			    			'how_to_school' => $way,
+
+			    			'student_type' => $student_type,
+			    			'remark' => $remark,
+
+			    		));
+			    	} else {
+
+			    		$this->db->where('id', $rs->row()->id)->update('students', array(
+			    			'term_id' => $this->input->post('term_id'),
+			    			'year_id' => $this->input->post('year_id'),
+			    			'school_id' => $this->school_id,
+			    			'idcard' => $idcard,
+			    			'room_level' => $level,
+			    			'room_no' => $room_no,
+			    			'student_id' => $student_id,
+			    			'gender' => $gender,
+			    			'prefix' => $prefix,
+			    			'name' => $name,
+			    			'surname' => $surname,
+			    			'name_en' => $name_en,
+			    			'surname_en' => $surname_en,
+			    			'birthdate' => $birthdate,
+			    			'age' => $age,
+			    			'blood' => $blood,
+			    			'race' => $ch1,
+			    			'nationality' => $s1,
+			    			'religion' => $religion,
+			    			'old_bro' => $bro1,
+			    			'little_bro' => $bro2,
+			    			'old_sis' => $sis1,
+			    			'little_sis' => $sis2,
+			    			'son_of_man' => $me,
+
+			    			'relation_parent' => $relation,
+			    			'idcard_father' => $idcard1,
+			    			'prefix_father' => $prefix1,
+			    			'name_father' => $name1,
+			    			'surname_father' => $surname1,
+			    			'salary_father' => $salary1,
+			    			'mobile_father' => $mobile1,
+			    			'idcard_mother' => $idcard2,
+			    			'prefix_mother' => $prefix2,
+			    			'name_mother' => $name2,
+			    			'surname_mother' => $surname2,
+			    			'salary_mother' => $salary2,
+			    			'mobile_mother' => $mobile2,
+
+			    			'relation' => $relation2,
+			    			'idcard_relation' => $idcard3,
+			    			'prefix_relation' => $prefix3,
+			    			'name_relation' => $name3,
+			    			'surname_relation' => $surname3,
+			    			'salary_relation' => $salary3,
+			    			'mobile_relation' => $mobile3,
+
+			    			
+			    			'address_id' => $address,
+			    			'address_no' => $addr_no,
+			    			'moo' => $moo,
+			    			'road' => $road,
+			    			'tumbon' => $tumbon,
+			    			'amphur' => $amphur,
+			    			'province' => $province,
+			    			'zipcode' => $zipcode,
+			    			'address_mobile' => $addr_phone,
+
+			    			'address_id_2' => $address2,
+			    			'address_no_2' => $addr_no2,
+			    			'moo_2' => $moo2,
+			    			'road_2' => $road2,
+			    			'tumbon_2' => $tumbon2,
+			    			'amphur_2' => $amphur2,
+			    			'province_2' => $province2,
+			    			'zipcode_2' => $zipcode2,
+			    			'address_mobile_2' => $addr_phone2,
+
+			    			'weight' => $weight,
+			    			'height' => $height,
+
+
+
+			    			'disadvantage' => $m1,
+			    			'live' => $m2,
+			    			'grab' => $m3,
+			    			'stationary' => $m4,
+			    			'lose_class' => $m5,
+			    			'lose_food' => $m6,
+			    			'disabled' => $m7,
+
+			    			'gravel_road' => $k1,
+			    			'paved_road' => $k2,
+			    			'home_water' => $k3,
+			    			'home_school' => $k4,
+			    			'how_to_school' => $way,
+
+			    			'student_type' => $student_type,
+			    			'remark' => $remark,
+			    		));
+
+			    	}
+			    }
+			    $k++;
+			}
+        }
+        redirect('member/student');
+	}
 
 }

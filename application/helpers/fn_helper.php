@@ -1,6 +1,19 @@
 
 <?php 
 
+function prefix($type)
+{
+	if ($type == 'ช' || $type == 'เด็กชาย' || $type == 'ด.ช.') {
+		return 'เด็กชาย';
+	}
+
+	if ($type == 'ญ' || $type == 'เด็กหญิง' || $type == 'ด.ญ.') {
+		return 'เด็กหญิง';
+	}
+
+}
+
+
 function isMember()
 {
 	$ci =& get_instance();

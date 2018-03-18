@@ -35,6 +35,40 @@
 			<?php echo form_close();?>
 
 
+			<br><br>
+
+			<?php echo form_open_multipart('member/upload_student', array('class' => 'form-inline'));?>
+			<p>Upload</p>
+			 <div class="form-group">
+			    <label for="password">ภาคเรียน</label>
+			    <select name="term" class="form-control">
+			    	<option value=""> ภาคเรียน </option>
+			    	<?php foreach($term as $t):?>
+			    		<option value="<?php echo $t->term_id;?>"><?php echo $t->term_name;?></option>
+			    	<?php endforeach;?>
+			    </select>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="confirm_password">ปีการศึกษา</label>
+			    <select name="years" class="form-control">
+			    	<option value=""> ปีการศึกษา </option>
+			    	<?php foreach($years as $y):?>
+			    		<option value="<?php echo $y->year_id;?>"><?php echo $y->year_name;?></option>
+			    	<?php endforeach;?>
+			    </select>
+			  </div>
+
+			 <div class="form-group">
+			    <label for="password">Upload รายชื่อนักเรียนจากระบบ DMC (*.csv)</label>
+			    <input type="file" class="form-control" name="file" value="">
+			  </div>
+
+			  <button type="submi" class="btn btn-sm btn-info">Upload</button>
+
+			<?php echo form_close();?>
+
+
 			<h2 class="page-header">ข้อมูลนักเรียน</h2>
 
 			<table class="table table-bordered table-striped">
@@ -60,7 +94,7 @@
 									<?php endif;?>
 								</td>
 								<td><?php echo $r->prefix.' '.$r->name.' '.$r->surname;?></td>
-								<td><?php echo $r->rm_name;?> / <?php echo $r->room_no;?></td>
+								<td><?php echo $r->rm_name == null ? $r->room_level : $r->rm_name;?> / <?php echo $r->room_no;?></td>
 								<td style="text-align: center;">
 									<div class="btn-groups">
 										<a href="<?php echo site_url('member/student_edit/'.$r->id);?>" class="btn btn-sm btn-default">แก้ไข</a>
