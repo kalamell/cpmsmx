@@ -1,6 +1,6 @@
 <footer class="container" style="margin-top: 50px;">
 	
-		<p class="text-center"><?php echo footer();?></p>
+		<p class="text-center">School Mapping ภาครวมระดับประเทศ</p>
 		
 	</footer>
 

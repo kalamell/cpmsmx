@@ -669,4 +669,10 @@ class Member extends Base_Member {
         redirect('member/student');
 	}
 
+	public function reset_student()
+	{
+		$this->db->where('school_id', $this->school_id)->delete('students');
+		redirect('member/student');
+	}
+
 }

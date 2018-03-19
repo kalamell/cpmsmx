@@ -3,6 +3,8 @@
 
 		<?php $banner = banner(); $inx = 0;?>
 
+		<?php $banner = array();?>
+
 		<?php if(count($banner)>0):?>
 
 		<div class="row" style="margin-bottom: 20px">

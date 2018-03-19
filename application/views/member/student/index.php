@@ -32,6 +32,8 @@
 			  <button type="submit" class="btn btn-info">แสดงข้อมูล</button>
 			  <a style="text-shadow: 0px 0px 0px" class='btn btn-default btn-info' href="<?php echo site_url('member/student_add');?>">เพิ่มข้อมูลนักเรียน</a>
 
+			  <a href="<?php echo site_url('member/reset_student');?>" class="btn btn-sm btn-default" onclick="javascript:return confirm('ต้องการล้างข้อมูลทั้งหมดหรือไม่');">ล้างข้อมูลนักเรียน</a>
+
 			<?php echo form_close();?>
 
 
@@ -64,7 +66,7 @@
 			    <input type="file" class="form-control" name="file" value="">
 			  </div>
 
-			  <button type="submi" class="btn btn-sm btn-info">Upload</button>
+			  <button type="submi" class="btn btn-sm btn-info">Upload</button> 
 
 			<?php echo form_close();?>
 

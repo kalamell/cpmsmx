@@ -29,7 +29,7 @@
 	        <span class="icon-bar"></span> 
 	      </button>
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
-	      	<?php echo getLogo();?> <?php echo getTitle();?></a>
+	      	ภาพรวมทั้งประเทศ Thailand</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,16 +37,24 @@
 	      <ul class="nav navbar-nav">
 	        <li class="<?php echo $this->uri->segment(1)==''?'active':'';?>"><a href="<?php echo site_url();?>"><i class="glyphicon glyphicon-home"></i> หน้าหลัก</a></li>
 
-	        <li class="dropdown <?php echo $this->uri->segment(1)=='data'?'active':'';?>">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-book"></i>  ข้อมูลสารสนเทศ / คู่มือ <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="<?php echo site_url('data');?>">รายงานข้อมูลจากเงื่อนไขที่กำหนด</a></li>
-	            <li><a href="#">คู่มือ</a></li>
-	          </ul>
-	        </li>
+
+
+	        
 	      </ul>
 	      
 	      <ul class="nav navbar-nav navbar-right">
+	      	<li>
+	      		<a href="">ภาคกลาง</a>
+	      	</li>
+	      	<li>
+	      		<a href="">ภาคเหนือ</a>
+	      	</li>
+	      	<li>
+	      		<a href="">ภาคตะวันออกเฉียงเหนือ</a>
+	      	</li>
+	      	<li>
+	      		<a href="">ภาคใต้</a>
+	      	</li>
 	      	<?php if (isMember()):?>
 	      		<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> สวัสดี <?php echo isMember()->name.' '.isMember()->surname;?> <span class="caret"></span></a>
