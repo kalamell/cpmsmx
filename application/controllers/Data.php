@@ -168,9 +168,24 @@ class Data extends Base {
 		$this->render('data/academic_standing', $this);
 	}
 
+	public function allschool()
+	{
+		$this->province = $this->db->get('province')->result();
+		$this->render('data/allschool', $this);
+
+	}
+
 	public function school($type)
 	{
-		if ($type == 'amphur') {
+		if ($type == 'province') {
+			
+			$this->province = $this->db->get('province')->result();
+			$this->area = $this->db->select('area_type.area_type_id, area_type.area_type_name')
+				->where('province_id', $this->province_id)->get('area_type')->result();
+
+			$this->render('data/school/province', $this);
+			
+		} else if ($type == 'amphur') {
 			$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
 			$this->district = $this->db->where('PROVINCE_ID', $this->province_id)->get('district')->result();
 			
@@ -178,6 +193,7 @@ class Data extends Base {
 				->where('province_id', $this->province_id)->get('area_type')->result();
 
 			$this->render('data/school/amphur', $this);
+
 		} else if ($type == 'district') {
 			$this->amphur = $this->db->where('PROVINCE_ID', $this->province_id)->get('amphur')->result();
 			$this->district = $this->db->where('PROVINCE_ID', $this->province_id)->get('district')->result();

@@ -1,6 +1,6 @@
 <footer class="container" style="margin-top: 50px;">
 	
-		<p class="text-center">School Mapping ภาครวมระดับประเทศ</p>
+		<p class="text-center">School Mapping ภาคใต้</p>
 		
 	</footer>
 

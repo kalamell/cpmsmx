@@ -29,7 +29,7 @@
 	        <span class="icon-bar"></span> 
 	      </button>
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
-	      	ภาพรวมทั้งประเทศ Thailand</a>
+	      	ภาคใต้ Southern</a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -44,16 +44,16 @@
 	      
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li>
-	      		<a href="">ภาคกลาง</a>
+	      		<a href="http://2.smxcenter.com">ภาคกลาง</a>
 	      	</li>
 	      	<li>
-	      		<a href="">ภาคเหนือ</a>
+	      		<a href="http://3.smxcenter.com">ภาคเหนือ</a>
 	      	</li>
 	      	<li>
-	      		<a href="">ภาคตะวันออกเฉียงเหนือ</a>
+	      		<a href="http://4.smxcenter.com">ภาคตะวันออกเฉียงเหนือ</a>
 	      	</li>
 	      	<li>
-	      		<a href="">ภาคใต้</a>
+	      		<a href="http://5.smxcenter.com">ภาคใต้</a>
 	      	</li>
 	      	<?php if (isMember()):?>
 	      		<li class="dropdown">
