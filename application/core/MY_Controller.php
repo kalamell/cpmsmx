@@ -9,6 +9,13 @@ class Base extends CI_Controller {
 	{
 		parent::__construct();
 		$this->updateField();
+
+		$dat = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
+
+
+		print_r($dat);
+
+
 		
 		$rs = $this->db->select('province_id')->get('config');
 		$this->province_id = $rs->row()->province_id;
@@ -48,6 +55,14 @@ class Base extends CI_Controller {
 			$this->db->update('config', array(
 				'province_id' => $province_id
 			));
+		}
+
+
+		if (!$this->db->field_exists('type_website', 'config')) {
+			$fields = array(
+				'type_website' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'after' => 'footer')
+			);
+			$this->dbforge->add_column('config', $fields);
 		}
 
 	}

@@ -67,7 +67,19 @@
 				  	<label>การใช้งาน</label>
 				  	<div class="radio">
 				  		<label id="">
-					  		<input type="radio" name="status" value="staff"> Admin
+					  		<input type="radio" name="status" value="adminsuper"> ผู้ดูแลระบบสูงสุด
+					  	</label>
+				  	</div>
+
+				  	<div class="radio">
+				  		<label id="">
+					  		<input type="radio" name="status" value="admin"> ผู้ดูแลระบบระดับภาค
+					  	</label>
+				  	</div>
+
+				  	<div class="radio">
+				  		<label id="">
+					  		<input type="radio" name="status" value="admin_province"> ผู้ดูแลระบบระดับจังหวัด
 					  	</label>
 				  	</div>
 

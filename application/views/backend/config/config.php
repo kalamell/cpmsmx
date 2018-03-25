@@ -1,4 +1,9 @@
 <div class="form-group">
+	<label>ประเภทเว็บไซต์</label>
+	<input type="text" name="" class='form-control' readonly="readonly" value='<?php echo $r->type_website;?>'/>
+</div>
+
+<div class="form-group">
 	<label>ชื่อเว็บไซต์</label>
 	<input type="text" name="title" value="<?php echo $r->title;?>" class="form-control">
 </div>
