@@ -68,7 +68,7 @@
 				  	<label>การใช้งาน</label>
 				  	<div class="radio">
 				  		<label id="">
-					  		<input type="radio" name="status" <?php echo $r->status == 'adminsuper' ? 'checked' : '';?> value="adminsuper"> ผู้ดูแลระบบสูงสุด
+					  		<input type="radio" name="status" <?php echo $r->status == 'superadmin' ? 'checked' : '';?> value="superadmin"> ผู้ดูแลระบบสูงสุด
 					  	</label>
 				  	</div>
 
@@ -86,7 +86,7 @@
 
 				  	<div class="radio">
 				  		<label>
-				  			<input type="radio" name="status" <?php echo $r->status == 'member' ? 'checked' : '';?> value="member"> ผู้ใช้งานทั่วไป
+				  			<input type="radio" name="status" <?php echo $r->status == 'staff' ? 'checked' : '';?> value="staff"> ผู้ใช้งานทั่วไป
 				  		</label>
 				  	</div>
 				  </div>

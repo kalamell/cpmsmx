@@ -43,6 +43,13 @@ class School extends Backend {
 
 		$this->pagination->initialize($config);
 
+
+
+		$this->term = $this->db->get('term')->result();
+		$this->years = $this->db->get('years')->result();
+
+
+
 		$this->render('school/index', $this);
 	}
 
@@ -377,4 +384,201 @@ class School extends Backend {
 		redirect('backend/school');
 	}
 
+	public function import_student_data()
+	{
+		$config['upload_path']          = './upload/data/';
+        $config['allowed_types']        = 'csv';
+        $config['file_name']            = 'school-student-data-'.time();
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file'))
+        {
+        	$data = $this->upload->data();        	
+
+			$handle = fopen("./upload/data/".$data['file_name'], "r");
+			$k = 0;
+			while (($data = fgets($handle)) !== FALSE) {
+			    if ($k > 0) {	
+			    	list($area_id, $area_name, $school_id, $school_name, 
+			    		$a1b, $a1g, $x1, $a1r, 
+			    		$a2b, $a2g, $x2, $a2r, 
+			    		$a3b, $a3g, $x3, $a3r, 
+			    		$ab1, $ag1, $aa1, $ar1, 
+
+			    		$p1b, $p1g, $p1, $p1r, 
+			    		$p2b, $p2g, $p2, $p2r, 
+			    		$p3b, $p3g, $p3, $p3r,
+			    		$p4b, $p4g, $p4, $p4r, 
+			    		$p5b, $p5g, $p5, $p5r, 
+			    		$p6b, $p6g, $p6, $p6r, 
+			    		$ap1, $ap2, $ap3, $ap4,
+
+			    		$m1b, $m1g, $m1, $m1r, 
+			    		$m2b, $m2g, $m2, $m2r, 
+			    		$m3b, $m3g, $m3, $m3r,
+			    		$am1, $am2, $am3, $am4,
+
+			    		$m4b, $m4g, $m4, $m4r, 
+			    		$m5b, $m5g, $m5, $m5r, 
+			    		$m6b, $m6g, $m6, $m6r, 
+			    		$am5, $am6, $am7, $am8,
+
+
+			    		$pvc1b, $pvc1g, $pvc1, $pvc1r, 
+			    		$pvc2b, $pvc2g, $pvc2, $pvc2r, 
+			    		$pvc3b, $pvc3g, $pvc3, $pvc3r,
+			    		$am9, $am10, $am11, $am12,
+			    		
+
+			    	) = explode(",", $data);
+
+			    	$rs = $this->db->where(array(
+			    		'term_id' => $this->input->post('term'),
+			    		'year_id' => $this->input->post('years'),
+			    		'school_id' => $school_id
+			    	))->get('school_data');
+
+			    	$ar = array(
+		    			'term_id' => $this->input->post('term'),
+			    		'year_id' => $this->input->post('years'),
+			    		'school_id' => $school_id,
+			    		'a1_boy' => $a1b,
+			    		'a1_girl' => $a1g,
+			    		'a1_room' => $a1r,
+			    		'a2_boy' => $a2b,
+			    		'a2_girl' => $a2g,
+			    		'a2_room' => $a2r,
+			    		'a3_boy' => $a3b,
+			    		'a3_girl' => $a3g,
+			    		'a3_room' => $a3r,
+
+			    		'p1_boy' => $p1b,
+			    		'p1_girl' => $p1g,
+			    		'p1_room' => $p1r,
+
+			    		'p2_boy' => $p2b,
+			    		'p2_girl' => $p2g,
+			    		'p2_room' => $p2r,
+
+			    		'p3_boy' => $p3b,
+			    		'p3_girl' => $p3g,
+			    		'p3_room' => $p3r,
+
+			    		'p4_boy' => $p4b,
+			    		'p4_girl' => $p4g,
+			    		'p4_room' => $p4r,
+
+			    		'p5_boy' => $p5b,
+			    		'p5_girl' => $p5g,
+			    		'p5_room' => $p5r,
+
+			    		'p6_boy' => $p6b,
+			    		'p6_girl' => $p6g,
+			    		'p6_room' => $p6r,
+
+			    		'm1_boy' => $m1b,
+			    		'm1_girl' => $m1g,
+			    		'm1_room' => $m1r,
+
+			    		'm2_boy' => $m2b,
+			    		'm2_girl' => $m2g,
+			    		'm2_room' => $m2r,
+
+			    		'm3_boy' => $m3b,
+			    		'm3_girl' => $m3g,
+			    		'm3_room' => $m3r,
+
+			    		'm4_boy' => $m4b,
+			    		'm4_girl' => $m4g,
+			    		'm4_room' => $m4r,
+
+			    		'm5_boy' => $m5b,
+			    		'm5_girl' => $m5g,
+			    		'm5_room' => $m5r,
+
+			    		'm6_boy' => $m6b,
+			    		'm6_girl' => $m6g,
+			    		'm6_room' => $m6r,
+
+
+			    		'pvc1_boy' => $pvc1b,
+			    		'pvc1_girl' => $pvc1g,
+			    		'pvc1_room' => $pvc1r,
+
+			    		'pvc2_boy' => $pvc2b,
+			    		'pvc2_girl' => $pvc2g,
+			    		'pvc2_room' => $pvc2r,
+
+			    		'pvc3_boy' => $pvc3b,
+			    		'pvc3_girl' => $pvc3g,
+			    		'pvc3_room' => $pvc3r,
+
+		    		);
+
+			    	if ($rs->num_rows() == 0) {
+			    		
+
+			    		$this->db->insert('school_data', $ar);
+			    	} else {
+			    		$this->db->where('sd_id', $rs->row()->sd_id)->update('school_data', $ar);
+			    	}
+
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'a1', $a1r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'a2', $a2r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'a3', $a3r);
+
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'p1', $p1r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'p2', $p2r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'p3', $p3r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'p4', $p4r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'p5', $p5r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'p6', $p6r);
+
+
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'm1', $m1r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'm2', $m2r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'm3', $m3r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'm4', $m4r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'm5', $m5r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'm6', $m6r);
+
+
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'pvc1', $pvc1r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'pvc2', $pvc2r);
+			    	$this->save_school_room($this->input->post('term'), $this->input->post('years'), $school_id, 'pvc3', $pvc3r);
+
+
+
+			    }
+			    $k++;
+			}
+		}
+		redirect('backend/school');
+	}
+
+	private function save_school_room($term_id, $year_id, $school_id, $from, $total)
+	{
+		$rs = $this->db->where(array(
+    		'term_id' => $term_id,
+    			'year_id' => $year_id,
+    			'school_id' => $school_id,
+    	))->get('school_room');
+
+    	if ($rs->num_rows() == 0) {
+    		$this->db->insert('school_room', array(
+    			'term_id' => $term_id,
+    			'year_id' => $year_id,
+    			'school_id' => $school_id,
+    			$from => $total
+    		));
+    	} else {
+
+    		$this->db->where('id', $rs->row()->id)->update('school_room', array(
+    			'term_id' => $term_id,
+    			'year_id' => $year_id,
+    			'school_id' => $school_id,
+    			$from => $total
+    		));
+    	}
+	}
 }

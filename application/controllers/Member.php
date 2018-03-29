@@ -472,14 +472,14 @@ class Member extends Base_Member {
 			    	$rs = $this->db->where(array(
 			    		'student_id' => $student_id,
 			    		'school_id' => $this->school_id,
-			    		'term_id' => $this->input->post('term_id'),
-			    		'year_id' => $this->input->post('year_id'),
+			    		'term_id' => $this->input->post('term'),
+			    		'year_id' => $this->input->post('years'),
 			    	))->get('students');
 
 			    	if ($rs->num_rows() == 0) {
 			    		$this->db->insert('students', array(
-			    			'term_id' => $this->input->post('term_id'),
-			    			'year_id' => $this->input->post('year_id'),
+			    			'term_id' => $this->input->post('term'),
+			    			'year_id' => $this->input->post('years'),
 			    			'school_id' => $this->school_id,
 			    			'idcard' => $idcard,
 			    			'room_level' => $level,
@@ -570,8 +570,8 @@ class Member extends Base_Member {
 			    	} else {
 
 			    		$this->db->where('id', $rs->row()->id)->update('students', array(
-			    			'term_id' => $this->input->post('term_id'),
-			    			'year_id' => $this->input->post('year_id'),
+			    			'term_id' => $this->input->post('term'),
+			    			'year_id' => $this->input->post('years'),
 			    			'school_id' => $this->school_id,
 			    			'idcard' => $idcard,
 			    			'room_level' => $level,
@@ -666,6 +666,9 @@ class Member extends Base_Member {
 			    $k++;
 			}
         }
+
+        $this->sm->update_age_data($this->input->post('term'), $this->input->post('years'), $this->school_id);
+        
         redirect('member/student');
 	}
 
@@ -674,5 +677,113 @@ class Member extends Base_Member {
 		$this->db->where('school_id', $this->school_id)->delete('students');
 		redirect('member/student');
 	}
+
+
+	public function reset_teacher()
+	{
+		$this->db->where('school_id', $this->school_id)->delete('teacher');
+		redirect('member/teacher');
+	}
+
+
+	public function teacher()
+	{
+		$this->rs = $this->db->where('school_id', $this->school_id)->get('teacher')->result();
+
+		
+		$this->term = $this->db->get('term')->result();
+		$this->years = $this->db->get('years')->result();
+
+		$this->_t = $this->input->post('term');
+		$this->_y = $this->input->post('years');
+
+		$this->render('member/teacher/index', $this);
+	}
+
+	public function upload_teacher()
+	{
+		$config['upload_path']          = './upload/data/';
+        $config['allowed_types']        = 'csv';
+        $config['file_name']            = 'teacher-'.$this->school_id;
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('file'))
+        {
+        	$data = $this->upload->data();
+        	$handle = fopen("./upload/data/".$data['file_name'], "r");
+			$k = 0;
+			while (($data = fgets($handle)) !== FALSE) {
+			    if ($k > 0) {
+			    	list($school_id, $school_name, $idcard, $level, $teacher_id, $gender, $prefix, $name, $surname, $name_en, $surname_en, $position, $academic, $birthdate, $age, $age_month, $start_work, $age_work, $month_work, $study, $study_eg, $study_level, $teacher_co, $teach_target) = explode(",", $data);
+
+			    	$rs = $this->db->where(array(
+			    		'teacher_id' => $teacher_id,
+			    		'school_id' => $this->school_id,
+			    	))->get('teacher');
+
+
+
+			    	if ($rs->num_rows() == 0) {
+			    		$this->db->insert('teacher', array(
+			    			'school_id' => $this->school_id,
+			    			'idcard' => $idcard,
+			    			'level' => $level,
+			    			'teacher_id' => $teacher_id,
+			    			'gender' => $gender,
+			    			'prefix' => $prefix,
+			    			'name' => $name,
+			    			'surname' => $surname,
+			    			'name_en' => $name_en,
+			    			'surname_en' => $surname_en,
+			    			'position' => $position,
+			    			'academic' => $academic,
+			    			'age' => $age,
+			    			'age_month' => $age_month,
+			    			'start_work' => $start_work,
+			    			'age_work' => $age_work,
+			    			'month_work' => $month_work,
+			    			'study' => $study,
+			    			'study_eg' => $study_eg,
+			    			'study_level' => $study_level,
+			    			'teacher_co' => $teacher_co,
+			    			'teach_target' => $teach_target,
+
+			    		));
+			    	} else {
+
+			    		$this->db->where('id', $rs->row()->id)->update('teacher', array(
+			    			'school_id' => $this->school_id,
+			    			'idcard' => $idcard,
+			    			'level' => $level,
+			    			'teacher_id' => $teacher_id,
+			    			'gender' => $gender,
+			    			'prefix' => $prefix,
+			    			'name' => $name,
+			    			'surname' => $surname,
+			    			'name_en' => $name_en,
+			    			'surname_en' => $surname_en,
+			    			'position' => $position,
+			    			'academic' => $academic,
+			    			'age' => $age,
+			    			'age_month' => $age_month,
+			    			'start_work' => $start_work,
+			    			'age_work' => $age_work,
+			    			'month_work' => $month_work,
+			    			'study' => $study,
+			    			'study_eg' => $study_eg,
+			    			'study_level' => $study_level,
+			    			'teacher_co' => $teacher_co,
+			    			'teach_target' => $teach_target,
+
+			    		));
+
+			    	}
+			    }
+			    $k++;
+			}
+        }
+        redirect('member/teacher');
+	}
+
 
 }

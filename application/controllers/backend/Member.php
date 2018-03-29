@@ -15,7 +15,8 @@ class Member extends Backend {
 
 	public function add()
 	{
-		$this->render('member/add');
+		$this->province = $this->db->get('province')->result();
+		$this->render('member/add', $this);
 	}
 
 	public function edit($id)

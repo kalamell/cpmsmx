@@ -34,7 +34,22 @@ function isStaff()
 
 	$rs = $ci->db->where('id', $id)->get('member');
 	if ($rs->num_rows()>0) {
-		return $rs->row()->status == 'staff' ? true : false;
+		return $rs->row()->status == 'staff' ||  $rs->row()->status == 'superadmin' ? true : false;
+	}
+
+	return false;
+
+}
+
+
+function isSuperAdmin()
+{
+	$ci =& get_instance();
+	$id = $ci->session->userdata('id');
+
+	$rs = $ci->db->where('id', $id)->get('member');
+	if ($rs->num_rows()>0) {
+		return $rs->row()->status == 'superadmin' ? true : false;
 	}
 
 	return false;
@@ -64,7 +79,7 @@ function footer()
 	$config_id = getProvinceWebsite()->id;
 
 
-	$rs = $ci->db->limit(1)->where('config_id', $config_id)->get('config');
+	$rs = $ci->db->limit(1)->where('id', $config_id)->get('config');
 	if ($rs->num_rows()>0) {
 		return $rs->row()->footer;
 	}
@@ -78,12 +93,13 @@ function getTitle()
 {
 	$ci =& get_instance();
 
-	$rs = $ci->db->limit(1)->get('config');
+	$config_id = getProvinceWebsite()->id;
+	$rs = $ci->db->where('id', $config_id)->get('config');
 	if ($rs->num_rows()>0) {
 		return $rs->row()->title;
 	}
 
-	return 'School Mapping สำนักงานศึกษาธิการจังหวัด...';
+	return 'School Mapping ';
 }
 
 
@@ -111,7 +127,9 @@ function banner()
 {
 	$ci =& get_instance();
 
-	$rs = $ci->db->get('banner');
+	$rs = getProvinceWebsite();
+
+	$rs = $ci->db->where('config_id', $rs->id)->get('banner');
 	return $rs->result();
 }
 
@@ -289,7 +307,7 @@ function getProvinceWebsite()
 {
 	$ci =& get_instance();
 	$dat = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
-	$rs = $ci->db->select('config.province_id, type_website, PROVINCE_CODE')
+	$rs = $ci->db->select('config.province_id, type_website, PROVINCE_CODE, config.id')
 			->where('province.PROVINCE_CODE', $dat)
 			->join('province', 'config.province_id = province.PROVINCE_ID')->get('config');
 

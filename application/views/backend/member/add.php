@@ -67,7 +67,7 @@
 				  	<label>การใช้งาน</label>
 				  	<div class="radio">
 				  		<label id="">
-					  		<input type="radio" name="status" value="adminsuper"> ผู้ดูแลระบบสูงสุด
+					  		<input type="radio" name="status" value="superadmin"> ผู้ดูแลระบบสูงสุด
 					  	</label>
 				  	</div>
 
@@ -85,24 +85,24 @@
 
 				  	<div class="radio">
 				  		<label>
-				  			<input type="radio" name="status" value="member"> ผู้ใช้งานทั่วไป
+				  			<input type="radio" name="status" value="staff"> ผู้ใช้งานทั่วไป
 				  		</label>
 				  	</div>
 				  </div>
 
 				  <div class="form-group col-md-12">
-				    <label class="" for="area_id">หน่วยงาน</label>
-				    <select class="form-control required" name="area_id" id="area">
-				    	<option value="">- - - หน่วยงาน - - -</option>
-				    	<?php foreach($area as $a):?>
-				    		<option value="<?php echo $a->area_id;?>"><?php echo $a->area_type_name;?></option>
+				    <label class="" for="province_id">จังหวัด</label>
+				    <select class="form-control required" name="province_id2" id="province_id">
+				    	<option value="">- - - จังหวัด - - -</option>
+				    	<?php foreach($province as $p):?>
+				    		<option value="<?php echo $p->PROVINCE_ID;?>"><?php echo $p->PROVINCE_NAME;?></option>
 				    	<?php endforeach;?>
 				    </select>
 				  </div>
 
 				  <div class="form-group col-md-12">
 				    <label class="" for="school">โรงเรียน</label>
-				    <select name="school" class="form-control">
+				    <select name="school_id" id="school" class="form-control">
 				    	<option value="">โรงเรียน</option>
 				    	
 				    </select>

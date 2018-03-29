@@ -82,6 +82,7 @@ class Backend extends CI_Controller
 {
 	protected $province_code;
 	protected $province_id;
+	protected $config_id;
 	
 	public function __construct()
 	{
@@ -94,8 +95,16 @@ class Backend extends CI_Controller
 			$this->session->set_flashdata('save', 1);
 		}
 
-		$rs = $this->db->select('province_id')->get('config');
+		$dat = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
+		$rs = $this->db->select('config.id, config.province_id')
+				->where('province.PROVINCE_CODE', $dat)
+				->join('province', 'config.province_id = province.PROVINCE_ID')->get('config');
+
+		
+
 		$this->province_id = $rs->row()->province_id;
+		$this->province_code = $dat;
+		$this->config_id = $rs->row()->id;
 		
 	}
 

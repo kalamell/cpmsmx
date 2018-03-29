@@ -197,4 +197,13 @@ class Auth extends Base {
 		echo json_encode($ar);
 
 	}
+
+	public function list_school_province()
+	{
+		$rs = $this->db->where('province_id', $this->input->post('province_id'))->get('school');
+		$ar = $rs->result_array();
+		echo json_encode($ar);
+
+	}
+
 }

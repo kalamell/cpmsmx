@@ -5,7 +5,7 @@
 			<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
 			  <li><a href="<?php echo site_url('backend');?>">Backend</a></li>
-			  <li class="active">ข้อมูลผู้ใช้งาน</li>
+			  <li class="active">ลงทะเบียนเว็บไซต์</li>
 			</ol>
 		</div>
 
@@ -21,10 +21,10 @@
 
 		<div class='col-md-9'>
 			<div class="panel panel-default">
-			  <div class="panel-heading">ข้อมูลผู้ใช้งาน</div>
+			  <div class="panel-heading">ลงทะเบียนเว็บไซต์</div>
 			  <div class="panel-body">
 
-			  	<p><a href="<?php echo site_url('backend/member/add');?>" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
+			  	<p><a href="<?php echo site_url('backend/website/add');?>" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
 
 
 
@@ -32,30 +32,22 @@
 			  	<table class="table table-bordered table-striped">
 			  		<thead>
 			  			<tr>
-			  				<th>ชื่อ - นามสกุล</th>
-			  				<th>Username</th>
-			  				<th>ประเภทผู้ใช้งาน</th>
-			  				<th>สถานะ</th>
+			  				<th>ชื่อเว็บไซต์</th>
+			  				<th>URL</th>
+			  				<th>จังหวัดที่รับผิดชอบ</th>
+			  				<th>ประเภทเว็บไซต์</th>
 			  				<th>&nbsp;</th>
 			  			</tr>
 			  		</thead>
 			  		<tbody>
-			  			<?php foreach($rs as $r):?>
+			  			<?php foreach($rs as $r):
+			  				$url = 'http://'.$r->PROVINCE_CODE.'.smxcenter.com';
+			  				?>
 			  				<tr>
-			  					<td><?php echo $r->name.' '.$r->surname;?></td>
-			  					<td><?php echo $r->username;?></td>
-			  					<td>
-			  						<?php 
-			  						if ($r->status == 'staff') {
-			  							echo 'ผู้ดูแลระบบ';
-			  						} elseif ($r->status == 'superadmin') {
-			  							echo 'ผู้ดูแลระบบสูงสุด';
-			  						} else {
-			  							echo 'เจ้าหน้าที่ทั่วไป';
-			  						}
-			  						?>
-			  					</td>
-			  					<td><label class=""><?php echo $r->active == 'Y' ? 'ใช้งาน' : 'ไม่ใช้งาน';?></label></td>
+			  					<td><?php echo $r->title;?></td>
+			  					<td><?php echo anchor($url, $url);?></td>
+			  					<td><?php echo $r->PROVINCE_NAME;?></td>
+			  					<td><?php echo $r->type_website;?></td>
 			  					<td width="120">
 			  						<div class="btn-group">
 			  							<a href="<?php echo site_url('backend/member/edit/'.$r->id);?>" class="btn btn-default btn-sm">แก้ไข</a>

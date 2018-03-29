@@ -9,10 +9,12 @@ class Config extends Backend {
 
 	public function index()
 	{
-		$this->r = $this->db->limit(1)->get('config')->row();
+
+		$this->r = $this->db->where('id', $this->config_id)->get('config')->row();
+
 		$this->menu_config = $this->db->order_by('sort', 'asc')->get('menu_config')->result();
 		$this->menu_sub = $this->db->order_by('sub_sort', 'asc')->get('menu_sub')->result();
-		$this->menu_website = $this->db->where('province_id', $this->province_id)->get('menu_website')->result();
+		$this->menu_website = $this->db->where('config_id', $this->config_id)->get('menu_website')->result();
 		$this->provinces = $this->db->order_by('CONVERT( PROVINCE_NAME USING tis620 ) ASC', null)->get('province')->result();
 		$this->render('config', $this);
 	}

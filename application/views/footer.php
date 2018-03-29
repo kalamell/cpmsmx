@@ -1,6 +1,6 @@
 <footer class="container" style="margin-top: 50px;">
 	
-		<p class="text-center">School Mapping ภาคใต้</p>
+		<p class="text-center"><?php echo footer();?></p>
 		
 	</footer>
 
@@ -85,6 +85,17 @@
 					$("select[name=amphur_id]").html('<option value=""> อำเภอ </option>');
 					$.each(res, function(key, value) {
 						$('<option value="' + value.AMPHUR_ID +'">' + value.AMPHUR_NAME + '</option>').appendTo($("select[name=amphur_id]"));
+					});
+				}, 'json');
+			})
+
+
+			$("select[name=province_id2]").on('change', function() {
+				var val = $(this).val();
+				$.post('<?php echo site_url('auth/list_school_province');?>', { province_id: val }, function(res) {
+					$("select[name=amphur_id]").html('<option value=""> โรงเรียน </option>');
+					$.each(res, function(key, value) {
+						$('<option value="' + value.school_id +'">' + value.school_name + '</option>').appendTo($("select[name=school_id]"));
 					});
 				}, 'json');
 			})

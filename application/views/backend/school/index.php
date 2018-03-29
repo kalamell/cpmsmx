@@ -26,11 +26,43 @@
 
 			  	<?php echo form_open_multipart('backend/school/import', array('class' => 'form-inline'));?>
 			  		<div class="form-group">
-			  			<label>อัพโหลดไฟล์ .csv</label>
+			  			<label>อัพโหลดไฟล์รายละเอียดโรงเรียน .csv</label>
 			  			<input type="file" name="file" cl>
 			  		</div>
 			  		<button type="submit" class="btn btn-info btn-sm">อัพโหลด</button>
 			  	<?php echo form_close();?> <br><br>
+
+
+			  	<?php echo form_open_multipart('backend/school/import_student_data', array('class' => 'form-inline'));?>
+
+			  		 <div class="form-group">
+					    <label for="password">ภาคเรียน</label>
+					    <select name="term" class="form-control">
+					    	<option value=""> ภาคเรียน </option>
+					    	<?php foreach($term as $t):?>
+					    		<option value="<?php echo $t->term_id;?>"><?php echo $t->term_name;?></option>
+					    	<?php endforeach;?>
+					    </select>
+					  </div>
+
+					  <div class="form-group">
+					    <label for="confirm_password">ปีการศึกษา</label>
+					    <select name="years" class="form-control">
+					    	<option value=""> ปีการศึกษา </option>
+					    	<?php foreach($years as $y):?>
+					    		<option value="<?php echo $y->year_id;?>"><?php echo $y->year_name;?></option>
+					    	<?php endforeach;?>
+					    </select>
+					  </div>
+					  
+			  		<div class="form-group">
+			  			<label>อัพโหลดไฟล์จำนวนนักเรียน .csv</label>
+			  			<input type="file" name="file" cl>
+			  		</div>
+			  		<button type="submit" class="btn btn-info btn-sm">อัพโหลด</button>
+			  	<?php echo form_close();?> <br><br>
+
+
 			  	<p><a href="<?php echo site_url('backend/school/add');?>" class="btn btn-default"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
 
 			  	<?php echo save();?>
