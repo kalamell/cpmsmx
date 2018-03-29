@@ -61,7 +61,10 @@ function footer()
 {
 	$ci =& get_instance();
 
-	$rs = $ci->db->limit(1)->get('config');
+	$config_id = getProvinceWebsite()->id;
+
+
+	$rs = $ci->db->limit(1)->where('config_id', $config_id)->get('config');
 	if ($rs->num_rows()>0) {
 		return $rs->row()->footer;
 	}
@@ -232,36 +235,42 @@ function countSchoolAreaCodeDistrcit($code_id, $district_id)
 function getMenuWebsite()
 {
 	$ci =& get_instance();
-	$province_code = $ci->config->item('province_code');
+	$province_code = getProvinceWebsite()->PROVINCE_CODE;
+
 	$rs = $ci->db->where('PROVINCE_CODE', $province_code)->get('province');
 	$province_id = $rs->row()->PROVINCE_ID;
 
 	$menu_config = $ci->db->order_by('sort', 'asc')->get('menu_config')->result();
 	$menu_sub = $ci->db->order_by('sub_sort', 'asc')->get('menu_sub')->result();
-	
+	$config = $ci->db->select('*')->where('province_id', $province_id)->get('config');
 
-	if (count($menu_config) > 0) {
-		foreach($menu_config as $mc) {
-			$m = $ci->db->where('province_id', $province_id)
-				->where('link_id', $mc->id)
-				->join('menu_sub', 'menu_website.sub_id = menu_sub.sub_id')
-				->order_by('sub_sort', 'asc')
-				->get('menu_website')->result();
-			if (count($m) > 0) {
-				echo '<li>'.$mc->name;
-				echo '<ul>';
-				foreach($m as $_m) {
-					if ($_m->type == 'IN') {
-						$link = anchor($_m->link, $_m->sub_name);
-					} else {
-						$link = '<a href="'.$_m->link.'">'.$_m->sub_name."</a>";
+	if ($config->num_rows() > 0) {
+		if (count($menu_config) > 0) {
+			foreach($menu_config as $mc) {
+				$m = $ci->db->where('config_id', $config->row()->id)
+					->where('link_id', $mc->id)
+					->join('menu_sub', 'menu_website.sub_id = menu_sub.sub_id')
+					->order_by('sub_sort', 'asc')
+					->get('menu_website');
+				
+				if ($m->num_rows() > 0) {
+
+				
+					echo '<li>'.$mc->name;
+					echo '<ul>';
+					foreach($m->result() as $_m) {
+						if ($_m->type == 'IN') {
+							$link = anchor($_m->link, $_m->sub_name);
+						} else {
+							$link = '<a href="'.$_m->link.'">'.$_m->sub_name."</a>";
+						}
+						echo '<li>';
+						echo $link;
+						echo '</li>';
 					}
-					echo '<li>';
-					echo $link;
+					echo '</ul>';
 					echo '</li>';
 				}
-				echo '</ul>';
-				echo '</li>';
 			}
 		}
 	}
@@ -274,6 +283,28 @@ function url($var)
 	} else {
 	  return $var;
 	}
+}
+
+function getProvinceWebsite()
+{
+	$ci =& get_instance();
+	$dat = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
+	$rs = $ci->db->select('config.province_id, type_website, PROVINCE_CODE')
+			->where('province.PROVINCE_CODE', $dat)
+			->join('province', 'config.province_id = province.PROVINCE_ID')->get('config');
+
+	return $rs->row();
+}
+
+function isWebsiteNation()
+{
+	$type_website = getProvinceWebsite()->type_website;
+
+	if ($type_website == 'nation') {
+		return true;
+	}
+	return false;
+
 }
 
 function getSchoolFromDistrict($district_id)

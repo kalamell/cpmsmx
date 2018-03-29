@@ -51,11 +51,6 @@
 				  <div class="panel-heading">school mapping</div>
 				  <div class="panel-body">
 				    <ul class="nav">
-				    	<li>ผลจำนวนนักเรียน
-				    		<ul>
-				    			<li><a href="<?php echo site_url('data/allschool');?>">ผลจำนวนนักเรียน</a></li>
-				    		</ul>
-				    	</li>
 				    	
 				    	<?php echo getMenuWebsite();?>
 				    	

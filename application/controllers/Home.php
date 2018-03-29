@@ -9,7 +9,7 @@ class Home extends Base {
 	}
 	public function index()
 	{
-		$this->news = $this->db->limit(3)->order_by('created_date', 'DESC')->get('news')->result();
+		$this->news = $this->db->limit(3)->where('config_id', $this->config_id)->order_by('created_date', 'DESC')->get('news')->result();
 		
 		$this->render('home', $this);
 	}

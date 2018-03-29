@@ -5,20 +5,22 @@ class Base extends CI_Controller {
 
 	protected $province_code;
 	protected $province_id;
+	protected $config_id;
 	public function __construct()
 	{
 		parent::__construct();
 		$this->updateField();
 
 		$dat = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
-
-
-		print_r($dat);
-
+		$rs = $this->db->select('config.id, config.province_id')
+				->where('province.PROVINCE_CODE', $dat)
+				->join('province', 'config.province_id = province.PROVINCE_ID')->get('config');
 
 		
-		$rs = $this->db->select('province_id')->get('config');
+
 		$this->province_id = $rs->row()->province_id;
+		$this->province_code = $dat;
+		$this->config_id = $rs->row()->id;
 	}
 
 	protected function render($view, $data = array()) 
@@ -46,9 +48,9 @@ class Base extends CI_Controller {
 			$this->dbforge->add_column('config', $fields);
 		}
 
-		$province_code = $this->config->item('province_code');
-		$rs2 = $this->db->where('PROVINCE_CODE', $province_code)->get('province');
-		$province_id = $rs2->row()->PROVINCE_ID;
+		
+		$rs2 = $this->db->where('PROVINCE_CODE', $this->province_code)->get('province');
+		$province_id = $this->province_id;
 
 		$rs = $this->db->get('config')->row();
 		if ($rs->province_id == null) {
@@ -63,6 +65,14 @@ class Base extends CI_Controller {
 				'type_website' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE, 'after' => 'footer')
 			);
 			$this->dbforge->add_column('config', $fields);
+		}
+
+		if (!$this->db->field_exists('config_id', 'news')) {
+			$fields = array(
+				'config_id' => array('type' => 'INT', 'constraint' => '11', 'null' => TRUE, 'after' => 'created_date')
+			);
+			$this->dbforge->add_column('news', $fields);
+
 		}
 
 	}

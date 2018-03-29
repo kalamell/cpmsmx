@@ -29,7 +29,7 @@
 	        <span class="icon-bar"></span> 
 	      </button>
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
-	      	ภาคใต้ Southern</a>
+	      	<?php echo getTitle();?></a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,6 +43,7 @@
 	      </ul>
 	      
 	      <ul class="nav navbar-nav navbar-right">
+	      	<?php if (isWebsiteNation()):?>
 	      	<li>
 	      		<a href="http://2.smxcenter.com">ภาคกลาง</a>
 	      	</li>
@@ -55,6 +56,7 @@
 	      	<li>
 	      		<a href="http://5.smxcenter.com">ภาคใต้</a>
 	      	</li>
+	      <?php endif;?>
 	      	<?php if (isMember()):?>
 	      		<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> สวัสดี <?php echo isMember()->name.' '.isMember()->surname;?> <span class="caret"></span></a>
