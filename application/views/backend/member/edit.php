@@ -66,6 +66,8 @@
 
 				 <div class="form-group">
 				  	<label>การใช้งาน</label>
+
+				  	<?php if (isSuperAdmin()):?>
 				  	<div class="radio">
 				  		<label id="">
 					  		<input type="radio" name="status" <?php echo $r->status == 'superadmin' ? 'checked' : '';?> value="superadmin"> ผู้ดูแลระบบสูงสุด
@@ -83,6 +85,17 @@
 					  		<input type="radio" name="status" <?php echo $r->status == 'admin_province' ? 'checked' : '';?> value="admin_province"> ผู้ดูแลระบบระดับจังหวัด
 					  	</label>
 				  	</div>
+				  <?php endif;?>
+
+				  <?php if (isAdminProvince() || isSuperAdmin() || isAdminArea()):?>
+
+				  	<div class="radio">
+				  		<label id="">
+					  		<input type="radio" name="status" <?php echo $r->status == 'admin_area' ? 'checked' : '';?>  value="admin_area"> ผู้ดูแลระบบระดับหน่วยงาน
+					  	</label>
+				  	</div>
+
+				  <?php endif;?>
 
 				  	<div class="radio">
 				  		<label>
@@ -90,6 +103,54 @@
 				  		</label>
 				  	</div>
 				  </div>
+
+				  <div class="form-group col-md-12">
+				    <label class="" for="province_id">สังกัด</label>
+				    <select class="form-control required" name="area_type_id" id="a">
+				    	<?php foreach($area as $a):?>
+				    		<option value="<?php echo $a->area_type_id;?>" <?php echo $a->area_type_id == $r->area_type_id ? 'selected' : '';?>><?php echo $a->area_type_name;?></option>
+				    	<?php endforeach;?>
+				    </select>
+				  </div>
+
+
+				  <div class="form-group col-md-12">
+				    <label class="" for="province_id">จังหวัด</label>
+				    <select class="form-control required" name="province_id2" id="province_id">
+				    	<?php foreach($province as $p):?>
+				    		<option value="<?php echo $p->PROVINCE_ID;?>" <?php echo $p->PROVINCE_ID == $r->province_id ? 'selected' : '';?>><?php echo $p->PROVINCE_NAME;?></option>
+				    	<?php endforeach;?>
+				    </select>
+				  </div>
+
+				  <div class="form-group col-md-12">
+				    <label class="" for="school">สถานศึกษา</label>
+				    <select name="school_id" id="school" class="form-control">
+				    	<option value="">สถานศึกษา</option>
+				    	<?php foreach($school as $s):?>
+				    		<option value="<?php echo $s->school_id;?>" <?php echo $s->school_id == $r->school ? 'selected' : '';?>><?php echo $s->school_name;?></option>
+				    	<?php endforeach;?>
+				    	
+				    </select>
+				  </div>
+
+
+				  <?php if (isSuperAdmin()):?>
+
+				  	<div class="form-group col-md-12">
+				    <label class="" for="school">สังกัดเว็บไซต์</label>
+				    <select name="config_id" id="school" class="form-control">
+				    	<?php foreach($config_data as $c):?>
+				    		<option value="<?php echo $c->id;?>" <?php echo $c->id == $r->config_id ? 'selected' : '';?>><?php echo $c->title;?></option>
+				    	<?php endforeach;?>
+				    	
+				    </select>
+				  </div>
+
+				  <?php else:?>
+				  	<input type="hidden" name="config_id" value="<?php echo $r->config_id;?>">
+				  <?php endif;?>
+
 
 
 

@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active">ตารางแสดงจำนวนโรงเรียนจำแนกตามรูปแบบการจัดการศึกษาในแต่ละตำบล</li>
+			  <li class="active">ตารางแสดงจำนวนสถานศึกษาจำแนกตามรูปแบบการจัดการศึกษาในแต่ละตำบล</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ตารางแสดงจำนวนโรงเรียนจำแนกตามรูปแบบการจัดการศึกษาในแต่ละตำบล</div>
+				  <div class="panel-heading">ตารางแสดงจำนวนสถานศึกษาจำแนกตามรูปแบบการจัดการศึกษาในแต่ละตำบล</div>
 				  <div class="panel-body">
 
 				  	
@@ -53,14 +53,11 @@
 					                    			foreach($level as $l):?>
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
-							                      			$num = 0;
+							                      			$num1 = getLevelDistrcitGender($l['level_id'], $ds->DISTRICT_ID, 'boy');
 							                      			
-							                      			echo $num;
+							                      			echo $num1;
 							                      			
-							                      			$sum+= $num;
-
-							                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
+							                      			
 							                 
 
 							                      			?>
@@ -68,12 +65,10 @@
 
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
-							                      			$num = 0;
+							                      			$num2 = getLevelDistrcitGender($l['level_id'], $ds->DISTRICT_ID, 'girl');
+							                      			echo $num2;
 							                      			
-							                      			echo $num;
 							                      			
-							                      			$sum+= $num;
-
 							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
 
 							                 
@@ -83,11 +78,13 @@
 
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
-							                      			$num = 0;
 							                      			
-							                      			echo $num;
-							                      			
-							                      			$sum+= $num;
+							                      			$total = $num1 + $num2;
+
+							                      			echo $total;
+
+							                      			$sum+=$total;
+
 
 							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
 
@@ -95,9 +92,23 @@
 
 							                      			?>
 							                      		</td>
+
+							                      		<?php 
+	$ar[$l['level_id']]['boy'] = isset($ar[$l['level_id']]['boy']) ?  $ar[$l['level_id']]['boy'] + $num1 : $num1;
+				                      			
+	$ar[$l['level_id']]['girl'] = isset($ar[$l['level_id']]['girl']) ?  $ar[$l['level_id']]['girl'] + $num2 : $num2;
+
+	$ar[$l['level_id']]['total'] = isset($ar[$l['level_id']]['total']) ?  $ar[$l['level_id']]['total'] + $total : $total;
+				                      			
+				                      			
+							                      		?>
 							                      	
 							                    	<?php endforeach;?>
-							                    	<td style="text-align: right;"><strong><?php echo $sum;?></strong></td>
+							                    	<td style="text-align: right;"><strong><?php echo $sum;?>
+							                    		
+							                    		
+
+							                    	</strong></td>
 							                    </tr>
 						                    <?php endif;?>
 					                    <?php endforeach;?>
@@ -110,10 +121,10 @@
 			                    	<?php 
 			                    	$total_sum = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		$total_sum += $v;
+			                    		echo '<td style="text-align: right;"><strong>'.$v['boy'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['girl'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['total'].'</strong></td>';
+			                    		$total_sum += ($v['boy'] + $v['girl']);
 			                    	}
 			                    	?>
 			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>

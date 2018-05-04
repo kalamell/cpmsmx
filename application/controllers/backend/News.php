@@ -11,7 +11,7 @@ class News extends Backend {
 	{
 
 		
-		$this->rs = $this->db->get('news')->result();
+		$this->rs = $this->db->where('config_id', $this->config_id)->get('news')->result();
 		$this->render('news/index', $this);
 	}
 
@@ -48,6 +48,7 @@ class News extends Backend {
 
 		$this->db->set('created_date', 'NOW()', false)->insert('news', array(
 			'title' => $this->input->post('title'),
+			'config_id' => $this->config_id,
 			'description' => $this->input->post('description')
 		));
 
@@ -75,6 +76,7 @@ class News extends Backend {
 
 		$this->db->where('id', $this->input->post('id'))->update('news', array(
 			'title' => $this->input->post('title'),
+			'config_id' => $this->config_id,
 			'description' => $this->input->post('description')
 		));
 

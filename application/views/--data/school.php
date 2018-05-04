@@ -37,9 +37,9 @@
 					            ?>
 
 							  <div class="form-group">
-							    <label class="sr-only" for="exampleInputEmail3">ขนาดโรงเรียน</label>
+							    <label class="sr-only" for="exampleInputEmail3">ขนาดสถานศึกษา</label>
 							    <select class="form-control" name="f24">
-							    	<option value="">- - - ขนาดโรงเรียน - - -</option>
+							    	<option value="">- - - ขนาดสถานศึกษา - - -</option>
 							    	<?php foreach($type as $t):?>
 					                  <option value="<?php echo $t->f24;?>" <?php echo $t->f24 == $p_type ? 'selected' : '';?>><?php echo $type_dat[$t->f24];?></option>
 					                <?php endforeach;?>
@@ -57,8 +57,8 @@
 							<table class="table table-bordered table-striped">
 			                  <thead>
 			                    <tr>
-			                      <th width="120">รหัสโรงเรียน</th>
-			                      <th>โรงเรียน</th>
+			                      <th width="120">รหัสสถานศึกษา</th>
+			                      <th>สถานศึกษา</th>
 			                      <th width="260">ประเภทการศึกษา</th>
 			                      <th width="100">เว็บไซต์</th>
 			                      <th width="100">อปท</th>

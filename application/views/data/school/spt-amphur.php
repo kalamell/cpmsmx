@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active">ตารางแสดงจำนวนโรงเรียนใน สพฐ.กับหน่วยงานอื่น จำแนกตามอำเภอ</li>
+			  <li class="active">ตารางแสดงจำนวนสถานศึกษาใน สพฐ.กับหน่วยงานอื่น จำแนกตามอำเภอ</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ตารางแสดงจำนวนโรงเรียนใน สพฐ.กับหน่วยงานอื่น จำแนกตามอำเภอ</div>
+				  <div class="panel-heading">ตารางแสดงจำนวนสถานศึกษาใน สพฐ.กับหน่วยงานอื่น จำแนกตามอำเภอ</div>
 				  <div class="panel-body">
 
 				  	
@@ -39,6 +39,8 @@
 			                    	
 			                    		<?php 
 			                    		$sum_num = 0;
+			                    		$num1 = 0;
+			                    		$num2 = 0;
 			                    		foreach($level as $l):?>
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
@@ -46,6 +48,12 @@
 				                      			$num = countSchoolSptAmphurOnly($am->AMPHUR_ID, $l['level_id']);
 
 				                      			echo $num;
+
+				                      			if ($l['level_id'] == 'spt') {
+				                      				$num1 = $num;
+				                      			} else {
+				                      				$num2 = $num;
+				                      			}
 				                      			$sum_num += $num;
 
 												$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
@@ -53,7 +61,7 @@
 				                      			?>
 				                      		</td>
 				                    	<?php endforeach;?>
-				                    	<td style="text-align: right"><strong><?php echo $sum_num;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo getRatio($num1, $num2);?></strong></td>
 				                    </tr>
 			                    <?php endforeach;?>
 

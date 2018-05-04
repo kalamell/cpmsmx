@@ -49,39 +49,54 @@
 			                    		foreach($level as $l):?>
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
-
-				                      			$num = 0;
-
-				                      			echo $num;
-
-												$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
+				                      			$num1 = getLevelAmphurGender($l['level_id'], $am->AMPHUR_ID, 'boy');
 				                      			
+				                      			echo $num1;
+				                      			
+				                      			
+				                 
+
 				                      			?>
 				                      		</td>
+
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
-
-				                      			$num = 0;
-
-				                      			echo $num;
-
-												
+				                      			$num2 = getLevelAmphurGender($l['level_id'], $am->AMPHUR_ID, 'girl');
+				                      			echo $num2;
 				                      			
+				                      			
+				                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
+
+				                 
+
 				                      			?>
 				                      		</td>
+
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
-
-				                      			$num = 0;
-
-				                      			echo $num;
-
-												
 				                      			
+				                      			$total = $num1 + $num2;
+
+				                      			echo $total;
+
+				                      			$sum_num+=$total;
+
+
+				                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
+
+				                	
+				                	$ar[$l['level_id']]['boy'] = isset($ar[$l['level_id']]['boy']) ?  $ar[$l['level_id']]['boy'] + $num1 : $num1;
+				                      			
+				              $ar[$l['level_id']]['girl'] = isset($ar[$l['level_id']]['girl']) ?  $ar[$l['level_id']]['girl'] + $num2 : $num2;
+
+				              $ar[$l['level_id']]['total'] = isset($ar[$l['level_id']]['total']) ?  $ar[$l['level_id']]['total'] + $total : $total;
+				                      			
+				                      			 
+
 				                      			?>
 				                      		</td>
 				                    	<?php endforeach;?>
-				                    	<td style="text-align: right"><strong>0</strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $sum_num;?></strong></td>
 				                    </tr>
 			                    <?php endforeach;?>
 
@@ -90,9 +105,10 @@
 			                    	<?php 
 			                    	$total_sum = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>0</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>0</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>0</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['boy'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['girl'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['total'].'</strong></td>';
+			                    		$total_sum += $v['total'];
 			                    	}
 			                    	?>
 			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>

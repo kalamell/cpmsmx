@@ -12,12 +12,12 @@
 	  <div class="panel-heading">ข้อมูลน้ำ</div>
 	  <div class="panel-body">
 		 <div class="form-group col-md-12">
-			<label for="username">แหล่งน้ำที่โรงเรียนใช้ (เลือกได้มากกว่า 1 ข้อ)</label>
+			<label for="username">แหล่งน้ำที่สถานศึกษาใช้ (เลือกได้มากกว่า 1 ข้อ)</label>
 
 			<div class="row">
 			    <div class="checkbox col-md-4">
 			    	<label>
-			    		<input type="checkbox" name=""> ประปาโรงเรียน
+			    		<input type="checkbox" name=""> ประปาสถานศึกษา
 			    	</label>
 			    </div>
 

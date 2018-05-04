@@ -17,6 +17,13 @@
 
 			<?php echo form_close();?>
 
+			<br><br>
+
+			<a href="<?php echo base_url();?>assets/data-teacher.csv" class='btn btn-default btn-sm'><i class="fa fa-cloud"></i> Download ไฟล์ตัวอย่างข้อมูลครู</a>
+
+
+			
+
 
 			<br><br>
 
@@ -28,7 +35,7 @@
 			    <input type="file" class="form-control" name="file" value="">
 			  </div>
 
-			  <button type="submi" class="btn btn-sm btn-info">Upload</button> 
+			  <button type="submit" class="btn btn-sm btn-info">Upload</button> 
 
 			<?php echo form_close();?>
 

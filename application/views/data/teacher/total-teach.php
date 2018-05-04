@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active"> ตารางแสดงจำนวนครูจำแนกตามวุฒิการศึกษาในแต่ละชั้น</li>
+			  <li class="active"> ตารางแสดงจำนวนครูจำแนกตามสังกัด - ชั้นที่สอน</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading"> ตารางแสดงจำนวนครูจำแนกตามวุฒิการศึกษาในแต่ละชั้น</div>
+				  <div class="panel-heading"> ตารางแสดงจำนวนครูจำแนกตามสังกัด - ชั้นที่สอน</div>
 				  <div class="panel-body">
 
 				  	
@@ -41,7 +41,7 @@
 			                    		foreach($area as $a):?>
 			                    			
 		                    				<tr>
-				                    			<td><?php echo $a->area_code_name;?></td>
+				                    			<td><?php echo $a->area_type_name;?></td>
 				                    			<?php 
 				                    			$sum = 0;
 				                    			foreach($level as $l):?>

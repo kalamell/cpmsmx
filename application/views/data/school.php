@@ -37,9 +37,9 @@
 					            ?>
 
 							  <div class="form-group">
-							    <label class="sr-only" for="exampleInputEmail3">ขนาดโรงเรียน</label>
+							    <label class="sr-only" for="exampleInputEmail3">ขนาดสถานศึกษา</label>
 							    <select class="form-control" name="school_size_id">
-							    	<option value="">- - - ขนาดโรงเรียน - - -</option>
+							    	<option value="">- - - ขนาดสถานศึกษา - - -</option>
 							    	<?php foreach($type_dat as $t => $v):?>
 					                  <option value="<?php echo $t;?>" <?php echo $t == $this->session->userdata('school_size_id') ? 'selected' : '';?>><?php echo $v;?></option>
 					                <?php endforeach;?>
@@ -47,7 +47,7 @@
 							  </div>
 
 							  <div class="form-group">
-							  	<label>ชื่อโรงเรียน</label>
+							  	<label>ชื่อสถานศึกษา</label>
 							  	<input type="text" name="school_name" value="<?php echo $this->session->userdata('school_name');?>" class='form-control'>
 							  </div>
 							  
@@ -62,8 +62,8 @@
 							<table class="table table-bordered table-striped">
 			                  <thead>
 			                    <tr>
-			                      <th width="120">รหัสโรงเรียน</th>
-			                      <th>โรงเรียน</th>
+			                      <th width="120">รหัสสถานศึกษา</th>
+			                      <th>สถานศึกษา</th>
 			                      <th width="260">ประเภทการศึกษา</th>
 			                      <th width="100">เว็บไซต์</th>
 			                      <th width="100">อปท</th>

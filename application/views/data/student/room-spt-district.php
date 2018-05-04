@@ -51,27 +51,23 @@
 					                    			<td>ตำบล <?php echo $ds->DISTRICT_NAME;?></td>
 					                    			<?php 
 					                    			$sum = 0;
+					                    			$sum1 = 0;
+					                    			$sum2 = 0;
 					                    			foreach($level as $l):?>
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
 							                      			
 
-							                      			if ($l['level_id'] == '01') {
-							                      				$num = countSchoolDistrictOnly($ds->DISTRICT_ID);
+							                      			$num1 = getStudentTypeSchoolDistrict($l['level_id'], $ds->DISTRICT_ID, 'spt');
 							                      			
-							                      			} else {
-							                      				$num = 0;
-							                      			}
+							                      		
 
-							                      			$num = 0;
 							                      			
-							                      			echo $num;
+							                      			echo $num1;
+
+							                      			$sum1+=$num1;
 							                      			
-							                      			$sum+= $num;
-
-							                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
-							                 
+							                      			
 
 							                      			?>
 							                      		</td>
@@ -80,18 +76,14 @@
 							                      			<?php 
 							                      			
 
-							                      			if ($l['level_id'] == '01') {
-							                      				$num = countSchoolDistrictOnly($ds->DISTRICT_ID);
+							                      			$num2 = getStudentTypeSchoolDistrict($l['level_id'], $ds->DISTRICT_ID, 'opt');
 							                      			
-							                      			} else {
-							                      				$num = 0;
-							                      			}
-
-							                      			$num = 0;
 							                      			
-							                      			echo $num;
 							                      			
-							                      			$sum+= $num;
+							                      			echo $num2;
+							                      			$sum2+=$num;
+							                      			
+							                      			
 
 							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
 
@@ -105,20 +97,15 @@
 							                      			<?php 
 							                      			
 
-							                      			if ($l['level_id'] == '01') {
-							                      				$num = countSchoolDistrictOnly($ds->DISTRICT_ID);
 							                      			
-							                      			} else {
-							                      				$num = 0;
-							                      			}
+							                      			
+							                      			echo getRatio($num1, $num2);
+							                      			
+							                      			
 
-							                      			$num = 0;
-							                      			
-							                      			echo '0:0';
-							                      			
-							                      			$sum+= $num;
-
-							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
+							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  
+  $ar[$l['level_id']]['spt'] = isset($ar[$l['level_id']]['spt']) ? $ar[$l['level_id']]['spt'] + $num1 : $num1;
+  $ar[$l['level_id']]['opt'] = isset($ar[$l['level_id']]['opt']) ? $ar[$l['level_id']]['opt'] + $num2 : $num2;
 
 							                 
 
@@ -127,7 +114,7 @@
 							                      	
 							                      	
 							                    	<?php endforeach;?>
-							                    	<td style="text-align: right;"><strong><?php echo $sum;?></strong></td>
+							                    	<td style="text-align: right;"><strong><?php echo getRatio($sum1, $sum2);?></strong></td>
 							                    </tr>
 						                    <?php endif;?>
 					                    <?php endforeach;?>
@@ -139,14 +126,18 @@
 			                    	<td style="text-align: right;"><strong>รวม</strong></td>
 			                    	<?php 
 			                    	$total_sum = 0;
+			                    	$sum1 = 0;
+			                    	$sum2 = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>0:0</strong></td>';
-			                    		$total_sum += $v;
+			                    		echo '<td style="text-align: right;"><strong>'.$v['spt'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['opt'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.getRatio($v['spt'], $v['opt']).'</strong></td>';
+			                    		$sum1 += $v['spt'];
+			                    		$sum2 += $v['opt'];
+			                    		
 			                    	}
 			                    	?>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo getRatio($sum1, $sum2);?></strong></td>
 			                    </tr>
 			                  </tbody>
 			                  

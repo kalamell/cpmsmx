@@ -4,7 +4,7 @@
 
 			<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li><a href="<?php echo site_url('member');?>">ข้อมูลสมาชิก</a></li>
+			  <li><a href="<?php echo site_url('backend');?>">Backend</a></li>
 			  <li class="active">ข้อมูลนักเรียน</li>
 			</ol>
 
@@ -50,10 +50,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if(count($rs) == 0):?>
+					<?php $sum=0;
+					if(count($rs) == 0):?>
 						<tr><td colspan="4"> - - ไม่มีข้อมูล - -</td></tr>
 					<?php else:?>
-						<?php foreach($rs as $r):?>
+						<?php foreach($rs as $r):
+							$sum+=$r->total;
+							?>
 							<tr>
 								<td><?php echo $r->gender;?></td>
 								<td><?php echo $r->age;?></td>
@@ -61,6 +64,8 @@
 							</tr>
 						<?php endforeach;?>
 					<?php endif;?>
+					<td colspan="2">รวม</td>
+					<td><?php echo $sum;?></td>
 				</tbody>
 				
 			</table>

@@ -5,8 +5,8 @@
 			<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
 			  <li class=""><a href="<?php echo site_url('backend');?>">Backend</a></li>
-			  <li class=""><a href="<?php echo site_url('backend/school');?>">โรงเรียน</a></li>
-			  <li class="active"> เพิ่มข้อมูลโรงเรียน</li>
+			  <li class=""><a href="<?php echo site_url('backend/school');?>">สถานศึกษา</a></li>
+			  <li class="active"> เพิ่มข้อมูลสถานศึกษา</li>
 			</ol>
 		</div>
 
@@ -37,11 +37,11 @@
 
 			<div class='col-md-6'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ข้อมูลรหัสโรงเรียน</div>
+				  <div class="panel-heading">ข้อมูลรหัสสถานศึกษา</div>
 				  <div class="panel-body">
 					<div class="form-group col-md-6">
-						<label for="school_id">รหัสโรงเรียน</label>
-					    <input type="text" class="form-control" name="school_id" value="<?php echo $rs->school_id;?>"  placeholder="">
+						<label for="school_id">รหัสสถานศึกษา</label>
+					    <input type="text" class="form-control" name="school_id" value=""  placeholder="">
 					</div>
 
 	
@@ -63,8 +63,8 @@
 
 
 					 <div class="form-group col-md-12">
-						<label for="school_name">ชื่อโรงเรียน (ภาษาไทย)</label>
-					    <input type="text" class="form-control" name="school_name" value="<?php echo $rs->school_name;?>" name="school_name" placeholder="">
+						<label for="school_name">ชื่อสถานศึกษา (ภาษาไทย)</label>
+					    <input type="text" class="form-control" name="school_name" value="" name="school_name" placeholder="">
 					</div>
 
 					<div class="form-group col-md-6">
@@ -72,7 +72,7 @@
 				    	<select name="amphur_id" id="amphur_id" class="form-control">
 				    		<option value=""> อำเภอ </option>
 				    		<?php foreach($amphur as $am):?>
-				    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $rs->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
+				    			<option value="<?php echo $am->AMPHUR_ID;?>"><?php echo $am->AMPHUR_NAME;?></option>
 				    		<?php endforeach;?>
 
 				    	</select>
@@ -83,26 +83,13 @@
 				    	<select name="district_id" id="district_id" class="form-control">
 				    		<option value=""> ตำบล </option>
 				    		<?php foreach($district as $dt):?>
-				    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $rs->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
+				    			<option value="<?php echo $dt->DISTRICT_ID;?>"><?php echo $dt->DISTRICT_NAME;?></option>
 				    		<?php endforeach;?>
 				    	</select>
 					</div>
 
 
-					<div class="form-group col-md-6">
-						<label for="district_id">สพฐ / หน่วยงานอื่นๆ</label>
-				    	<div class="radio">
-				    		<label>
-				    			<input type="radio" name="type_school" value="สพฐ"> สพฐ
-				    		</label>				    		
-				    	</div>
-
-				    	<div class="radio">
-				    		<label>
-				    			<input type="radio" name="type_school" value="อื่นๆ"> อื่นๆ
-				    		</label>				    		
-				    	</div>
-					</div>
+					
 				  </div>
 				</div>
 			</div>
@@ -112,7 +99,7 @@
 				<div class="panel panel-default">
 				  <div class="panel-heading">ข้อมูลสังกัด</div>
 				  <div class="panel-body">
-					 <div class="form-group col-md-6">
+					<div class="form-group col-md-6">
 						<label for="username">หน่วยงาน</label>
 					    <select name="area_type_id" class="form-control">
 					    	
@@ -150,7 +137,7 @@
 					    <select class="form-control" name="ins_id">
 					    	<option value=""> - - - เลือกข้อมูล - - -</option>
 					    	<?php foreach($inspect as $m):?>
-					    		<option value="<?php echo $m->ins_id;?>" <?php echo $m->ins_id == '14' ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
+					    		<option value="<?php echo $m->ins_id;?>" <?php echo $m->ins_id == '18' ? 'selected' : '';?>><?php echo $m->ins_name;?></option>
 					    	<?php endforeach;?>
 						</select>  
 					</div>
@@ -163,7 +150,7 @@
 
 		<div style="display: none;" class='col-md-6'>
 			<div class="panel panel-default">
-				<div class="panel-heading">ข้อมูลพื้นฐานโรงเรียน</div>
+				<div class="panel-heading">ข้อมูลพื้นฐานสถานศึกษา</div>
 				<div class="panel-body">
 					<div class="form-group col-md-12">
 						<label for="schol_head">ชื่อผู้อำนวยการ</label>
@@ -243,7 +230,7 @@
 					</div>
 
 					<div class="form-group col-md-6">
-						<label for="website">เว็บไซต์โรงเรียน</label>
+						<label for="website">เว็บไซต์สถานศึกษา</label>
 				    	<input type="text" class="form-control" name="website" value="<?php echo $rs->website;?>" placeholder="">
 					</div>
 
@@ -270,9 +257,9 @@
 
 		<div style="display: none;"  class='col-md-6'>
 			<div class="panel panel-default">
-				<div class="panel-heading">ภาพป้ายหน้าโรงเรียน</div>
+				<div class="panel-heading">ภาพป้ายหน้าสถานศึกษา</div>
 				<div class="panel-body">
-					<p class="text-center" style="color: red;">** ภาพป้ายหน้าโรงเรียน มีขนาดไฟล์ไม่เกิน 1MB</p>
+					<p class="text-center" style="color: red;">** ภาพป้ายหน้าสถานศึกษา มีขนาดไฟล์ไม่เกิน 1MB</p>
 
 					<div class="form-group col-md-12">
 						<label for="username">แนบไฟล์ภาพ</label>
@@ -293,7 +280,7 @@
 
 		<div style="display: none;"  class='col-md-12'>
 			<div class="panel panel-default">
-				<div class="panel-heading">แผนที่โรงเรียน</div>
+				<div class="panel-heading">แผนที่สถานศึกษา</div>
 				<div class="panel-body">
 					<input type="hidden" class="form-control" id="lat" name="lat" value="<?php echo $rs->lat == '0' ? '15.806900' : $rs->lat;?>">
 					<input type="hidden" class="form-control" id="lng" name="lng" value="<?php echo $rs->lng == '0' ? '102.031559' : $rs->lng;?>">

@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="form-group col-md-6">
-			<label for="username">โรงเรียนมีไฟฟ้าใช้หรือไม่?*</label>
+			<label for="username">สถานศึกษามีไฟฟ้าใช้หรือไม่?*</label>
 		    <div class="radio">
 		    	<label>
 		    		<input type="radio" name=""> มี
@@ -48,7 +48,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">การมีไฟฟ้าในโรงเรียน (ถ้ามีไฟฟ้าใช้)</div>
+	  <div class="panel-heading">การมีไฟฟ้าในสถานศึกษา (ถ้ามีไฟฟ้าใช้)</div>
 	  <div class="panel-body">
 		<p>- ขนาดมิเตอร์ไฟฟ้าที่มีวงเล็บข้างหลัง เช่น 15(45) คือมิเตอร์ขนาด 15 AMP (รับโหลดได้สูงสุด 45 AMP) ให้ใส่แค่ 15 ในช่อง AMP เท่านั้น</p>
 
@@ -111,7 +111,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">การใช้ไฟฟ้าในโรงเรียน</div>
+	  <div class="panel-heading">การใช้ไฟฟ้าในสถานศึกษา</div>
 	  <div class="panel-body">
 
 		<table class="table table-bordered table-striped">

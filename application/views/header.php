@@ -29,13 +29,15 @@
 	        <span class="icon-bar"></span> 
 	      </button>
 	      <a class="navbar-brand" href="<?php echo site_url();?>" style="">
-	      	<?php echo getTitle();?></a>
+	      	<?php echo getLogo();?> <?php echo getTitle();?></a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="<?php echo $this->uri->segment(1)==''?'active':'';?>"><a href="<?php echo site_url();?>"><i class="glyphicon glyphicon-home"></i> หน้าหลัก</a></li>
+
+	        <li><a href="<?php echo site_url('data');?>">รายงานข้อมูลสารสนเทศ</a></li>
 
 
 
@@ -61,10 +63,10 @@
 	      		<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> สวัสดี <?php echo isMember()->name.' '.isMember()->surname;?> <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="<?php echo site_url('member');?>">ข้อมูลส่วนตัว</a></li>
-		            <li><a href="<?php echo site_url('member/school');?>">ข้อมูลพื้นฐานโรงเรียน</a></li>
+		            <li><a href="<?php echo site_url('member');?>">ข้อมูลผู้ใช้งาน</a></li>
+		            <li><a href="<?php echo site_url('member/school');?>">ข้อมูลพื้นฐานสถานศึกษา</a></li>
 
-		            <?php if (isStaff()):?>
+		            <?php if (isBackend()):?>
 		            	<li role="separator" class="divider"></li>
 		            	<li>
 		            		<a href="<?php echo site_url('backend');?>">เข้าจัดการ Backend</a>

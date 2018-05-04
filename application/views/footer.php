@@ -4,6 +4,14 @@
 		
 	</footer>
 
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	
 
 
@@ -12,7 +20,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/datetimepicker/moment.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>assets/js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpKdMqkUBho4XDmt4SiAAvTSB1cVJ-U5I&signed_in=true&callback=initMap" type="text/javascript"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJhbPahMAQ7xWDlwHF8MmVU4SDkzgtXOY&signed_in=true&callback=initMap" type="text/javascript"></script>
 
 
 	<script type="text/javascript">
@@ -36,6 +44,14 @@
 		    min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
 		});
 		$(function() {
+
+			$("#modal").on("show.bs.modal", function(e) {
+				$(this).find(".modal-content").html('Loading...');
+			    var link = $(e.relatedTarget);
+			    $(this).find(".modal-content").load(link.attr("href"));
+			});
+
+
 			$("input[name=type_school]").on('click', function() {
 				var type = $(this).val();
 				$.post('<?php echo site_url('data/area_type_getdata');?>', { type: type }, function(res) {
@@ -93,7 +109,7 @@
 			$("select[name=province_id2]").on('change', function() {
 				var val = $(this).val();
 				$.post('<?php echo site_url('auth/list_school_province');?>', { province_id: val }, function(res) {
-					$("select[name=amphur_id]").html('<option value=""> โรงเรียน </option>');
+					$("select[name=amphur_id]").html('<option value=""> สถานศึกษา </option>');
 					$.each(res, function(key, value) {
 						$('<option value="' + value.school_id +'">' + value.school_name + '</option>').appendTo($("select[name=school_id]"));
 					});
@@ -114,10 +130,10 @@
 		      var val = $(this).val();
 		      $.post('<?php echo site_url('auth/list_school2');?>', { area: val }, function(res) {
 		        var opt = '';
-		        $("select[name=school]").html('<option value="">- - - โรงเรียน - - -</option>')
+		        $("select[name=school], select#school_id").html('<option value="">- - - สถานศึกษา - - -</option>')
 		        $.each(res, function(key, val) {
 		          otp = '<option value="' + val.school_id + '">' + val.school_name + '</option>';
-		          $("select[name=school]").append(otp);
+		          $("select[name=school], select#school_id").append(otp);
 
 		        })
 		      }, 'json');
@@ -145,7 +161,7 @@
 		      submitHandler: function(form) {
 		        $.post($(form).attr('action'), $(form).serialize(), function(res) {
 		          if (res.result) {
-		            $(".alert").html('<strong>บันทึกข้อมูลเรียบร้อย</strong><br><a href="<?php echo site_url('login');?>">กดที่นี่เพื่อเข้าสู่ระบบ</a>');
+		            $(".alert").html('<strong>บันทึกข้อมูลเรียบร้อย</strong><br>ต้องได้รับการอนุมัติจากผู้ดูแลระบบก่อน ถึงสามารถเข้าใช้งานได้</a>');
 		            $(".alert").removeClass('alert-danger').addClass('alert-success').show();
 		            $(".alert").show();
 		          } else {
@@ -209,7 +225,7 @@
 
 		function getSchool() {
 			var area_id = $("#list_area_id").val();
-			$("#school_sub_id").html('<option value=""> เลือกโรงเรียน </option>');
+			$("#school_sub_id").html('<option value=""> เลือกสถานศึกษา </option>');
 			$.post('<?php echo site_url('auth/list_school_area');?>', { area_id : area_id }, function(res) {
 				$.each(res, function(key, v) {
 					$('<option value="' + v.school_id +'">' + v.school_name + '</option>').appendTo($("#school_sub_id"));

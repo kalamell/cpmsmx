@@ -53,33 +53,41 @@
 		                    				<tr>
 				                    			<td><?php echo $c['name'];?></td>
 				                    			<?php 
-				                    			$sum = 0;
+				                    			$sum1 = 0;
+				                    			$sum2 = 0;
 				                    			foreach($level as $l):?>
 						                      		<td width="100" style="text-align: right;">
 						                      			<?php 
 						                      			
 
-						                      			
-						                      			$num = 0;
-						                      			
-						                      			echo $num;
-						                      			
-						                      			$sum+= $num;
+						                      			$num1 = getTeacherCoTarget($am->AMPHUR_ID, $c['name'], 'ไม่ใช่', $l['level_name']);
 
-						                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
+						                      			echo $num1;
 
-						                 
-
+						                      			$sum1+=$num1;
+						                      			
 						                      			?>
 						                      		</td>
 
-						                      		<td width="100" style="text-align: right;">0</td>
+						                      		<td width="100" style="text-align: right;">
+						                      			<?php 
+						                      			$num2 = getTeacherCoTarget($am->AMPHUR_ID, $c['name'], 'ใช่', $l['level_name']);
+
+						                      			echo $num2;
+
+						                      			$sum2+=$num2;
+
+$ar[$l['level_id']]['y'] = isset($ar[$l['level_id']]['y']) ? $ar[$l['level_id']]['y'] + $num1 : $num1;
+$ar[$l['level_id']]['n'] = isset($ar[$l['level_id']]['n']) ? $ar[$l['level_id']]['n'] + $num2 : $num2;
+						
+						                      			?>
+						                      		</td>
 
 						                      		
 						                      	
 						                    	<?php endforeach;?>
-						                    	<td style="text-align: right;"><strong><?php echo $sum;?></strong></td>
-						                    	<td style="text-align: right;"><strong><?php echo $sum;?></strong></td>
+						                    	<td style="text-align: right;"><strong><?php echo $sum1;?></strong></td>
+						                    	<td style="text-align: right;"><strong><?php echo $sum2;?></strong></td>
 						                    </tr>
 
 					                    <?php endforeach;?>
@@ -90,15 +98,17 @@
 			                    <tr>
 			                    	<td style="text-align: right;"><strong>รวม</strong></td>
 			                    	<?php 
-			                    	$total_sum = 0;
+			                    	$total_sum1 = 0;
+			                    	$total_sum2 = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		$total_sum += $v;
+			                    		echo '<td style="text-align: right;"><strong>'.$v['y'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['n'].'</strong></td>';
+			                    		$total_sum1 += $v['y'];
+			                    		$total_sum2 += $v['n'];
 			                    	}
 			                    	?>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo $total_sum1;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo $total_sum2;?></strong></td>
 			                    </tr>
 			                  </tbody>
 			                  

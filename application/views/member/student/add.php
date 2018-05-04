@@ -20,12 +20,12 @@
 					  	<br><span style="color: red !important;">** สามารถอ่านได้จากเครื่องอ่านบัตรประชาชน</span>
 
 					  	<div class="row">
-							<div class="form-group col-md-12">
+							<div class="form-group col-md-6">
 								<label for="idcard">เลขบัตรประชาชน</label>
 							    <input type="text" class="form-control required" name="idcard" value=""  placeholder="">
 							</div>
 
-							<div class="form-group col-md-12">
+							<div class="form-group col-md-6">
 								<label>คำนำหน้า</label>
 								<div class='radio'>
 									<label>
@@ -48,6 +48,11 @@
 							</div>
 
 							<div class="form-group col-md-6">
+								<label for="student_id">รหัสนักเรียน</label>
+							    <input type="text" class="form-control required" name="student_id" value=""  placeholder="">
+							</div>
+
+							<div class="form-group col-md-6">
 								<label for="name">ชื่อ</label>
 							    <input type="text" class="form-control required" name="name" value=""  placeholder="">
 							</div>
@@ -58,12 +63,25 @@
 							    <input type="text" class="form-control required" name="surname" value=""  placeholder="">
 							</div>
 
+							<div class="form-group col-md-6">
+								<label for="name_en">ชื่อภาษาอังกฤษ</label>
+							    <input type="text" class="form-control required" name="name_en" value=""  placeholder="">
+							</div>
+
+
+							<div class="form-group col-md-6">
+								<label for="surname_en">นามสกุลภาษาอังกฤษ</label>
+							    <input type="text" class="form-control required" name="surname_en" value=""  placeholder="">
+							</div>
+
+
+
 							<div class="form-group col-md-12">
 								<label for="term_id">ภาคเรียน</label>
 							    <select name="term_id" class="form-control">
 							    	<option value=""> ภาคเรียน </option>
 							    	<?php foreach($term as $t):?>
-							    		<option value="<?php echo $t->term_id;?>"><?php echo $t->term_name;?></option>
+							    		<option value="<?php echo $t->term_id;?>" <?php echo $t->term_id == $_term ? 'selected' : '';?>><?php echo $t->term_name;?></option>
 							    	<?php endforeach;?>
 							    </select>
 							</div>
@@ -74,7 +92,7 @@
 							    <select name="year_id" class="form-control">
 							    	<option value=""> ปีการศึกษา </option>
 							    	<?php foreach($years as $y):?>
-							    		<option value="<?php echo $y->year_id;?>"><?php echo $y->year_name;?></option>
+							    		<option value="<?php echo $y->year_id;?>" <?php echo $y->year_id == $_year ? 'selected' : '';?>><?php echo $y->year_name;?></option>
 							    	<?php endforeach;?>
 							    </select>
 							</div>
@@ -98,6 +116,50 @@
 								<label for="room_no">ห้อง</label>
 							    <input type="text" class="form-control" name="room_no" value=""  placeholder="">
 							</div>
+
+							<div class="form-group col-md-6">
+								<label>เพศ</label>
+								<div class='radio'>
+									<label>
+										<input type="radio" class='required' checked name="gender" value="ช"> ชาย
+									</label>
+								
+									<label>
+										<input type="radio" name="gender" value="ญ"> หญิง
+									</label>
+								
+									
+								</div>
+								
+							</div>
+
+							<div class="form-group col-md-12">
+								<label for="age">อายุ</label>
+							    <input type="number" class="form-control" name="age" value=""  placeholder="">
+							</div>
+
+							<div class="form-group col-md-12">
+							    <label class="" for="area_type_id">สังกัด</label>
+							    <select class="form-control required" name="area_type_id" id="area_type_id" >
+							    	<option value="">- - - สังกัด - - -</option>
+							    	<?php foreach($area as $a):?>
+							    		<option value="<?php echo $a->area_type_id;?>" <?php echo $a->area_type_id == $r->area_type_id ? 'selected' : '';?>><?php echo $a->area_type_name;?></option>
+							    	<?php endforeach;?>
+							    </select>
+							  </div>
+
+							  <div class="form-group col-md-12">
+							    <label class="" for="school">สถานศึกษา</label>
+							    <select class="form-control required" name="school_id" id="school" >
+							    	<option value="">- - - สถานศึกษา - - -</option>
+							    	<?php foreach($school as $s):?>
+							    		<option value="<?php echo $s->school_id;?>" <?php echo $s->school_id == $r->school ? 'selected' : '';?>><?php echo $s->school_name;?></option>
+							    	<?php endforeach;?>
+							    	
+							    </select>
+							  </div>
+
+
 
 
 							<div class="form-group col-md-12">

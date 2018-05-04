@@ -28,21 +28,32 @@
 			                  <tbody>
 			                    <?php 
 			                    $ar = array();
+			                    $total = 0;
 			                    foreach($amphur as $am):?>
 			                    	<tr style="background-color: #000;">
-			                    		<td style='color: #fff;' colspan="<?php echo count($area) + 2;?>"><?php echo $am->AMPHUR_NAME;?></td>
+			                    		<td style='color: #fff;' colspan="<?php echo count($area) + 3;?>"><?php echo $am->AMPHUR_NAME;?></td>
 			                    	</tr>
 			                    	
 			                    		<?php
 			                    		
+
 			                    		foreach($district as $ds):?>
 			                    			<?php if ($ds->AMPHUR_ID == $am->AMPHUR_ID):?>
 			                    				<tr>
 					                    			<td>ตำบล <?php echo $ds->DISTRICT_NAME;?></td>
 					                    			
-					                    			<td style="text-align: right;">0</td>
-				                    	
-				                    				<td style="text-align: right"><strong>0</strong></td>
+					                    			<td style="text-align: right;">
+					                    				<?php 
+					                    				$num = get3to5District($ds->DISTRICT_ID);
+					                    				echo $num;
+					                    				$total += $num;
+					                    				?>
+					                    			</td>
+				                    				
+				                    				<?php 
+				                    				$percent = ($num / $all_total) * 100;
+				                    				?>
+				                    				<td style="text-align: right"><strong><?php echo $percent;?></strong></td>
 							                    </tr>
 						                    <?php endif;?>
 					                    <?php endforeach;?>
@@ -50,12 +61,7 @@
 			                    	
 			                    <?php endforeach;?>
 			                   
-			                    <tr>
-			                    	<td style="text-align: right;"><strong>รวม</strong></td>
-			                    	<td style="text-align: right;">0</td>
-				                    	
-				                    	<td style="text-align: right"><strong>0</strong></td>
-			                    </tr>
+			                    
 			                  </tbody>
 			                  
 			                </table>

@@ -70,7 +70,7 @@
 				    					<li><a href="">คาดคะเนอัตราการเลื่อนชั้น (Admission rate) อ.1 - อ.3</a></li>
 				    					<li><a href=""></a></li>
 				    					<li><a href="">คาดคะเนอัตรการเข้าเรียนต่อ (Admission rate) ของนักเรียนชั้น อ.3</a></li>
-				    					<li><a href="">ตารางแสดงขนาดพื้นที่โรงเรียน</a></li>
+				    					<li><a href="">ตารางแสดงขนาดพื้นที่สถานศึกษา</a></li>
 				    					<li><a href="">พิกัดดาวเทียม GPS</a></li>
 				    				</ul>
 				    			</li>
@@ -98,7 +98,7 @@
 						  
 						  <a href="<?php echo site_url('member');?>" class="list-group-item"><i class="glyphicon glyphicon-user"></i> ข้อมูลผู้ใช้งาน</a>
 
-						  <a href="<?php echo site_url('member/school');?>" class="list-group-item"><i class="glyphicon glyphicon-home"></i> ข้อมูลพื้นฐานโรงเรียน</a>
+						  <a href="<?php echo site_url('member/school');?>" class="list-group-item"><i class="glyphicon glyphicon-home"></i> ข้อมูลพื้นฐานสถานศึกษา</a>
 
 
   <a href="<?php echo site_url('logout');?>" onclick="javascript: return confirm('ต้องการออกจากระบบหรือไม่');" class="list-group-item"><i class="glyphicon glyphicon-log-out"></i> ออกจากระบบ</a>

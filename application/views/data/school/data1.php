@@ -2,17 +2,19 @@
 <?php echo form_open_multipart('', array('id' => ''));?>
 
 
+
+
 <div class="clearfix"></div>
 
-<input type="hidden" name="id" value="<?php echo $r->id;?>">
+<input type="hidden" name="id" value="<?php echo $rs->id;?>">
 <input type="hidden" name="tab" value="1">
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ข้อมูลรหัสโรงเรียน</div>
+	  <div class="panel-heading">ข้อมูลรหัสสถานศึกษา</div>
 	  <div class="panel-body">
 		<div class="form-group col-md-6">
-			<label for="school_id">รหัสโรงเรียน</label>
+			<label for="school_id">รหัสสถานศึกษา</label>
 		    <input type="text" class="form-control" name="school_id" value="<?php echo $r->school_id;?>"  placeholder="">
 		</div>
 
@@ -35,29 +37,39 @@
 		</div>
 
 		 <div class="form-group col-md-12">
-			<label for="school_name">ชื่อโรงเรียน (ภาษาไทย)</label>
+			<label for="school_name">ชื่อสถานศึกษา (ภาษาไทย)</label>
 		    <input type="text" class="form-control" name="school_name" value="<?php echo $r->school_name;?>" name="school_name" placeholder="">
 		</div>
 
 		<div class="form-group col-md-6">
 			<label for="amphur_id">อำเภอ</label>
-	    	<select name="amphur_id" id="amphur_id" class="form-control">
-	    		<option value=""> อำเภอ </option>
-	    		<?php foreach($amphur as $am):?>
-	    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $r->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
-	    		<?php endforeach;?>
+	    	
+    		<?php $a= '';
+    		foreach($amphur as $am){
+    			if ($am->AMPHUR_ID == $r->amphur_id) {
+    				$a = $am->AMPHUR_NAME;
+    				break;
+    			}
+    		}
+    		?>
 
-	    	</select>
+	    	<input type="text" name="" class="form-control" value="<?php echo $a;?>">
 		</div>
 
 		<div class="form-group col-md-6">
 			<label for="district_id">ตำบล</label>
-	    	<select name="district_id" id="district_id" class="form-control">
-	    		<option value=""> ตำบล </option>
-	    		<?php foreach($district as $dt):?>
-	    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $r->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
-	    		<?php endforeach;?>
-	    	</select>
+	    	
+    		<?php $d = '';
+    		foreach($district as $dt) {
+    			if ($dt->DISTRICT_ID == $r->district_id) {
+    				$d = $dt->DISTRICT_NAME;
+    				break;
+    			}
+    		}
+    		?>
+	    	
+
+	    	<input type="text" name="" class="form-control" value="<?php echo $d;?>">
 		</div>
 
 
@@ -66,7 +78,7 @@
 
 
 		<!--<div class="form-group col-md-12">
-			<label for="school_name_en">ชื่อโรงเรียน (ภาษาอังกฤษ)</label>
+			<label for="school_name_en">ชื่อสถานศึกษา (ภาษาอังกฤษ)</label>
 		    <input type="text" class="form-control" name="school_name_en" value="<?php echo $r->school_name_en;?>" name="school_name_en" placeholder="">
 		 </div>-->
 	  </div>
@@ -116,37 +128,37 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-		<div class="panel-heading">ข้อมูลพื้นฐานโรงเรียน</div>
+		<div class="panel-heading">ข้อมูลพื้นฐานสถานศึกษา</div>
 		<div class="panel-body">
 			<div class="form-group col-md-12">
 				<label for="schol_head">ชื่อผู้อำนวยการ</label>
-		    	<input type="text" class="form-control required" name="school_head" value="<?php echo $r->school_head;?>" placeholder="">
+		    	<input type="text" class="form-control required" name="school_head" value="<?php echo $rs->school_head;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-12">
 				<label for="f21">วันก่อตั้ง</label>
 
-		    	<input type="text" class="form-control required date" name="f21" value="<?php echo $r->f21;?>" placeholder="">
+		    	<input type="text" class="form-control required date" name="f21" value="<?php echo $rs->f21;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="school_no">รหัสประจำบ้าน</label>
-		    	<input type="text" class="form-control" name="school_no" value="<?php echo $r->school_no;?>" placeholder="">
+		    	<input type="text" class="form-control" name="school_no" value="<?php echo $rs->school_no;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="f11">ที่อยู่</label>
-		    	<input type="text" class="form-control required" name="f11" value="<?php echo $r->f11;?>" placeholder="">
+		    	<input type="text" class="form-control required" name="f11" value="<?php echo $rs->f11;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="moo">หมู่</label>
-		    	<input type="text" class="form-control required" name="moo" vale="<?php echo $r->moo;?>" placeholder="">
+		    	<input type="text" class="form-control required" name="moo" vale="<?php echo $rs->moo;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="road">ถนน</label>
-		    	<input type="text" class="form-control required" name="road" value="<?php echo $r->road;?>" placeholder="">
+		    	<input type="text" class="form-control required" name="road" value="<?php echo $rs->road;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
@@ -154,7 +166,7 @@
 		    	<select name="province_id" id="province_id" class="form-control">
 		    		<option value=""> จังหวัด </option>
 		    		<?php foreach($province as $p):?>
-		    			<option value="<?php echo $p->PROVINCE_ID;?>" <?php echo $p->PROVINCE_ID == $r->province_id ? 'selected' : '';?>><?php echo $p->PROVINCE_NAME;?></option>
+		    			<option value="<?php echo $p->PROVINCE_ID;?>" <?php echo $p->PROVINCE_ID == $rs->province_id ? 'selected' : '';?>><?php echo $p->PROVINCE_NAME;?></option>
 		    		<?php endforeach;?>
 		    	</select>
 			</div>
@@ -164,7 +176,7 @@
 		    	<select name="amphur_id" id="amphur_id" class="form-control">
 		    		<option value=""> อำเภอ </option>
 		    		<?php foreach($amphur as $am):?>
-		    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $r->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
+		    			<option value="<?php echo $am->AMPHUR_ID;?>" <?php echo $am->AMPHUR_ID == $rs->amphur_id ? 'selected':'';?>><?php echo $am->AMPHUR_NAME;?></option>
 		    		<?php endforeach;?>
 
 		    	</select>
@@ -175,60 +187,72 @@
 		    	<select name="district_id" id="district_id" class="form-control">
 		    		<option value=""> ตำบล </option>
 		    		<?php foreach($district as $dt):?>
-		    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $r->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
+		    			<option value="<?php echo $dt->DISTRICT_ID;?>" <?php echo $dt->DISTRICT_ID == $rs->district_id ? 'selected' : '';?>><?php echo $dt->DISTRICT_NAME;?></option>
 		    		<?php endforeach;?>
 		    	</select>
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="zipcode">รหัสไปรษณีย์</label>
-		    	<input type="text" class="form-control required" name="zipcode" value="<?php echo $r->zipcode;?>" placeholder="">
+		    	<input type="text" class="form-control required" name="zipcode" value="<?php echo $rs->zipcode;?>" placeholder="">
 			</div>
 
 			<div class="clearfix"></div>
 
 			<div class="form-group col-md-6">
 				<label for="telephone">เบอร์โทรศัพท์ 1</label>
-		    	<input type="text" class="form-control required" name="telephone" value="<?php echo $r->telephone;?>" placeholder="">
+		    	<input type="text" class="form-control required" name="telephone" value="<?php echo $rs->telephone;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="telephone2">เบอร์โทรศัพท์ 2</label>
-		    	<input type="text" class="form-control" name="telephone2" value="<?php echo $r->telephone2;?>" placeholder="">
+		    	<input type="text" class="form-control" name="telephone2" value="<?php echo $rs->telephone2;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="fax">เบอร์โทรสาร 1</label>
-		    	<input type="text" class="form-control" name="fax" value="<?php echo $r->fax;?>" placeholder="">
+		    	<input type="text" class="form-control" name="fax" value="<?php echo $rs->fax;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
 				<label for="fax">เบอร์โทรสาร 2</label>
-		    	<input type="text" class="form-control"  name="fax2" value="<?php echo $r->fax2;?>" placeholder="">
+		    	<input type="text" class="form-control"  name="fax2" value="<?php echo $rs->fax2;?>" placeholder="">
 			</div>
 
 			<div class="clearfix"></div>
 
 			<div class="form-group col-md-6">
 				<label for="email">Email ติดต่อ</label>
-		    	<input type="email" class="form-control" name="email" value="<?php echo $r->email;?>" placeholder="">
+		    	<input type="email" class="form-control" name="email" value="<?php echo $rs->email;?>" placeholder="">
 			</div>
 
 			<div class="form-group col-md-6">
-				<label for="website">เว็บไซต์โรงเรียน</label>
-		    	<input type="text" class="form-control" name="website" value="<?php echo $r->website;?>" placeholder="">
+				<label for="website">เว็บไซต์สถานศึกษา</label>
+		    	<input type="text" class="form-control" name="website" value="<?php echo $rs->website;?>" placeholder="">
 			</div>
 
 
 			<div class="form-group col-md-12">
-				<label for="land">ที่ดิน</label>
-		    	<input type="text" class="form-control" name="land" value="<?php echo $r->land;?>" placeholder="">
+				<label for="land">ที่ดิน จำนวนไร่</label>
+		    	<input type="text" class="form-control" name="land" value="<?php echo $rs->land;?>" placeholder="">
+			</div>
+
+			<div class="form-group col-md-12">
+				<label for="land_work">งาน</label>
+		    	<input type="text" class="form-control" name="land_work" value="<?php echo $rs->land_work;?>" placeholder="">
 			</div>
 
 
 			<div class="form-group col-md-12">
-				<label for="wat">ที่ตั้งบริเวณวัด</label>
-		    	<input type="text" class="form-control" name="wat" value="<?php echo $r->wat;?>" placeholder="">
+				<label for="land_wa">ตารางวา</label>
+		    	<input type="text" class="form-control" name="land_wa" value="<?php echo $rs->land_wa;?>" placeholder="">
+			</div>
+
+
+
+			<div class="form-group col-md-12">
+				<label for="wat">ที่ตั้ง</label>
+		    	<input type="text" class="form-control" id="wat" name="wat" value="<?php echo $rs->lat.','.$rs->lng;?>" placeholder="">
 			</div>
 
 			
@@ -242,13 +266,15 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-		<div class="panel-heading">ภาพป้ายหน้าโรงเรียน</div>
+		<div class="panel-heading">ภาพป้ายหน้าสถานศึกษา</div>
 		<div class="panel-body">
 			
 			<div class="form-group col-md-12">
-				<?php if ($r->sign_school !=''):?>
-					<img src="<?php echo base_url();?>upload/<?php echo $r->sign_school;?>" class="img-responsive"> <br />
+				<label for="username">แนบไฟล์ภาพ</label>
+				<?php if ($rs->sign_school !=''):?>
+					<img src="<?php echo base_url();?>upload/<?php echo $rs->sign_school;?>" class="img-responsive"> <br />
 				<?php endif;?>
+		    	
 			</div>
 
 		</div>
@@ -260,14 +286,22 @@
 
 
 
+<?php 
+$latLng = getLatLng();
+?>
 <div class='col-md-12'>
 	<div class="panel panel-default">
-		<div class="panel-heading">แผนที่โรงเรียน</div>
+		<div class="panel-heading">แผนที่สถานศึกษา</div>
 		<div class="panel-body">
-			<input type="hidden" class="form-control" id="lat" name="lat" value="<?php echo $r->lat == '0' ? '15.806900' : $r->lat;?>">
-			<input type="hidden" class="form-control" id="lng" name="lng" value="<?php echo $r->lng == '0' ? '102.031559' : $r->lng;?>">
-			<p class="text-center" style="color: red;">** ท่านสามารถกดลากเพื่อเปลี่ยนหมุดได้</p>
-
+			<div class="form-group">
+				<label>ละติจูด</label>
+				<input type="text" class="form-control" id="lat" name="lat" value="<?php echo $rs->lat == '0' ? $latlng->lat : $rs->lat;?>">
+			</div>
+			<div class='form-group'>
+				<label>ลองติจูด</label>
+				<input type="text" class="form-control" id="lng" name="lng" value="<?php echo $rs->lng == '0' ? $latlng->lng : $rs->lng;?>">
+			</div>
+			
 			<div id="map" class='col-md-12' style='min-height: 500px;'></div>
 		</div>
 	</div>
@@ -306,9 +340,12 @@ function panTo(lat, lng) {
 	 map.panTo( new google.maps.LatLng( lat, lng ) );
 	 map.setZoom(14);
 }
+<?php 
+$latlng = getLatLng();
+?>
 
 function initMap() {
-  var myLatLng = {lat: <?php echo $r->lat == 0 ? '15.806900' : $r->lat;?>, lng: <?php echo $r->lng == 0 ? '102.031559' : $r->lng;?>};
+  var myLatLng = {lat: <?php echo $rs->lat == 0 ? $latlng->lat : $rs->lat;?>, lng: <?php echo $rs->lng == 0 ? $latlng->lng : $rs->lng;?>};
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -319,7 +356,7 @@ function initMap() {
     position: myLatLng,
     map: map,
     title: 'ที่ตั้งของท่าน',
-    draggable: true
+    draggable: false
   });
 
   google.maps.event.addListener(marker, 'dragend', function(evt){
@@ -329,9 +366,12 @@ function initMap() {
    	panTo(evt.latLng.lat(), evt.latLng.lng());
 
   	//document.getElementById('msg').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+
+  	document.getElementById('wat').value = evt.latLng.lat() + ',' + evt.latLng.lng();
   });
 
   google.maps.event.addListener(marker, 'dragstart', function(evt){
+
   	//document.getElementById('msg').innerHTML = '<p>Currently dragging marker...</p>';
   });
 

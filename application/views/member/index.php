@@ -74,9 +74,9 @@
 				 
 
 				  <div class="form-group col-md-12">
-				    <label class="" for="area_type_id">เขตพื้นที่การศึกษา</label>
+				    <label class="" for="area_type_id">สังกัด</label>
 				    <select class="form-control required" name="area_type_id" id="area_type_id" >
-				    	<option value="">- - - เขตพื้นที่การศึกษา - - -</option>
+				    	<option value="">- - - สังกัด - - -</option>
 				    	<?php foreach($area as $a):?>
 				    		<option value="<?php echo $a->area_type_id;?>" <?php echo $a->area_type_id == $r->area_type_id ? 'selected' : '';?>><?php echo $a->area_type_name;?></option>
 				    	<?php endforeach;?>
@@ -84,9 +84,12 @@
 				  </div>
 
 				  <div class="form-group col-md-12">
-				    <label class="" for="school">โรงเรียน</label>
+				    <label class="" for="school">สถานศึกษา</label>
 				    <select class="form-control required" name="school" id="school" >
-				    	<option value="">- - - โรงเรียน - - -</option>
+				    	<option value="">- - - สถานศึกษา - - -</option>
+				    	<?php foreach($school as $s):?>
+				    		<option value="<?php echo $s->school_id;?>" <?php echo $s->school_id == $r->school ? 'selected' : '';?>><?php echo $s->school_name;?></option>
+				    	<?php endforeach;?>
 				    	
 				    </select>
 				  </div>

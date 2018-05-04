@@ -40,18 +40,22 @@
 				                    	
 				                    		<?php 
 				                    		$sum_num = 0;
+				                    		$num1 = 0;
+				                    		$num2 = 0;
 				                    		foreach($level as $l):?>
 					                      		<td width="100" style="text-align: right;">
 					                      			<?php 
 
 					                      			if ($l['level_id'] == '01') {
-					                      				$num = countSchoolAmphurOnly($am->AMPHUR_ID);
+					                      				$num = getTeacherTypeSchoolAmphur($am->AMPHUR_ID, 'spt');
+					                      				$num1 = $num;
 					                      			
 					                      			} else {
-					                      				$num = 0;
+					                      				$num = getTeacherTypeSchoolAmphur($am->AMPHUR_ID, 'otp');
+					                      				$num2 = $num;
 					                      			}
 
-					                      			$num = 0;
+					                      			
 
 					                      			echo $num;
 					                      			$sum_num += $num;

@@ -23,7 +23,7 @@ class Website extends Backend {
 	public function dosave()
 	{
 		$this->db->insert('config', array(
-			'province_id' => $this->input->post('province_id'),
+			'province_id' => $this->input->post('province_id2'),
 			'title' => $this->input->post('name'),
 			'type_website' => $this->input->post('type_website'),
 		));

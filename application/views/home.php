@@ -3,7 +3,7 @@
 
 		<?php $banner = banner(); $inx = 0;?>
 
-		<?php $banner = array();?>
+
 
 		<?php if(count($banner)>0):?>
 
@@ -92,7 +92,7 @@
 						  
 						  <a href="<?php echo site_url('member');?>" class="list-group-item"><i class="glyphicon glyphicon-user"></i> ข้อมูลผู้ใช้งาน</a>
 
-						  <a href="<?php echo site_url('member/school');?>" class="list-group-item"><i class="glyphicon glyphicon-home"></i> ข้อมูลพื้นฐานโรงเรียน</a>
+						  <a href="<?php echo site_url('member/school');?>" class="list-group-item"><i class="glyphicon glyphicon-home"></i> ข้อมูลพื้นฐานสถานศึกษา</a>
 
 
   <a href="<?php echo site_url('logout');?>" onclick="javascript: return confirm('ต้องการออกจากระบบหรือไม่');" class="list-group-item"><i class="glyphicon glyphicon-log-out"></i> ออกจากระบบ</a>
@@ -125,6 +125,26 @@
 				  </div>
 				  <?php endif;?>
 
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">ลิ้งที่เกี่ยวข้อง</div>
+
+					<div class="panel-body">
+						<?php $link = getLink();?>
+						<div class="list-group">
+						<?php foreach($link as $l):?>
+							<a href="<?php echo $l->link_url;?>" class='list-group-item'>
+								<?php if ($l->link_thumbnail !=''):?>
+									<img src="<?php echo base_url();?>upload/<?php echo $l->link_thumbnail;?>" class="img-responsive">
+								<?php else:?>
+									<?php echo $l->link_name;?>
+								<?php endif;?>
+							</a>
+						<?php endforeach;?>
+						</div>	
+
+					</div>
 				</div>
 
 			</div>

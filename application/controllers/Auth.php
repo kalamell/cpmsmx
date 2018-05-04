@@ -42,11 +42,28 @@ class Auth extends Base {
 			$rs = $this->db->where(array(
 				'username' => $this->input->post('username'),
 				'password' => do_hash($this->input->post('password')),
-				'active' => 'Y'
+				'active' => 'Y',
 			))->get('member');
 			if ($rs->num_rows() > 0) {
-				$this->session->set_userdata('id', $rs->row()->id);
-				redirect('member');
+				if ($rs->row()->config_id == $this->config_id) {
+					$this->session->set_userdata('id', $rs->row()->id);
+					redirect('member');
+				} else {
+					if ($rs->row()->status == 'superadmin') {
+						$this->session->set_userdata('id', $rs->row()->id);
+						redirect('backend');
+					} else {
+
+						$r = $this->db->join('province', 'config.province_id = province.PROVINCE_ID')
+								->where('config.id', $rs->row()->config_id)
+								->get('config');
+						if ($r->num_rows() == 0) {
+							redirect('login');
+						} else {
+							redirect('http://'.$r->row()->PROVINCE_CODE.'.smxcenter.com');
+						}
+					}
+				}
 			} else {
 				$this->session->set_flashdata('error', 1);
 				redirect('login');
@@ -98,6 +115,12 @@ class Auth extends Base {
 				'rules' => 'required'
 			),
 
+			array(
+				'field' => 'school',
+				'label' => 'school',
+				'rules' => 'required'
+			),
+
 			
 		);
 		$this->form_validation->set_rules($config);
@@ -115,8 +138,9 @@ class Auth extends Base {
 				'area_type_id' => $this->input->post('area_type_id'),
 				'school' => $this->input->post('school'),
 				'ip' => $this->input->ip_address(),
-				'status' => 'member',
-				'active' => 'Y',
+				'status' => 'staff',
+				'active' => 'N',
+				'config_id' => $this->config_id
 			));
 
 			//echo $this->db->last_query();

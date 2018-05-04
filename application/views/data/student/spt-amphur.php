@@ -39,18 +39,22 @@
 			                    	
 			                    		<?php 
 			                    		$sum_num = 0;
+			                    		$num1 = 0;
+			                    		$num2 = 0;
 			                    		foreach($level as $l):?>
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
 				                      			if ($l['level_id'] == '01') {
-				                      				$num = countSchoolAmphurOnly($am->AMPHUR_ID);
+				                      				$num = getStudentTypeAmphur($am->AMPHUR_ID, 'spt');
+				                      				$num1 = $num;
 				                      			
 				                      			} else {
-				                      				$num = 0;
+				                      				$num = getStudentTypeAmphur($am->AMPHUR_ID, 'oth');
+				                      				$num2 = $num;
 				                      			}
 
-				                      			$num = 0;
+
 
 				                      			echo $num;
 				                      			$sum_num += $num;
@@ -60,7 +64,7 @@
 				                      			?>
 				                      		</td>
 				                    	<?php endforeach;?>
-				                    	<td style="text-align: right"><strong><?php echo $sum_num;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo getRatio($num1, $num2);?></strong></td>
 				                    </tr>
 			                    <?php endforeach;?>
 
@@ -68,12 +72,19 @@
 			                    	<td style="text-align: right">รวม</td>
 			                    	<?php 
 			                    	$total_sum = 0;
+			                    	$num1 = 0;
+			                    	$num2 = 0;
 			                    	foreach($ar as $_a => $v) {
+			                    		if ($_a == '01') {
+			                    			$num1 = $v;
+			                    		} else {
+			                    			$num2 = $v;
+			                    		}
 			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
 			                    		$total_sum += $v;
 			                    	}
 			                    	?>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo getRatio($num1, $num2);?></strong></td>
 			                    </tr>
 			                  </tbody>
 			                  

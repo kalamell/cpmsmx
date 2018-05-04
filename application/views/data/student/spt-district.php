@@ -43,19 +43,22 @@
 					                    			<td>ตำบล <?php echo $ds->DISTRICT_NAME;?></td>
 					                    			<?php 
 					                    			$sum = 0;
+					                    			$num1 = 0;
+					                    			$num2 = 0;
 					                    			foreach($level as $l):?>
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
 							                      			
 
 							                      			if ($l['level_id'] == '01') {
-							                      				$num = countSchoolDistrictOnly($ds->DISTRICT_ID);
+							                      				$num = getStudentTypeDistrict($ds->DISTRICT_ID, 'spt');
+							                      				$num1 = $num;
 							                      			
 							                      			} else {
-							                      				$num = 0;
+							                      				$num = getStudentTypeDistrict($ds->DISTRICT_ID, 'oth');
+							                      				$num2 = $num;
 							                      			}
 
-							                      			$num = 0;
 							                      			
 							                      			echo $num;
 							                      			
@@ -69,7 +72,7 @@
 							                      		</td>
 							                      	
 							                    	<?php endforeach;?>
-							                    	<td style="text-align: right;"><strong><?php echo $sum;?></strong></td>
+							                    	<td style="text-align: right;"><strong><?php echo getRatio($num1, $num2);?></strong></td>
 							                    </tr>
 						                    <?php endif;?>
 					                    <?php endforeach;?>
@@ -81,12 +84,21 @@
 			                    	<td style="text-align: right;"><strong>รวม</strong></td>
 			                    	<?php 
 			                    	$total_sum = 0;
+			                    	$num1 = 0;
+			                    	$num2 = 0;
 			                    	foreach($ar as $_a => $v) {
+			                    		
+
 			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
 			                    		$total_sum += $v;
+			                    		if ($_a == '01') {
+			                    			$num1 = $v;
+			                    		} else {
+			                    			$num2 = $v;
+			                    		}
 			                    	}
 			                    	?>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo getRatio($num1, $num2);?></strong></td>
 			                    </tr>
 			                  </tbody>
 			                  

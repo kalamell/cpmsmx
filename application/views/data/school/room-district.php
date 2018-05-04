@@ -48,7 +48,7 @@
 							                      			<?php 
 							                      			
 
-							                      			$num = 0;
+							                      			$num = getRoomDistrict($l['level_id'], $ds->DISTRICT_ID);
 							                      			
 							                      			echo $num;
 							                      			

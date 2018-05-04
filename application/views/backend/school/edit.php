@@ -5,8 +5,8 @@
 			<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
 			  <li class=""><a href="<?php echo site_url('backend');?>">Backend</a></li>
-			  <li class=""><a href="<?php echo site_url('backend/school');?>">โรงเรียน</a></li>
-			  <li class="active"> แก้ไข้อมูลโรงเรียน</li>
+			  <li class=""><a href="<?php echo site_url('backend/school');?>">สถานศึกษา</a></li>
+			  <li class="active"> แก้ไข้อมูลสถานศึกษา</li>
 			</ol>
 		</div>
 
@@ -37,10 +37,10 @@
 
 			<div class='col-md-6'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ข้อมูลรหัสโรงเรียน</div>
+				  <div class="panel-heading">ข้อมูลรหัสสถานศึกษา</div>
 				  <div class="panel-body">
 					<div class="form-group col-md-6">
-						<label for="school_id">รหัสโรงเรียน</label>
+						<label for="school_id">รหัสสถานศึกษา</label>
 					    <input type="text" class="form-control" name="school_id" value="<?php echo $r->school_id;?>"  placeholder="">
 					</div>
 
@@ -63,7 +63,7 @@
 					</div>
 
 					 <div class="form-group col-md-12">
-						<label for="school_name">ชื่อโรงเรียน (ภาษาไทย)</label>
+						<label for="school_name">ชื่อสถานศึกษา (ภาษาไทย)</label>
 					    <input type="text" class="form-control" name="school_name" value="<?php echo $r->school_name;?>" name="school_name" placeholder="">
 					</div>
 
@@ -94,7 +94,7 @@
 
 
 					<!--<div class="form-group col-md-12">
-						<label for="school_name_en">ชื่อโรงเรียน (ภาษาอังกฤษ)</label>
+						<label for="school_name_en">ชื่อสถานศึกษา (ภาษาอังกฤษ)</label>
 					    <input type="text" class="form-control" name="school_name_en" value="<?php echo $r->school_name_en;?>" name="school_name_en" placeholder="">
 					 </div>-->
 				  </div>
@@ -137,7 +137,104 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
+
+
+		<div class='clearfix'></div>
+
+
+
+		<?php 
+		$latLng = getLatLng();
+		?>
+		<div class='col-md-12'>
+			<div class="panel panel-default">
+				<div class="panel-heading">แผนที่สถานศึกษา</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label>ละติจูด</label>
+						<input type="text" class="form-control" id="lat" name="lat" value="<?php echo $r->lat == '0' ? $latlng->lat : $r->lat;?>">
+					</div>
+					<div class='form-group'>
+						<label>ลองติจูด</label>
+						<input type="text" class="form-control" id="lng" name="lng" value="<?php echo $r->lng == '0' ? $latlng->lng : $r->lng;?>">
+					</div>
+					<p class="text-center" style="color: red;">** ท่านสามารถกดลากเพื่อเปลี่ยนหมุดได้</p>
+
+					<div id="map" class='col-md-12' style='min-height: 500px;'></div>
+				</div>
+			</div>
+		</div>
+
+		
+
+		<script>
+
+
+		var msg = document.getElementById('msg');
+		var lat, lng = 0;
+		var marker, map = null;
+
+		getLocation();
+		function getLocation() {
+		    if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(showPosition);
+
+		    } else {
+		        msg.innerHTML = "Geolocation is not supported by this browser.";
+		    }
+		}
+		function showPosition(position) {
+		    lat = position.coords.latitude;
+		    lng = position.coords.longitude;
+		    changeMarkerPosition(lat, lng)
+		}
+
+		function changeMarkerPosition(lat, lng) {
+		   map.setZoom(12);
+		}
+
+		function panTo(lat, lng) {
+			 map.panTo( new google.maps.LatLng( lat, lng ) );
+			 map.setZoom(14);
+		}
+		<?php 
+		$latlng = getLatLng();
+		?>
+
+		function initMap() {
+		  var myLatLng = {lat: <?php echo $r->lat == 0 ? $latlng->lat : $r->lat;?>, lng: <?php echo $r->lng == 0 ? $latlng->lng : $r->lng;?>};
+
+		  map = new google.maps.Map(document.getElementById('map'), {
+		    zoom: 12,
+		    center: myLatLng
+		  });
+
+		  marker = new google.maps.Marker({
+		    position: myLatLng,
+		    map: map,
+		    title: 'ที่ตั้งของท่าน',
+		    draggable: true
+		  });
+
+		  google.maps.event.addListener(marker, 'dragend', function(evt){
+		  	document.getElementById('lat').value = evt.latLng.lat();
+		    document.getElementById('lng').value = evt.latLng.lng();
+
+		   	panTo(evt.latLng.lat(), evt.latLng.lng());
+
+		  	//document.getElementById('msg').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+		  });
+
+		  google.maps.event.addListener(marker, 'dragstart', function(evt){
+		  	//document.getElementById('msg').innerHTML = '<p>Currently dragging marker...</p>';
+		  });
+
+		}
+
+		    </script>
+
 
 
 		<div class='clearfix'></div>

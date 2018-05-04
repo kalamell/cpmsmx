@@ -28,6 +28,7 @@
 			                  <tbody>
 			                    <?php
 			                    $ar = array(); 
+			                    
 			                    foreach($amphur as $am):?>
 			                    	<tr>
 			                    		<td style='' colspan="">
@@ -36,17 +37,23 @@
 			                    		</td>
 			                    	
 			                    		
-				                      	<td style="text-align: right;">0</td>
-				                    	
-				                    	<td style="text-align: right"><strong>0</strong></td>
+				                      	<td style="text-align: right;">
+		                    				<?php 
+		                    				$num = get3to5Amphur($am->AMPHUR_ID);
+		                    				echo $num;
+		                    				$total += $num;
+		                    				?>
+		                    			</td>
+	                    				
+	                    				<?php 
+	                    				$percent = ($num / $all_total) * 100;
+	                    				?>
+	                    				<td style="text-align: right"><strong><?php echo $percent;?></strong></td>
+
 				                    </tr>
 			                    <?php endforeach;?>
 
-			                    <tr>
-			                    	<td style="text-align: right">รวม</td>
-			                    	<td style="text-align: right"><strong>0</strong></td>
-			                    	<td style="text-align: right"><strong>0</strong></td>
-			                    </tr>
+			                    
 			                  </tbody>
 			                  
 			                </table>

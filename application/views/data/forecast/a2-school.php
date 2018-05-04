@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active"> ตารางแสดงจำนวนเด็กเข้าเรียนอนุบาล 1 สู่ อนุบาล 2 (Admission Rate) ในแต่ละโรงเรียน </li>
+			  <li class="active"> ตารางแสดงจำนวนเด็กเข้าเรียนอนุบาล 1 สู่ อนุบาล 2 (Admission Rate) ในแต่ละสถานศึกษา </li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ตารางแสดงจำนวนเด็กเข้าเรียนอนุบาล 1 สู่ อนุบาล 2 (Admission Rate) ในแต่ละโรงเรียน</div>
+				  <div class="panel-heading">ตารางแสดงจำนวนเด็กเข้าเรียนอนุบาล 1 สู่ อนุบาล 2 (Admission Rate) ในแต่ละสถานศึกษา</div>
 				  <div class="panel-body">
 
 				  	

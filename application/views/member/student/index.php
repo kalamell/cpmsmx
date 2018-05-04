@@ -30,6 +30,7 @@
 			    </select>
 			  </div>
 			  <button type="submit" class="btn btn-info">แสดงข้อมูล</button>
+			  
 			  <a style="text-shadow: 0px 0px 0px" class='btn btn-default btn-info' href="<?php echo site_url('member/student_add');?>">เพิ่มข้อมูลนักเรียน</a>
 
 			  <a href="<?php echo site_url('member/reset_student');?>" class="btn btn-sm btn-default" onclick="javascript:return confirm('ต้องการล้างข้อมูลทั้งหมดหรือไม่');">ล้างข้อมูลนักเรียน</a>
@@ -67,11 +68,18 @@
 			  </div>
 
 			  <button type="submi" class="btn btn-sm btn-info">Upload</button> 
+			  <br>
+			  <br><a href="<?php echo base_url('assets/student-file.csv');?>" class="btn btn-sm btn-success"><i class="fa fa-cloud"></i> Download ไฟล์ ตัวอย่างการนำเข้าข้อมูลนักเรียน</a>
 
 			<?php echo form_close();?>
 
 
-			<h2 class="page-header">ข้อมูลนักเรียน</h2>
+			<h2 class="page-header">ข้อมูลนักเรียน
+				<div class="pull-right">
+					<?php echo form_open('member/update_age');?><button type="submit" class="btn btn-sm btn-info"><i class="fa fa-users"></i> ปรับปรุงข้อมูลประชากร</button><?php echo form_close();?></div>
+			</h2>
+
+			<?php echo $this->pagination->create_links();?>
 
 			<table class="table table-bordered table-striped">
 				<thead>
@@ -79,6 +87,7 @@
 						<th>ภาพประจำตัว</th>
 						<th>ชื่อ - นามสกุล</th>
 						<th>ระดับชั้น</th>
+						<th>ผู้ปกครอง</th>
 						<th>&nbsp;</th>
 					</tr>
 				</thead>
@@ -97,6 +106,12 @@
 								</td>
 								<td><?php echo $r->prefix.' '.$r->name.' '.$r->surname;?></td>
 								<td><?php echo $r->rm_name == null ? $r->room_level : $r->rm_name;?> / <?php echo $r->room_no;?></td>
+								<td>
+									ชื่อบิดา :<br>
+									<?php echo $r->prefix_father.' '.$r->name_father.' '.$r->surname_father;?><br>
+									ชื่อมารดา : <br>
+									<?php echo $r->prefix_mother.' '.$r->name_mother.' '.$r->surname_mother;?><br>
+								</td>
 								<td style="text-align: center;">
 									<div class="btn-groups">
 										<a href="<?php echo site_url('member/student_edit/'.$r->id);?>" class="btn btn-sm btn-default">แก้ไข</a>
@@ -110,6 +125,8 @@
 				</tbody>
 				
 			</table>
+
+			<?php echo $this->pagination->create_links();?>
 
 			  
 		</div>

@@ -50,13 +50,13 @@
 							                      			
 
 							                      			if ($l['level_id'] == '01') {
-							                      				$num = countSchoolDistrictOnly($ds->DISTRICT_ID);
+							                      				$num = getTeacherTypeSchoolDistrict($ds->DISTRICT_ID, 'spt');
 							                      			
 							                      			} else {
-							                      				$num = 0;
+							                      				$num = getTeacherTypeSchoolDistrict($ds->DISTRICT_ID, 'oth');
 							                      			}
 
-							                      			$num = 0;
+							                      			
 							                      			
 							                      			echo $num;
 							                      			

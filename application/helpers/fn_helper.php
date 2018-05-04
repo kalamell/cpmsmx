@@ -1,6 +1,9 @@
 
 <?php 
 
+
+function parseToXML($htmlStr){ $xmlStr=str_replace('<','&lt;',$htmlStr); $xmlStr=str_replace('>','&gt;',$xmlStr); $xmlStr=str_replace('"','&quot;',$xmlStr); $xmlStr=str_replace("'",'&#39;',$xmlStr); $xmlStr=str_replace("&",'&amp;',$xmlStr);return $xmlStr;}
+
 function prefix($type)
 {
 	if ($type == 'ช' || $type == 'เด็กชาย' || $type == 'ด.ช.') {
@@ -19,9 +22,24 @@ function isMember()
 	$ci =& get_instance();
 	$id = $ci->session->userdata('id');
 
+	$ci->db->reset_query();
 	$rs = $ci->db->where('id', $id)->get('member');
 	if ($rs->num_rows()>0) {
 		return $rs->row();
+	}
+
+	return false;
+}
+
+function isStaffSchool()
+{
+	$ci =& get_instance();
+	$id = $ci->session->userdata('id');
+
+	$ci->db->reset_query();
+	$rs = $ci->db->where('id', $id)->get('member');
+	if ($rs->num_rows()>0) {
+		return $rs->row()->status == 'staff' ||  $rs->row()->status == 'member' ? true : false;
 	}
 
 	return false;
@@ -32,9 +50,10 @@ function isStaff()
 	$ci =& get_instance();
 	$id = $ci->session->userdata('id');
 
+	$ci->db->reset_query();
 	$rs = $ci->db->where('id', $id)->get('member');
 	if ($rs->num_rows()>0) {
-		return $rs->row()->status == 'staff' ||  $rs->row()->status == 'superadmin' ? true : false;
+		return $rs->row()->status == 'staff' ||  $rs->row()->status == 'superadmin' || $rs->row()->status == 'admin_province' || $rs->row()->status == 'admin_area' ? true : false;
 	}
 
 	return false;
@@ -42,11 +61,57 @@ function isStaff()
 }
 
 
+function isBackend()
+{
+	$ci =& get_instance();
+	$id = $ci->session->userdata('id');
+
+	$ci->db->reset_query();
+	$rs = $ci->db->where('id', $id)->get('member');
+	if ($rs->num_rows()>0) {
+		return $rs->row()->status == 'superadmin' || $rs->row()->status == 'admin_province' || $rs->row()->status == 'admin_area' ? true : false;
+	}
+
+	return false;
+
+}
+
+
+
+function isAdminProvince() {
+	$ci =& get_instance();
+	$id = $ci->session->userdata('id');
+
+
+
+	$ci->db->reset_query();
+	$rs = $ci->db->where('id', $id)->get('member');
+	if ($rs->num_rows()>0) {
+		
+		return $rs->row()->status == 'admin_province' ? true : false;
+	}
+	return false;
+}
+
+function isAdminArea() {
+	$ci =& get_instance();
+	$id = $ci->session->userdata('id');
+
+	$ci->db->reset_query();
+	$rs = $ci->db->where('id', $id)->get('member');
+	if ($rs->num_rows()>0) {
+		
+		return $rs->row()->status == 'admin_area' ? true : false;
+	}
+	return false;
+}
+
 function isSuperAdmin()
 {
 	$ci =& get_instance();
 	$id = $ci->session->userdata('id');
 
+	$ci->db->reset_query();
 	$rs = $ci->db->where('id', $id)->get('member');
 	if ($rs->num_rows()>0) {
 		return $rs->row()->status == 'superadmin' ? true : false;
@@ -112,7 +177,9 @@ function getLogo()
     */
 	$ci =& get_instance();
 
-	$rs = $ci->db->limit(1)->get('config');
+	$config_id = getProvinceWebsite()->id;
+
+	$rs = $ci->db->where('id', $config_id)->get('config');
 	if ($rs->num_rows()>0) {
 		if ($rs->row()->logo !='') {
 			return '<img src="'.base_url('upload/'.$rs->row()->logo).'" style="width: 40px;margin-left: -9px; margin-top: -11px; float: left; margin-right: 4px;">';
@@ -122,6 +189,20 @@ function getLogo()
 	return '';
 }
 
+
+function getLatLng()
+{
+	$ci =& get_instance();
+
+	$config_id = getProvinceWebsite()->id;
+
+	$rs = $ci->db->where('id', $config_id)->get('config');
+	if ($rs->num_rows()>0) {
+		return $rs->row();
+	}
+
+	return '';
+}
 
 function banner()
 {
@@ -187,6 +268,38 @@ function countSchoolAreaCode($code_id)
 
 }
 
+function countDataStudentDistrict($area_type_id, $district_id, $type) {
+	$ci =& get_instance();
+	$rs = $rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.') + SUM(p2_'.$type.') + SUM(p3_'.$type.') + SUM(p4_'.$type.') + SUM(p5_'.$type.') + SUM(p6_'.$type.')  + SUM(m1_'.$type.')  + SUM(m2_'.$type.')  + SUM(m3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('area_type_id', $area_type_id)
+			->where('district_id', $district_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function countDataStudentAmphur($area_type_id, $amphur_id, $type) {
+	$ci =& get_instance();
+	$rs = $rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.') + SUM(p2_'.$type.') + SUM(p3_'.$type.') + SUM(p4_'.$type.') + SUM(p5_'.$type.') + SUM(p6_'.$type.')  + SUM(m1_'.$type.')  + SUM(m2_'.$type.')  + SUM(m3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('area_type_id', $area_type_id)
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
 function countSchoolAreaCodeAmphur($code_id, $amphur_id)
 {
 	$ci =& get_instance();
@@ -247,6 +360,8 @@ function countSchoolAreaCodeDistrcit($code_id, $district_id)
 		'area_type_id' => $code_id,
 		'district_id' => $district_id
 	))->count_all_results('school');
+
+
 
 }
 
@@ -329,4 +444,1672 @@ function getSchoolFromDistrict($district_id)
 {
 	$ci =& get_instance();
 	return $ci->db->where('district_id', $district_id)->get('school')->result();
+}
+
+function getLevelDistrcit($level, $district_id)
+{
+	$ci =& get_instance();
+
+	if ($level == '01') {
+		$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('district_id', $district_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	if ($level == '02') {
+		$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room) + SUM(p1_room) + SUM(p2_room) + SUM(p3_room) + SUM(p4_room) + SUM(p5_room) + SUM(p6_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('district_id', $district_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	if ($level == '03') {
+		$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room) + SUM(p1_room) + SUM(p2_room) + SUM(p3_room) + SUM(p4_room) + SUM(p5_room) + SUM(p6_room)  + SUM(m1_room)  + SUM(m2_room)  + SUM(m3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('district_id', $district_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	/*
+
+	if ($level == '04') {
+		$rs = $ci->db->select('(SUM(m1_room)  + SUM(m2_room)  + SUM(m3_room) + SUM(m4_room) + SUM(m5_room) + SUM(m6_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('district_id', $district_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	if ($level == '05') {
+		$rs = $ci->db->select('(SUM(pvc1_room)  + SUM(pvc2_room)  + SUM(pvc3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('district_id', $district_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+	*/
+
+}
+
+
+function getLevelAmphur($level, $amphur_id)
+{
+	$ci =& get_instance();
+
+	if ($level == '01') {
+		$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('amphur_id', $amphur_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	if ($level == '02') {
+		$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room) + SUM(p1_room) + SUM(p2_room) + SUM(p3_room) + SUM(p4_room) + SUM(p5_room) + SUM(p6_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('amphur_id', $amphur_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	if ($level == '03') {
+		$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room) + SUM(p1_room) + SUM(p2_room) + SUM(p3_room) + SUM(p4_room) + SUM(p5_room) + SUM(p6_room)  + SUM(m1_room)  + SUM(m2_room)  + SUM(m3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('amphur_id', $amphur_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+
+	/*
+	if ($level == '04') {
+		$rs = $ci->db->select('(SUM(m1_room)  + SUM(m2_room)  + SUM(m3_room) + SUM(m4_room) + SUM(m5_room) + SUM(m6_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('amphur_id', $amphur_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+
+	if ($level == '05') {
+		$rs = $ci->db->select('(SUM(pvc1_room)  + SUM(pvc2_room)  + SUM(pvc3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->having('count >', 0)
+			->where('amphur_id', $amphur_id)
+			->count_all_results('school_data');
+		return $rs;
+
+	}
+	*/
+
+}
+
+
+
+
+function getLevelDistrcitGender($level, $district_id, $type)
+{
+	$ci =& get_instance();
+
+	if ($level == '01') {
+		$rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	if ($level == '02') {
+		$rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.') + SUM(p2_'.$type.') + SUM(p3_'.$type.') + SUM(p4_'.$type.') + SUM(p5_'.$type.') + SUM(p6_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	if ($level == '03') {
+		$rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.') + SUM(p2_'.$type.') + SUM(p3_'.$type.') + SUM(p4_'.$type.') + SUM(p5_'.$type.') + SUM(p6_'.$type.')  + SUM(m1_'.$type.')  + SUM(m2_'.$type.')  + SUM(m3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	/*
+	if ($level == '04') {
+		$rs = $ci->db->select('(SUM(m1_'.$type.')  + SUM(m2_'.$type.')  + SUM(m3_'.$type.') + SUM(m4_'.$type.') + SUM(m5_'.$type.') + SUM(m6_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	if ($level == '05') {
+		$rs = $ci->db->select('(SUM(pvc1_'.$type.')  + SUM(pvc2_'.$type.')  + SUM(pvc3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+	*/
+
+}
+
+function getLevelAmphurGender($level, $amphur_id, $type)
+{
+	$ci =& get_instance();
+
+	if ($level == '01') {
+		$rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	if ($level == '02') {
+		$rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.') + SUM(p2_'.$type.') + SUM(p3_'.$type.') + SUM(p4_'.$type.') + SUM(p5_'.$type.') + SUM(p6_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	if ($level == '03') {
+		$rs = $ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.') + SUM(p2_'.$type.') + SUM(p3_'.$type.') + SUM(p4_'.$type.') + SUM(p5_'.$type.') + SUM(p6_'.$type.')  + SUM(m1_'.$type.')  + SUM(m2_'.$type.')  + SUM(m3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	/*
+
+	if ($level == '04') {
+		$rs = $ci->db->select('(SUM(m1_'.$type.')  + SUM(m2_'.$type.')  + SUM(m3_'.$type.') + SUM(m4_'.$type.') + SUM(m5_'.$type.') + SUM(m6_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+
+	if ($level == '05') {
+		$rs = $ci->db->select('(SUM(pvc1_'.$type.')  + SUM(pvc2_'.$type.')  + SUM(pvc3_'.$type.')) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+		if ($rs->num_rows() == 0 ) {
+			return '0';
+		} else {
+			return $rs->row()->count;	
+		}
+
+	}
+	*/
+
+}
+
+function getRoomDistrict($level, $district_id) {
+	$ci =& get_instance();
+	$ar = array(
+		array(
+			'level_id' => '01', 
+			'level_name' => 'a1'
+		),
+		array(
+			'level_id' => '02', 
+			'level_name' => 'a2'
+		),
+		array(
+			'level_id' => '03', 
+			'level_name' => 'a3'
+		),
+		
+		array(
+			'level_id' => '06', 
+			'level_name' => 'p1'
+		),
+		array(
+			'level_id' => '07', 
+			'level_name' => 'p2'
+		),
+		array(
+			'level_id' => '08', 
+			'level_name' => 'p3'
+		),
+		array(
+			'level_id' => '09', 
+			'level_name' => 'p4'
+		),
+		array(
+			'level_id' => '10', 
+			'level_name' => 'p5'
+		),
+		array(
+			'level_id' => '11', 
+			'level_name' => 'p6'
+		),
+		array(
+			'level_id' => '12', 
+			'level_name' => 'm1'
+		),
+		array(
+			'level_id' => '13', 
+			'level_name' => 'm2'
+		),
+		array(
+			'level_id' => '14', 
+			'level_name' => 'm3'
+		),
+		array(
+			'level_id' => '15', 
+			'level_name' => 'm4'
+		),
+		array(
+			'level_id' => '16', 
+			'level_name' => 'm5'
+		),
+		array(
+			'level_id' => '17', 
+			'level_name' => 'm6'
+		),
+		array(
+			'level_id' => '18', 
+			'level_name' => 'pvc1'
+		),
+		array(
+			'level_id' => '19', 
+			'level_name' => 'pvc2'
+		),
+		array(
+			'level_id' => '20', 
+			'level_name' => 'pvc3'
+		),
+	);
+
+	$field = '';
+	
+	foreach($ar as $a) {
+		if ($a['level_id'] == $level) {
+			$field = $a['level_name'];
+			break;
+		}
+	}
+
+	
+
+	$rs = $ci->db->select('(SUM('.$field.'_room)) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+	
+}
+
+
+function getStudentSchool($school_id) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_boy) + SUM(a2_boy) + SUM(a3_boy) + SUM(p1_boy) + SUM(p2_boy) + SUM(p3_boy) + SUM(p4_boy) + SUM(p5_boy) + SUM(p6_boy)  + SUM(m1_boy)  + SUM(m2_boy)  + SUM(m3_boy) + SUM(a1_girl) + SUM(a2_girl) + SUM(a3_girl) + SUM(p1_girl) + SUM(p2_girl) + SUM(p3_girl) + SUM(p4_girl) + SUM(p5_girl) + SUM(p6_girl)  + SUM(m1_girl)  + SUM(m2_girl)  + SUM(m3_girl)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('school_data.school_id')
+			->where('school_data.school_id', $school_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+function getStudentTypeDistrict($district_id, $type) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_boy) + SUM(a2_boy) + SUM(a3_boy) + SUM(p1_boy) + SUM(p2_boy) + SUM(p3_boy) + SUM(p4_boy) + SUM(p5_boy) + SUM(p6_boy)  + SUM(m1_boy)  + SUM(m2_boy)  + SUM(m3_boy)  + SUM(a1_girl) + SUM(a2_girl) + SUM(a3_girl) + SUM(p1_girl) + SUM(p2_girl) + SUM(p3_girl) + SUM(p4_girl) + SUM(p5_girl) + SUM(p6_girl)  + SUM(m1_girl)  + SUM(m2_girl)  + SUM(m3_girl)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('type_school', $type)
+			->where('district_id', $district_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+
+function getStudentTypeAmphur($amphur_id, $type) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_boy) + SUM(a2_boy) + SUM(a3_boy) + SUM(p1_boy) + SUM(p2_boy) + SUM(p3_boy) + SUM(p4_boy) + SUM(p5_boy) + SUM(p6_boy)  + SUM(m1_boy)  + SUM(m2_boy)  + SUM(m3_boy) + SUM(a1_girl) + SUM(a2_girl) + SUM(a3_girl) + SUM(p1_girl) + SUM(p2_girl) + SUM(p3_girl) + SUM(p4_girl) + SUM(p5_girl) + SUM(p6_girl)  + SUM(m1_girl)  + SUM(m2_girl)  + SUM(m3_girl)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('type_school', $type)
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+function getRoomGenderDistrict($level, $district_id, $type) {
+	$ci =& get_instance();
+	$ar = array(
+		array(
+			'level_id' => '01', 
+			'level_name' => 'a1'
+		),
+		array(
+			'level_id' => '02', 
+			'level_name' => 'a2'
+		),
+		array(
+			'level_id' => '03', 
+			'level_name' => 'a3'
+		),
+		
+		array(
+			'level_id' => '06', 
+			'level_name' => 'p1'
+		),
+		array(
+			'level_id' => '07', 
+			'level_name' => 'p2'
+		),
+		array(
+			'level_id' => '08', 
+			'level_name' => 'p3'
+		),
+		array(
+			'level_id' => '09', 
+			'level_name' => 'p4'
+		),
+		array(
+			'level_id' => '10', 
+			'level_name' => 'p5'
+		),
+		array(
+			'level_id' => '11', 
+			'level_name' => 'p6'
+		),
+		array(
+			'level_id' => '12', 
+			'level_name' => 'm1'
+		),
+		array(
+			'level_id' => '13', 
+			'level_name' => 'm2'
+		),
+		array(
+			'level_id' => '14', 
+			'level_name' => 'm3'
+		),
+		array(
+			'level_id' => '15', 
+			'level_name' => 'm4'
+		),
+		array(
+			'level_id' => '16', 
+			'level_name' => 'm5'
+		),
+		array(
+			'level_id' => '17', 
+			'level_name' => 'm6'
+		),
+		array(
+			'level_id' => '18', 
+			'level_name' => 'pvc1'
+		),
+		array(
+			'level_id' => '19', 
+			'level_name' => 'pvc2'
+		),
+		array(
+			'level_id' => '20', 
+			'level_name' => 'pvc3'
+		),
+	);
+
+	$field = '';
+	
+	foreach($ar as $a) {
+		if ($a['level_id'] == $level) {
+			$field = $a['level_name'];
+			break;
+		}
+	}
+
+	
+
+	$rs = $ci->db->select('(SUM('.$field.'_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+	
+}
+
+
+function getRoomGenderAmphur($level, $amphur_id, $type) {
+	$ci =& get_instance();
+	$ar = array(
+		array(
+			'level_id' => '01', 
+			'level_name' => 'a1'
+		),
+		array(
+			'level_id' => '02', 
+			'level_name' => 'a2'
+		),
+		array(
+			'level_id' => '03', 
+			'level_name' => 'a3'
+		),
+		
+		array(
+			'level_id' => '06', 
+			'level_name' => 'p1'
+		),
+		array(
+			'level_id' => '07', 
+			'level_name' => 'p2'
+		),
+		array(
+			'level_id' => '08', 
+			'level_name' => 'p3'
+		),
+		array(
+			'level_id' => '09', 
+			'level_name' => 'p4'
+		),
+		array(
+			'level_id' => '10', 
+			'level_name' => 'p5'
+		),
+		array(
+			'level_id' => '11', 
+			'level_name' => 'p6'
+		),
+		array(
+			'level_id' => '12', 
+			'level_name' => 'm1'
+		),
+		array(
+			'level_id' => '13', 
+			'level_name' => 'm2'
+		),
+		array(
+			'level_id' => '14', 
+			'level_name' => 'm3'
+		),
+		array(
+			'level_id' => '15', 
+			'level_name' => 'm4'
+		),
+		array(
+			'level_id' => '16', 
+			'level_name' => 'm5'
+		),
+		array(
+			'level_id' => '17', 
+			'level_name' => 'm6'
+		),
+		array(
+			'level_id' => '18', 
+			'level_name' => 'pvc1'
+		),
+		array(
+			'level_id' => '19', 
+			'level_name' => 'pvc2'
+		),
+		array(
+			'level_id' => '20', 
+			'level_name' => 'pvc3'
+		),
+	);
+
+	$field = '';
+	
+	foreach($ar as $a) {
+		if ($a['level_id'] == $level) {
+			$field = $a['level_name'];
+			break;
+		}
+	}
+
+	
+
+	$rs = $ci->db->select('(SUM('.$field.'_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+	
+}
+
+
+
+
+function getRoomAmphur($level, $amphur_id) {
+	$ci =& get_instance();
+	$ar = array(
+		array(
+			'level_id' => '01', 
+			'level_name' => 'a1'
+		),
+		array(
+			'level_id' => '02', 
+			'level_name' => 'a2'
+		),
+		array(
+			'level_id' => '03', 
+			'level_name' => 'a3'
+		),
+		
+		array(
+			'level_id' => '06', 
+			'level_name' => 'p1'
+		),
+		array(
+			'level_id' => '07', 
+			'level_name' => 'p2'
+		),
+		array(
+			'level_id' => '08', 
+			'level_name' => 'p3'
+		),
+		array(
+			'level_id' => '09', 
+			'level_name' => 'p4'
+		),
+		array(
+			'level_id' => '10', 
+			'level_name' => 'p5'
+		),
+		array(
+			'level_id' => '11', 
+			'level_name' => 'p6'
+		),
+		array(
+			'level_id' => '12', 
+			'level_name' => 'm1'
+		),
+		array(
+			'level_id' => '13', 
+			'level_name' => 'm2'
+		),
+		array(
+			'level_id' => '14', 
+			'level_name' => 'm3'
+		),
+		array(
+			'level_id' => '15', 
+			'level_name' => 'm4'
+		),
+		array(
+			'level_id' => '16', 
+			'level_name' => 'm5'
+		),
+		array(
+			'level_id' => '17', 
+			'level_name' => 'm6'
+		),
+		array(
+			'level_id' => '18', 
+			'level_name' => 'pvc1'
+		),
+		array(
+			'level_id' => '19', 
+			'level_name' => 'pvc2'
+		),
+		array(
+			'level_id' => '20', 
+			'level_name' => 'pvc3'
+		),
+	);
+
+	$field = '';
+	
+	foreach($ar as $a) {
+		if ($a['level_id'] == $level) {
+			$field = $a['level_name'];
+			break;
+		}
+	}
+
+	
+
+	$rs = $ci->db->select('(SUM('.$field.'_room)) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+	
+}
+
+function getStudentTypeSchoolDistrict($level, $district_id, $type) {
+	$ci =& get_instance();
+
+	$ar = array(
+		array(
+			'level_id' => '01', 
+			'level_name' => 'a1'
+		),
+		array(
+			'level_id' => '02', 
+			'level_name' => 'a2'
+		),
+		array(
+			'level_id' => '03', 
+			'level_name' => 'a3'
+		),
+		
+		array(
+			'level_id' => '06', 
+			'level_name' => 'p1'
+		),
+		array(
+			'level_id' => '07', 
+			'level_name' => 'p2'
+		),
+		array(
+			'level_id' => '08', 
+			'level_name' => 'p3'
+		),
+		array(
+			'level_id' => '09', 
+			'level_name' => 'p4'
+		),
+		array(
+			'level_id' => '10', 
+			'level_name' => 'p5'
+		),
+		array(
+			'level_id' => '11', 
+			'level_name' => 'p6'
+		),
+		array(
+			'level_id' => '12', 
+			'level_name' => 'm1'
+		),
+		array(
+			'level_id' => '13', 
+			'level_name' => 'm2'
+		),
+		array(
+			'level_id' => '14', 
+			'level_name' => 'm3'
+		),
+		array(
+			'level_id' => '15', 
+			'level_name' => 'm4'
+		),
+		array(
+			'level_id' => '16', 
+			'level_name' => 'm5'
+		),
+		array(
+			'level_id' => '17', 
+			'level_name' => 'm6'
+		),
+		array(
+			'level_id' => '18', 
+			'level_name' => 'pvc1'
+		),
+		array(
+			'level_id' => '19', 
+			'level_name' => 'pvc2'
+		),
+		array(
+			'level_id' => '20', 
+			'level_name' => 'pvc3'
+		),
+	);
+
+	$field = '';
+	
+	foreach($ar as $a) {
+		if ($a['level_id'] == $level) {
+			$field = $a['level_name'];
+			break;
+		}
+	}
+
+
+
+	$rs = $ci->db->select('(SUM('.$field.'_boy) + SUM('.$field.'_girl)) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->where('type_school', $type)
+		->get('school_data');
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function getStudentTypeSchoolAmphur($level, $amphur_id, $type) {
+	$ci =& get_instance();
+
+	$ar = array(
+		array(
+			'level_id' => '01', 
+			'level_name' => 'a1'
+		),
+		array(
+			'level_id' => '02', 
+			'level_name' => 'a2'
+		),
+		array(
+			'level_id' => '03', 
+			'level_name' => 'a3'
+		),
+		
+		array(
+			'level_id' => '06', 
+			'level_name' => 'p1'
+		),
+		array(
+			'level_id' => '07', 
+			'level_name' => 'p2'
+		),
+		array(
+			'level_id' => '08', 
+			'level_name' => 'p3'
+		),
+		array(
+			'level_id' => '09', 
+			'level_name' => 'p4'
+		),
+		array(
+			'level_id' => '10', 
+			'level_name' => 'p5'
+		),
+		array(
+			'level_id' => '11', 
+			'level_name' => 'p6'
+		),
+		array(
+			'level_id' => '12', 
+			'level_name' => 'm1'
+		),
+		array(
+			'level_id' => '13', 
+			'level_name' => 'm2'
+		),
+		array(
+			'level_id' => '14', 
+			'level_name' => 'm3'
+		),
+		array(
+			'level_id' => '15', 
+			'level_name' => 'm4'
+		),
+		array(
+			'level_id' => '16', 
+			'level_name' => 'm5'
+		),
+		array(
+			'level_id' => '17', 
+			'level_name' => 'm6'
+		),
+		array(
+			'level_id' => '18', 
+			'level_name' => 'pvc1'
+		),
+		array(
+			'level_id' => '19', 
+			'level_name' => 'pvc2'
+		),
+		array(
+			'level_id' => '20', 
+			'level_name' => 'pvc3'
+		),
+	);
+
+	$field = '';
+	
+	foreach($ar as $a) {
+		if ($a['level_id'] == $level) {
+			$field = $a['level_name'];
+			break;
+		}
+	}
+
+
+
+	$rs = $ci->db->select('(SUM('.$field.'_boy) + SUM('.$field.'_girl)) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->where('type_school', $type)
+		->get('school_data');
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function get3to5All($province_id)
+{
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(boy) + SUM(girl)) as count')
+			->where('province_id', $province_id)
+			->group_by('province_id')
+			->get('childrens');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+
+}
+
+function get3to5District($district_id) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(boy) + SUM(girl)) as count')
+			->where('district_id', $district_id)
+			->group_by('district_id')
+			->get('childrens');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+
+function get3to5Amphur($amphur_id) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(boy) + SUM(girl)) as count')
+			->where('amphur_id', $amphur_id)
+			->group_by('amphur_id')
+			->get('childrens');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function getTeacherSchool($school_id) {
+	$ci =& get_instance();
+	$rs = $ci->db->where('teacher.school_id', $school_id)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+	return $rs;
+}
+
+
+
+function getTeacherDistrict($district_id, $type, $gender) {
+	$gender = $gender == 'man' ? 'ช' : 'ญ';
+	$ci =& get_instance();
+	$rs = $ci->db->where('district_id', $district_id)
+				->where('area_type_id', $type)
+				->like('gender', $gender)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+	
+
+	return $rs;
+}
+
+
+function getAllTeacherDistrict($district_id) {
+	
+	$ci =& get_instance();
+	$rs = $ci->db->where('district_id', $district_id)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+
+	return $rs;
+}
+
+
+function getTeacherAmphur($amphur_id, $type, $gender) {
+	$gender = $gender == 'man' ? 'ช' : 'ญ';
+	$ci =& get_instance();
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->where('area_type_id', $type)
+				->like('gender', $gender)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+	
+
+	return $rs;
+}
+
+
+function getAllTeacherAmphur($amphur_id) {
+	
+	$ci =& get_instance();
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+	return $rs;
+}
+
+
+function getTeacherTypeSchoolDistrict($district_id, $type) {
+	$ci =& get_instance();
+	$rs = $ci->db->where('district_id', $district_id)
+				->where('type_school', $type)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+	return $rs;
+}
+
+function getTeacherTypeSchoolAmphur($amphur_id, $type) {
+	$ci =& get_instance();
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->where('type_school', $type)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');
+	return $rs;
+}
+
+//getTeacherEducationAmphur($am->AMPHUR_ID, $edu->edu_name, $l['level_name']);
+
+function getTeacherEducationAmphur($amphur_id, $study_level, $level) {
+	$ci =& get_instance();
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->like('study_level', $study_level)
+				->like('level', $level)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');	
+	return $rs;
+}
+
+
+
+function getTeacherAcademicAmphur($amphur_id, $academic, $level) {
+	$ci =& get_instance();
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->like('academic', $academic)
+				->like('level', $level)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');	
+	return $rs;
+}
+
+
+function getTeacherAgeAmphur($amphur_id, $type, $level) {
+	$ci =& get_instance();
+	if ($type == '01') {
+		$ci->db->where('age <', 25);
+	}
+
+	if ($type == '02') {
+		$ci->db->where('age >=', 25);
+		$ci->db->where('age <=', 35);
+	}
+
+	
+	if ($type == '03') {
+		$ci->db->where('age >=', 36);
+		$ci->db->where('age <=', 45);
+	}
+
+
+	if ($type == '04') {
+		$ci->db->where('age >=', 46);
+		$ci->db->where('age <=', 55);
+	}
+
+
+	if ($type == '05') {
+		$ci->db->where('age >=', 56);
+	}
+
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->like('level', $level)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');	
+
+	return $rs;
+}
+
+
+
+
+function getTeacherCoTarget($amphur_id, $co, $target, $level) {
+	$ci =& get_instance();
+	
+	$co = $co == 'ครู' ? 'ใช่' : 'ไม่ใช่';
+
+	$rs = $ci->db->where('amphur_id', $amphur_id)
+				->where('teacher_co', $co)
+				->where('teach_target', $target)
+				->like('level', $level)
+				->join('school', 'teacher.school_id = school.school_id')
+				->count_all_results('teacher');	
+
+				//echo $ci->db->last_query();
+	
+	
+	return $rs;
+}
+
+
+
+function getStudentLackAmphur($amphur_id, $type = '') {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_boy) + SUM(a2_boy) + SUM(a3_boy) + SUM(p1_boy) + SUM(p2_boy) + SUM(p3_boy) + SUM(p4_boy) + SUM(p5_boy) + SUM(p6_boy)  + SUM(m1_boy)  + SUM(m2_boy)  + SUM(m3_boy) + SUM(a1_girl) + SUM(a2_girl) + SUM(a3_girl) + SUM(p1_girl) + SUM(p2_girl) + SUM(p3_girl) + SUM(p4_girl) + SUM(p5_girl) + SUM(p6_girl)  + SUM(m1_girl)  + SUM(m2_girl)  + SUM(m3_girl)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function getStudentLackDistrict($district_id, $type = '') {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_boy) + SUM(a2_boy) + SUM(a3_boy) + SUM(p1_boy) + SUM(p2_boy) + SUM(p3_boy) + SUM(p4_boy) + SUM(p5_boy) + SUM(p6_boy)  + SUM(m1_boy)  + SUM(m2_boy)  + SUM(m3_boy) + SUM(a1_girl) + SUM(a2_girl) + SUM(a3_girl) + SUM(p1_girl) + SUM(p2_girl) + SUM(p3_girl) + SUM(p4_girl) + SUM(p5_girl) + SUM(p6_girl)  + SUM(m1_girl)  + SUM(m2_girl)  + SUM(m3_girl)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+function getRoomLackDistrict($district_id) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room) + SUM(p1_room) + SUM(p2_room) + SUM(p3_room) + SUM(p4_room) + SUM(p5_room) + SUM(p6_room)  + SUM(m1_room)  + SUM(m2_room)  + SUM(m3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+function getRoomLackAmphur($amphur_id) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('(SUM(a1_room) + SUM(a2_room) + SUM(a3_room) + SUM(p1_room) + SUM(p2_room) + SUM(p3_room) + SUM(p4_room) + SUM(p5_room) + SUM(p6_room)  + SUM(m1_room)  + SUM(m2_room)  + SUM(m3_room)) as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function getAge7District($district_id, $age, $gender = '') {
+	$ci =& get_instance();
+
+	if ($gender =='') {
+		$ci->db->select('SUM(boy) as count_boy, SUM(girl) as count_girl');
+	} else {
+		$ci->db->select('SUM('.$gender.') as count_'.$gender);
+	}
+	$rs = $ci->db->where('age', $age)
+			->where('district_id', $district_id)
+			->group_by('district_id')
+			->get('childrens');
+
+	$boy = getSchoolStudentAgeDistrict($district_id, $age, 'boy');
+	$girl = getSchoolStudentAgeDistrict($district_id, $age, 'girl');
+
+	
+
+
+	$ar = array(
+		'count_boy' => $rs->row()->count_boy + $boy,
+		'count_girl' => $rs->row()->count_girl + $girl,
+	);
+
+
+	return $ar;
+}
+
+function getSchoolStudentAgeDistrict($district_id, $age, $gender = '') {
+	$ci =& get_instance();
+	if ($gender =='boy') {
+		$gender = 'ช';
+		$ci->db->like('gender', $gender);
+	} 
+
+	if ($gender =='girl') {
+		$gender = 'ญ';
+		$ci->db->like('gender', $gender);
+	} 
+
+	$rs = $ci->db->select('SUM(total) as total')
+			->join('school', 'school_student_age.school_id = school.school_id')
+			->where('age', $age)
+			->where('district_id', $district_id)
+			->group_by('district_id')
+			->get('school_student_age');
+			if ($district_id == '6133') {
+			//echo $ci->db->last_query();
+		}
+
+
+
+	if ($rs->num_rows() == 0) {
+
+		return 0;
+	} else {
+		//print_r($rs->row());
+		return $rs->row()->total;
+	}
+
+}
+
+
+function getAge7Amphur($amphur_id, $age) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('SUM(boy) as count_boy, SUM(girl) as count_girl')
+			->where('age', $age)
+			->where('amphur_id', $amphur_id)
+			->group_by('amphur_id')
+			->get('childrens');
+
+	$boy = getSchoolStudentAgeAmphur($amphur_id, $age, 'boy');
+	$girl = getSchoolStudentAgeAmphur($amphur_id, $age, 'girl');
+
+	
+
+
+	$ar = array(
+		'count_boy' => $rs->row()->count_boy + $boy,
+		'count_girl' => $rs->row()->count_girl + $girl,
+	);
+
+
+	return $ar;
+			
+	
+}
+
+
+function getSchoolStudentAgeAmphur($amphur_id, $age, $gender = '') {
+	$ci =& get_instance();
+	if ($gender =='boy') {
+		$gender = 'ช';
+		$ci->db->like('gender', $gender);
+	} 
+
+	if ($gender =='girl') {
+		$gender = 'ญ';
+		$ci->db->like('gender', $gender);
+	} 
+
+	$rs = $ci->db->select('SUM(total) as total')
+			->join('school', 'school_student_age.school_id = school.school_id')
+			->where('age', $age)
+			->where('amphur_id', $amphur_id)
+			->group_by('amphur_id')
+			->get('school_student_age');
+			if ($amphur_id == '6133') {
+			//echo $ci->db->last_query();
+		}
+
+
+
+	if ($rs->num_rows() == 0) {
+
+		return 0;
+	} else {
+		//print_r($rs->row());
+		return $rs->row()->total;
+	}
+
+}
+
+
+
+function getLevelA1School($school_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+
+	$rs = $ci->db->select('(SUM(a1_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('school_data.school_id')
+		->where('school_data.school_id', $school_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA1District($district_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(a1_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA1Amphur($amphur_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(a1_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA2School($school_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+		$ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.')) as count');
+	} else {
+		$ci->db->select('(SUM(a2_'.$type.')) as count');
+	}
+
+	$rs = $ci->db->join('school', 'school_data.school_id = school.school_id')
+		->group_by('school_data.school_id')
+		->where('school_data.school_id', $school_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA2District($district_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(a2_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA2Amphur($amphur_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(a2_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+
+function getLevelA3School($school_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+		$ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.')) as count');
+	} else {
+		$ci->db->select('(SUM(a3_'.$type.')) as count');
+	}
+
+	$rs = $ci->db->join('school', 'school_data.school_id = school.school_id')
+		->group_by('school_data.school_id')
+		->where('school_data.school_id', $school_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA3District($district_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(a3_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelA3Amphur($amphur_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(a3_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+
+function getLevelP1School($school_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+		$ci->db->select('(SUM(a1_'.$type.') + SUM(a2_'.$type.') + SUM(a3_'.$type.') + SUM(p1_'.$type.')) as count');
+	} else {
+		$ci->db->select('(SUM(p1_'.$type.')) as count');
+	}
+
+	$rs = $ci->db->join('school', 'school_data.school_id = school.school_id')
+		->group_by('school_data.school_id')
+		->where('school_data.school_id', $school_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelP1District($district_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(p1_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('district_id')
+		->where('district_id', $district_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+
+function getLevelP1Amphur($amphur_id, $type, $type_school = '') {
+	$ci = get_instance();
+	if ($type_school != '') {
+		$ci->db->where('type_school', $type_school);
+	}
+	
+	$rs = $ci->db->select('(SUM(p1_'.$type.')) as count')
+		->join('school', 'school_data.school_id = school.school_id')
+		->group_by('amphur_id')
+		->where('amphur_id', $amphur_id)
+		->get('school_data');
+	if ($rs->num_rows() == 0 ) {
+		return '0';
+	} else {
+		return $rs->row()->count;	
+	}
+}
+
+function gcd($a, $b) {
+    $_a = abs($a);
+    $_b = abs($b);
+
+    while ($_b != 0) {
+
+        $remainder = $_a % $_b;
+        $_a = $_b;
+        $_b = $remainder;   
+    }
+    return $a;
+}
+
+
+function getRatio()
+{
+    $inputs = func_get_args();
+    $c = func_num_args();
+    if($c < 1)
+        return ''; //empty input
+    if($c == 1)
+        return $inputs[0]; //only 1 input
+    if ($inputs[0] == '0' && $inputs[1] == '0') 
+    	return '0:0';
+    if ($inputs[0] == '0')
+    	return '0:1';
+
+    $gcd = gcd($inputs[0], $inputs[1]); //find gcd of inputss
+    for($i = 2; $i < $c; $i++) 
+        $gcd = gcd($gcd, $inputs[$i]);
+    $var = $inputs[0] / $gcd; //init output
+    for($i = 1; $i < $c; $i++)
+    	$num = ($inputs[$i] / $gcd);
+    	if ($num > 0) {
+    		$num = number_format($num, 2);
+    	}
+        $var .= ':' . $num; //calc ratio
+    return $var; 
+}
+
+function getTeacherTotalDistrict($district_id, $type) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('SUM(teacher_'.$type.') as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('district_id')
+			->where('district_id', $district_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+
+function getTeacherTotalAmphur($amphur_id, $type) {
+	$ci =& get_instance();
+	$rs = $ci->db->select('SUM(teacher_'.$type.') as count')
+			->join('school', 'school_data.school_id = school.school_id')
+			->group_by('amphur_id')
+			->where('amphur_id', $amphur_id)
+			->get('school_data');
+
+	if ($rs->num_rows() == 0) {
+		return 0;
+	} else {
+		return $rs->row()->count;
+	}
+}
+
+function getLink() {
+	$ci =& get_instance();
+	$config_id = getProvinceWebsite()->id;
+
+
+	return $ci->db->where('config_id', $config_id)->get('config_link')->result();
+
 }

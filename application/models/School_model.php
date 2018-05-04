@@ -38,17 +38,20 @@ class School_model extends CI_Model {
 			'age IS NOT NULL' => null
 		))->group_by('gender, age, school_id')->get('students')->result();
 
+		echo $this->db->last_query();
+
 		foreach($rs as $r) {
 			$rs = $this->db->where(array(
 				'term_id' => $term_id,
 				'year_id' => $year_id,
 				'gender' => $r->gender,
-				'age' => $r->age
+				'age' => $r->age,
+				'school_id' => $r->school_id,
 			))->get('school_student_age');
 
 			if ($rs->num_rows() == 0) {
 				$this->db->insert('school_student_age', array(
-					'school_id' => $school_id,
+					'school_id' => $r->school_id,
 					'term_id' => $term_id,
 					'year_id' => $year_id,
 					'gender' => $r->gender,
@@ -60,7 +63,8 @@ class School_model extends CI_Model {
 					'term_id' => $term_id,
 					'year_id' => $year_id,
 					'gender' => $r->gender,
-					'age' => $r->age
+					'age' => $r->age,
+					'school_id' => $r->school_id,
 				))->update('school_student_age', array(
 					
 					'total' => $r->count_age,

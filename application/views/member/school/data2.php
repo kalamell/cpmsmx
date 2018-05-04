@@ -12,7 +12,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">เป็นโรงเรียนสาขา</div>
+	  <div class="panel-heading">เป็นสถานศึกษาสาขา</div>
 	  <div class="panel-body">
 		<div class="form-group col-md-6">
 			<label for="username">สังกัด</label>
@@ -25,9 +25,9 @@
 		</div>
 
 		<div class="form-group col-md-6">
-			<label for="username">เป็นโรงเรียนสาขาของห้องเรียนของ</label>
+			<label for="username">เป็นสถานศึกษาสาขาของห้องเรียนของ</label>
 		    <select class="form-control" id="school_sub_id" name="school_sub_id">
-		    	<option value=""> เลือกโรงเรียน </option>
+		    	<option value=""> เลือกสถานศึกษา </option>
 		    	<?php foreach($school_sub as $ss):?>
 		    		<option value="<?php echo $ss->school_id;?>" <?php echo $rs->school_sub_id == $ss->school_id ? 'selected' : '';?>><?php echo $ss->school_name;?></option>
 		    	<?php endforeach;?>
@@ -41,7 +41,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ถ้าเป็นโรงเรียนมาเรียนรวม ระดับชั้นที่มาเรียนรวมคือ</div>
+	  <div class="panel-heading">ถ้าเป็นสถานศึกษามาเรียนรวม ระดับชั้นที่มาเรียนรวมคือ</div>
 	  	<div class="panel-body">
 	  		<p><a href="" class="btn btn-sm btn-info" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a></p>
 			<table class="table table-bordered table-striped">
@@ -49,7 +49,7 @@
 				<tr>
 					<th rowspan="2" width="300">ชั้น</th>
 					<th colspan="2">จำนวนนักเรียน</th>
-					<th rowspan="2">ชื่อโรงเรียนหลัก</th>
+					<th rowspan="2">ชื่อสถานศึกษาหลัก</th>
 					<th rowspan="2" width="80">&nbsp;</th>
 				</tr>
 				<tr>
@@ -104,7 +104,7 @@
           </div>
 
           <div class="form-group">
-            <label for="school_main_name" class="control-label">ชื่อโรงเรียนหลัก</label>
+            <label for="school_main_name" class="control-label">ชื่อสถานศึกษาหลัก</label>
             <input type="text" class="form-control" id="school_main_name" name="school_main_name">
 
           </div>
@@ -127,7 +127,7 @@
 	  	<div class='col-md-6'>
 	  		<div class="checkbox">
 				<label>
-			      <input type="checkbox" name="state_focus" value="1"  <?php echo $rs->state_focus == 1 ? 'checked' : '';?>> เป็นโรงเรียนที่ดูแลและรับผิดชอบพื้นที่จุดบอดทางการศึกษา
+			      <input type="checkbox" name="state_focus" value="1"  <?php echo $rs->state_focus == 1 ? 'checked' : '';?>> เป็นสถานศึกษาที่ดูแลและรับผิดชอบพื้นที่จุดบอดทางการศึกษา
 			    </label>
 			</div>
 	  	</div>
@@ -135,7 +135,7 @@
 	  	<div class='col-md-6'>
 	  		<div class="checkbox">
 				<label>
-			      <input type="checkbox" name="state_live" value="1" <?php echo $rs->state_live == 1 ? 'checked' : '';?>> เป็นโรงเรียนที่อยู่ในโครงการพักนอนประจำ
+			      <input type="checkbox" name="state_live" value="1" <?php echo $rs->state_live == 1 ? 'checked' : '';?>> เป็นสถานศึกษาที่อยู่ในโครงการพักนอนประจำ
 			    </label>
 			</div>
 	  	</div>
@@ -148,7 +148,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">เป็นโรงเรียนในโครงการพระราชดำริ (เลือกได้มากกว่า 1 ข้อ)</div>
+	  <div class="panel-heading">เป็นสถานศึกษาในโครงการพระราชดำริ (เลือกได้มากกว่า 1 ข้อ)</div>
 	  <div class="panel-body">
 	  	<table class="table table-striped table-bordered">
 	  		<tbody>
@@ -170,7 +170,7 @@
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>โรงเรียนที่ตั้งอยู่ในศูนย์การศึกษาการพัฒนาเนื่องมาจากพระราชดำริ</td>
+	  				<td>สถานศึกษาที่ตั้งอยู่ในศูนย์การศึกษาการพัฒนาเนื่องมาจากพระราชดำริ</td>
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
@@ -185,33 +185,33 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ประเภทและลักษณะโครงการของโรงเรียน,โครงการที่โรงเรียนเข้าร่วม (เลือกได้มากกว่า 1 ข้อ)</div>
+	  <div class="panel-heading">ประเภทและลักษณะโครงการของสถานศึกษา,โครงการที่สถานศึกษาเข้าร่วม (เลือกได้มากกว่า 1 ข้อ)</div>
 	  <div class="panel-body">
 	  	<table class="table table-striped table-bordered">
 	  		<tbody>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>เป็นโรงเรียนที่อนุญาตให้หน่วยงานทางการศึกษาใช้เป็นสถานที่ตั้งสำนักงาน / เปิดทำการสอน</td>
+	  				<td>เป็นสถานศึกษาที่อนุญาตให้หน่วยงานทางการศึกษาใช้เป็นสถานที่ตั้งสำนักงาน / เปิดทำการสอน</td>
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>เป็นโรงเรียนที่อนุญาตให้ กศน. ใช้เป็นสถานที่ตั้งสำนักงาน / เปิดทำการสอน</td>
+	  				<td>เป็นสถานศึกษาที่อนุญาตให้ กศน. ใช้เป็นสถานที่ตั้งสำนักงาน / เปิดทำการสอน</td>
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>เป็นโรงเรียนที่อนุญาตให้องค์กรปกครองส่วนท้องถิ่นใช้เป็นสถานที่ตั้งสำนักงาน</td>
+	  				<td>เป็นสถานศึกษาที่อนุญาตให้องค์กรปกครองส่วนท้องถิ่นใช้เป็นสถานที่ตั้งสำนักงาน</td>
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>เป็นโรงเรียนที่อนุญาตให้องค์กรปกครองส่วนท้องถิ่นใช้จัดการเรียนการสอนอนุบาล 3 ขวบ</td>
+	  				<td>เป็นสถานศึกษาที่อนุญาตให้องค์กรปกครองส่วนท้องถิ่นใช้จัดการเรียนการสอนอนุบาล 3 ขวบ</td>
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>เป็นโรงเรียนสาขาของโรงเรียน</td>
+	  				<td>เป็นสถานศึกษาสาขาของสถานศึกษา</td>
 	  			</tr>
 	  			<tr>
 	  				<td><input type="checkbox" name=""></td>
-	  				<td>เป็นโรงเรียนสาขาห้องเรียนของโรงเรียน</td>
+	  				<td>เป็นสถานศึกษาสาขาห้องเรียนของสถานศึกษา</td>
 	  			</tr>
 	  		</tbody>
 	  	</table>

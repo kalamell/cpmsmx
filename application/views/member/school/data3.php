@@ -10,13 +10,13 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">เขตบริการของโรงเรียน (โรงเรียนบริการหลายหมู่บ้าน)</div>
+	  <div class="panel-heading">เขตบริการของสถานศึกษา (สถานศึกษาบริการหลายหมู่บ้าน)</div>
 	  <div class="panel-body">
-	  	<p><strong>เขตบริการของโรงเรียน (โรงเรียนบริการหลายหมู่บ้าน)</strong></p>
+	  	<p><strong>เขตบริการของสถานศึกษา (สถานศึกษาบริการหลายหมู่บ้าน)</strong></p>
 	  	<p>ในกรณีที่สถานศึกษาใดมีเขตบริการครอบคลุมทั้งตำบล/แขวง หรือครอบคลุมทั้งอำเภอ/เขต ให้กรอกเฉพาะชื่อตำบล/แขวง หรือชื่ออำเภอ/เขต เท่านั้น </p>
 	  	<br>
 	  	<p><strong>หมายเหตุ</strong></p>
-	  	<p>ชื่อหมู่บ้าน, หมู่ ถ้าไม่มีให้ใส่ - , จังหวัด ต้องเลือก, อำเภอ ตำบล ถ้ามีให้เลือกด้วย<br>ถ้าโรงเรียนไม่มีเขตบริการให้ใส่ หมู่บ้านเป็น - หมู่เป็น - และเลือกแค่จังหวัดที่โรงเรียนอยู่ เฉพาะแถวแรกแถวเดียวเท่านั้น</p>
+	  	<p>ชื่อหมู่บ้าน, หมู่ ถ้าไม่มีให้ใส่ - , จังหวัด ต้องเลือก, อำเภอ ตำบล ถ้ามีให้เลือกด้วย<br>ถ้าสถานศึกษาไม่มีเขตบริการให้ใส่ หมู่บ้านเป็น - หมู่เป็น - และเลือกแค่จังหวัดที่สถานศึกษาอยู่ เฉพาะแถวแรกแถวเดียวเท่านั้น</p>
 
 	  	<br>
 
@@ -96,7 +96,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ระยะทางจากโรงเรียนถึงหน่วยงานที่เกี่ยวข้องในเขตพื้นที่การศึกษาเดียวกัน</div>
+	  <div class="panel-heading">ระยะทางจากสถานศึกษาถึงหน่วยงานที่เกี่ยวข้องในเขตพื้นที่การศึกษาเดียวกัน</div>
 	  <div class="panel-body">
 	  	
 	  	<table class="table table-bordered table-striped">
@@ -114,7 +114,7 @@
 	  		</thead>
 	  		<tbody>
 	  			<tr>
-	  				<td>โรงเรียนที่เปิดสอนระดับประถมศึกษาที่ใกล้ที่สุด</td>
+	  				<td>สถานศึกษาที่เปิดสอนระดับประถมศึกษาที่ใกล้ที่สุด</td>
 	  				<td><input type="text" class="form-control" name=""></td>
 	  				<td><input type="text" class="form-control" name=""></td>
 	  				<td><input type="text" class="form-control" name=""></td>
@@ -122,7 +122,7 @@
 	  			</tr>
 
 	  			<tr>
-	  				<td>โรงเรียนที่เปิดสอนระดับมัธมศึกษาที่ใกล้ที่สุด</td>
+	  				<td>สถานศึกษาที่เปิดสอนระดับมัธมศึกษาที่ใกล้ที่สุด</td>
 	  				<td><input type="text" class="form-control" name=""></td>
 	  				<td><input type="text" class="form-control" name=""></td>
 	  				<td><input type="text" class="form-control" name=""></td>
@@ -155,7 +155,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ที่ดินของโรงเรียน (ต้องมีอย่างน้อย 1 แปลงเป็นที่ดินหลักของโรงเรียน)</div>
+	  <div class="panel-heading">ที่ดินของสถานศึกษา (ต้องมีอย่างน้อย 1 แปลงเป็นที่ดินหลักของสถานศึกษา)</div>
 	  <div class="panel-body">
 	  	
 	  	<table class="table table-bordered table-striped">
@@ -214,7 +214,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ปัญหาสภาพแวดล้อมของโรงเรียนและอาคารเรียน (ถ้ามี เลือกได้มากกว่า 1 อย่าง)</div>
+	  <div class="panel-heading">ปัญหาสภาพแวดล้อมของสถานศึกษาและอาคารเรียน (ถ้ามี เลือกได้มากกว่า 1 อย่าง)</div>
 	  <div class="panel-body">
 	  	
 	  	<table class="table table-bordered table-striped">

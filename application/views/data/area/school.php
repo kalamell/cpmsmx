@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active"> ตารางแสดงพื้นที่และพิกัดของแต่ละโรงเรียน</li>
+			  <li class="active"> ตารางแสดงพื้นที่และพิกัดของแต่ละสถานศึกษา</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading"> ตารางแสดงพื้นที่และพิกัดของแต่ละโรงเรียน</div>
+				  <div class="panel-heading"> ตารางแสดงพื้นที่และพิกัดของแต่ละสถานศึกษา</div>
 				  <div class="panel-body">
 
 				  	
@@ -43,7 +43,7 @@
 			                    foreach($amphur as $am):?>
 			                    	<tr style="background-color: #000; color: #fff">
 			                    		<td style='' colspan="16">
-			                    			<?php echo $am->AMPHUR_NAME;?>
+			                    			<?php echo $am->AMPHUR_NAME;?>  <a href="<?php echo site_url('data/area/map?amphur_id='.$am->AMPHUR_ID);?>" class='btn btn-sm btn-info'><i class="fa fa-map"></i> ดูแผนที่</a>
 			                    		</td>
 			                    	</tr>
 
@@ -57,14 +57,14 @@
 
 			                    					<?php foreach($school as $s):?>
 			                    						<tr>
-				                    						<td>โรงเรียน<?php echo $s->school_name;?></td>
-						                    				<td style="text-align: right">0</td>
-								                    		<td style="text-align: right">0</td>
-								                    		<td style="text-align: right">0</td>
+				                    						<td><a href="<?php echo site_url('data/area/map?school_id='.$s->school_id);?>">สถานศึกษา<?php echo $s->school_name;?></a></td>
+						                    				<td style="text-align: right"><?php echo $s->land_rai;?></td>
+								                    		<td style="text-align: right"><?php echo $s->land_work;?></td>
+								                    		<td style="text-align: right"><?php echo $s->land_wa;?></td>
 
-								                    		<td style="text-align: right">0</td>
+								                    		<td style="text-align: right"><?php echo $s->lat;?></td>
 
-								                    		<td style="text-align: right">0</td>
+								                    		<td style="text-align: right"><?php echo $s->lng;?></td>
 									                    </tr>
 
 								                    <?php endforeach;?>

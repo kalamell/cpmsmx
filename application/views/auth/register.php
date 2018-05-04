@@ -64,9 +64,9 @@
 								  </div>
 
 								  <div class="form-group col-md-12">
-								    <label class="" for="area_type_id">หน่วยงาน</label>
+								    <label class="" for="area_type_id">สังกัด</label>
 								    <select class="form-control required" name="area_type_id" id="area_type_id">
-								    	<option value="">- - - หน่วยงาน - - -</option>
+								    	<option value="">- - - สังกัด - - -</option>
 								    	<?php foreach($area as $a):?>
 								    		<option value="<?php echo $a->area_type_id;?>"><?php echo $a->area_type_name;?></option>
 								    	<?php endforeach;?>
@@ -74,9 +74,9 @@
 								  </div>
 
 								  <div class="form-group col-md-12">
-								    <label class="" for="school">โรงเรียน</label>
-								    <select name="school" class="form-control">
-								    	<option value="">โรงเรียน</option>
+								    <label class="" for="school">สถานศึกษา</label>
+								    <select name="school" class="form-control required">
+								    	<option value="">สถานศึกษา</option>
 								    	
 								    </select>
 								  </div>
@@ -95,13 +95,13 @@
 
 						<div class='col-md-6'>
 						    <p><strong>หมายเหตุ</strong></p>
-						    <p>ระบบบริหารจัดการข้อมูลประชากรวัยเรียน ศธจ.ชัยภูมิ</p>
+						   
 						    <ul class="">
 						    	
 						    	<li>Username ใช้ หมายเลขบัตรประชาชนในการใช้งาน</li>
 						    	<li>ใช้รหัสผ่าน 8 หลักในการใช้งาน</li>
 						    	<!--<li>หากไม่สามารถเข้าใช้งานได้ ให้ติดต่อที่ 0903631399 และ 061646246</li>
-						    	<li>เนื่องจาก ข้อมูลของโรงเรียนและส่วนที่เกี่ยวข้องมีความหลายหลายและมีปริมาณเยอะ ซึ่งตอนนี้อยู่ในระหว่างการจัดทำ</li>
+						    	<li>เนื่องจาก ข้อมูลของสถานศึกษาและส่วนที่เกี่ยวข้องมีความหลายหลายและมีปริมาณเยอะ ซึ่งตอนนี้อยู่ในระหว่างการจัดทำ</li>
 						    	<li>ผู้จัดทำ <a href="https://www.facebook.com/issaree17">https://www.facebook.com/issaree17</a></li>-->
 						    </ul>
 						</div>

@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active">ตารางแสดงจำนวนโรงเรียนในแต่ละสังกัดจำแนกตามอำเภอ</li>
+			  <li class="active">ตารางแสดงจำนวนสถานศึกษาในแต่ละสังกัดจำแนกตามอำเภอ</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ตารางแสดงจำนวนโรงเรียนในแต่ละสังกัดจำแนกตามอำเภอ</div>
+				  <div class="panel-heading">ตารางแสดงจำนวนสถานศึกษาในแต่ละสังกัดจำแนกตามอำเภอ</div>
 				  <div class="panel-body">
 
 				  	
@@ -44,7 +44,11 @@
 				                      			<?php 
 
 				                      			$num = countSchoolAreaCodeAmphur($a->area_type_id, $am->AMPHUR_ID);
-				                      			echo $num == 0 ? '&nbsp;' : $num;
+				                      			echo $num == 0 ? 0 : anchor('data/getdata/amphur/'.$am->AMPHUR_ID.'/'.$a->area_type_id, $num, array('data-remote' => "false",
+							                      				'data-toggle' => "modal",
+							                      				'data-target' => "#modal",
+							                      				'class' => ''));
+
 
 				                      			$sum_num += $num;
 												

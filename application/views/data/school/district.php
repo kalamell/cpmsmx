@@ -1,7 +1,7 @@
 	<div class='container-fluid'>
 		<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
-			  <li class="active">ตารางแสดงจำนวนโรงเรียนในแต่ละสังกัดจำแนกตามตำบล</li>
+			  <li class="active">ตารางแสดงจำนวนสถานศึกษาในแต่ละสังกัดจำแนกตามตำบล</li>
 			</ol>
 
 		<div class="row">
@@ -9,7 +9,7 @@
 
 			<div class='col-md-12'>
 				<div class="panel panel-default">
-				  <div class="panel-heading">ตารางแสดงจำนวนโรงเรียนในแต่ละสังกัดจำแนกตามตำบล</div>
+				  <div class="panel-heading">ตารางแสดงจำนวนสถานศึกษาในแต่ละสังกัดจำแนกตามตำบล</div>
 				  <div class="panel-body">
 
 				  	
@@ -47,7 +47,12 @@
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
 							                      			$num = countSchoolAreaCodeDistrcit($a->area_type_id, $ds->DISTRICT_ID);
-							                      			echo $num == 0 ? '&nbsp;' : $num;
+
+							                      			echo $num == 0 ? 0 : anchor('data/getdata/district/'.$ds->DISTRICT_ID.'/'.$a->area_type_id, $num, array('data-remote' => "false",
+							                      				'data-toggle' => "modal",
+							                      				'data-target' => "#modal",
+							                      				'class' => ''));
+
 							                      			$sum+= $num;
 
 							                      			$ar[$a->area_type_id] = isset($ar[$a->area_type_id]) ?  $num + $ar[$a->area_type_id] : $num;

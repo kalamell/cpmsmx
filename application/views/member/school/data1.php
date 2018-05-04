@@ -15,10 +15,10 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ข้อมูลรหัสโรงเรียน</div>
+	  <div class="panel-heading">ข้อมูลรหัสสถานศึกษา</div>
 	  <div class="panel-body">
 		<div class="form-group col-md-6">
-			<label for="school_id">รหัสโรงเรียน</label>
+			<label for="school_id">รหัสสถานศึกษา</label>
 		    <input type="text" class="form-control" name="school_id" value="<?php echo $r->school_id;?>"  placeholder="">
 		</div>
 
@@ -41,7 +41,7 @@
 		</div>
 
 		 <div class="form-group col-md-12">
-			<label for="school_name">ชื่อโรงเรียน (ภาษาไทย)</label>
+			<label for="school_name">ชื่อสถานศึกษา (ภาษาไทย)</label>
 		    <input type="text" class="form-control" name="school_name" value="<?php echo $r->school_name;?>" name="school_name" placeholder="">
 		</div>
 
@@ -72,7 +72,7 @@
 
 
 		<!--<div class="form-group col-md-12">
-			<label for="school_name_en">ชื่อโรงเรียน (ภาษาอังกฤษ)</label>
+			<label for="school_name_en">ชื่อสถานศึกษา (ภาษาอังกฤษ)</label>
 		    <input type="text" class="form-control" name="school_name_en" value="<?php echo $r->school_name_en;?>" name="school_name_en" placeholder="">
 		 </div>-->
 	  </div>
@@ -122,7 +122,7 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-		<div class="panel-heading">ข้อมูลพื้นฐานโรงเรียน</div>
+		<div class="panel-heading">ข้อมูลพื้นฐานสถานศึกษา</div>
 		<div class="panel-body">
 			<div class="form-group col-md-12">
 				<label for="schol_head">ชื่อผู้อำนวยการ</label>
@@ -221,20 +221,32 @@
 			</div>
 
 			<div class="form-group col-md-6">
-				<label for="website">เว็บไซต์โรงเรียน</label>
+				<label for="website">เว็บไซต์สถานศึกษา</label>
 		    	<input type="text" class="form-control" name="website" value="<?php echo $rs->website;?>" placeholder="">
 			</div>
 
 
 			<div class="form-group col-md-12">
-				<label for="land">ที่ดิน</label>
+				<label for="land">ที่ดิน จำนวนไร่</label>
 		    	<input type="text" class="form-control" name="land" value="<?php echo $rs->land;?>" placeholder="">
+			</div>
+
+			<div class="form-group col-md-12">
+				<label for="land_work">งาน</label>
+		    	<input type="text" class="form-control" name="land_work" value="<?php echo $rs->land_work;?>" placeholder="">
 			</div>
 
 
 			<div class="form-group col-md-12">
-				<label for="wat">ที่ตั้งบริเวณวัด</label>
-		    	<input type="text" class="form-control" name="wat" value="<?php echo $rs->wat;?>" placeholder="">
+				<label for="land_wa">ตารางวา</label>
+		    	<input type="text" class="form-control" name="land_wa" value="<?php echo $rs->land_wa;?>" placeholder="">
+			</div>
+
+
+
+			<div class="form-group col-md-12">
+				<label for="wat">ที่ตั้ง (* จะดึงค่ามาจากด้านล่างโดยอัตโนมัติ)</label>
+		    	<input type="text" class="form-control" id="wat" name="wat" value="<?php echo $rs->lat.','.$rs->lng;?>" placeholder="">
 			</div>
 
 			
@@ -248,9 +260,9 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-		<div class="panel-heading">ภาพป้ายหน้าโรงเรียน</div>
+		<div class="panel-heading">ภาพป้ายหน้าสถานศึกษา</div>
 		<div class="panel-body">
-			<p class="text-center" style="color: red;">** ภาพป้ายหน้าโรงเรียน มีขนาดไฟล์ไม่เกิน 1MB</p>
+			<p class="text-center" style="color: red;">** ภาพป้ายหน้าสถานศึกษา มีขนาดไฟล์ไม่เกิน 1MB</p>
 
 			<div class="form-group col-md-12">
 				<label for="username">แนบไฟล์ภาพ</label>
@@ -269,12 +281,21 @@
 
 
 
+<?php 
+$latLng = getLatLng();
+?>
 <div class='col-md-12'>
 	<div class="panel panel-default">
-		<div class="panel-heading">แผนที่โรงเรียน</div>
+		<div class="panel-heading">แผนที่สถานศึกษา</div>
 		<div class="panel-body">
-			<input type="hidden" class="form-control" id="lat" name="lat" value="<?php echo $rs->lat == '0' ? '15.806900' : $rs->lat;?>">
-			<input type="hidden" class="form-control" id="lng" name="lng" value="<?php echo $rs->lng == '0' ? '102.031559' : $rs->lng;?>">
+			<div class="form-group">
+				<label>ละติจูด</label>
+				<input type="text" class="form-control" id="lat" name="lat" value="<?php echo $rs->lat == '0' ? $latlng->lat : $rs->lat;?>">
+			</div>
+			<div class='form-group'>
+				<label>ลองติจูด</label>
+				<input type="text" class="form-control" id="lng" name="lng" value="<?php echo $rs->lng == '0' ? $latlng->lng : $rs->lng;?>">
+			</div>
 			<p class="text-center" style="color: red;">** ท่านสามารถกดลากเพื่อเปลี่ยนหมุดได้</p>
 
 			<div id="map" class='col-md-12' style='min-height: 500px;'></div>
@@ -317,9 +338,12 @@ function panTo(lat, lng) {
 	 map.panTo( new google.maps.LatLng( lat, lng ) );
 	 map.setZoom(14);
 }
+<?php 
+$latlng = getLatLng();
+?>
 
 function initMap() {
-  var myLatLng = {lat: <?php echo $rs->lat == 0 ? '15.806900' : $rs->lat;?>, lng: <?php echo $rs->lng == 0 ? '102.031559' : $rs->lng;?>};
+  var myLatLng = {lat: <?php echo $rs->lat == 0 ? $latlng->lat : $rs->lat;?>, lng: <?php echo $rs->lng == 0 ? $latlng->lng : $rs->lng;?>};
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -340,9 +364,12 @@ function initMap() {
    	panTo(evt.latLng.lat(), evt.latLng.lng());
 
   	//document.getElementById('msg').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+
+  	document.getElementById('wat').value = evt.latLng.lat() + ',' + evt.latLng.lng();
   });
 
   google.maps.event.addListener(marker, 'dragstart', function(evt){
+
   	//document.getElementById('msg').innerHTML = '<p>Currently dragging marker...</p>';
   });
 

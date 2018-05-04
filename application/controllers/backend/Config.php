@@ -9,6 +9,9 @@ class Config extends Backend {
 
 	public function index()
 	{
+		if (isAdminArea()) {
+			redirect('backend/school');
+		}
 
 		$this->r = $this->db->where('id', $this->config_id)->get('config')->row();
 
@@ -37,13 +40,15 @@ class Config extends Backend {
 			$this->db->where('id', $this->input->post('id'))->update('config', array(
 				'title' => $this->input->post('title'),
 				'province_id' => $this->input->post('province_id'),
-				'footer' => $this->input->post('footer')
+				'footer' => $this->input->post('footer'),
+				'lat' => $this->input->post('lat'),
+				'lng' => $this->input->post('lng'),
 			));
 
 			$config = array(
 				'upload_path' => './upload/',
 				'allowed_types' => 'jpg|png|JPEG|PNG',
-				'file_name' => 'logo',
+				'file_name' => 'logo-'.$this->province_id,
 			);
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('logo')) {
@@ -57,12 +62,12 @@ class Config extends Backend {
 		$menu = $this->input->post('menu_sub');
 
 		if (count($menu) > 0) {
-			$this->db->where('province_id', $this->province_id)->delete('menu_website');
+			$this->db->where('config_id', $this->input->post('id'))->delete('menu_website');
 
 			foreach($menu as $k => $sub_id)
 			{
 				$this->db->insert('menu_website', array(
-					'province_id' => $this->province_id,
+					'config_id' => $this->input->post('id'),
 					'sub_id' => $sub_id
 				));
 			}

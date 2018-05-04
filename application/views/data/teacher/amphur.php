@@ -22,7 +22,7 @@
 			                    <tr>
 			                      <th width="120" rowspan="2">อำเภอ</th>
 			                      <?php foreach($area as $l):?>
-			                      	<th colspan="3"><?php echo $l->area_code_name;?></th>
+			                      	<th colspan="3"><?php echo $l->area_type_name;?></th>
 			                      <?php endforeach;?>
 			                      <th width="100" rowspan="2">รวม</th>
 			                    </tr>
@@ -50,36 +50,36 @@
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
-				                      			$num = 0;
-
-				                      			echo $num;
-				                      			$sum_num += $num;
-
-												$ar[$l->area_code] = isset($ar[$l->area_code]) ?  $num + $ar[$l->area_code] : $num;
+				                      			$num1 = getTeacherAmphur($am->AMPHUR_ID, $l->area_type_id, 'man');
+							                      			
+							                      			echo $num1;
+							                      			
 				                      			
 				                      			?>
 				                      		</td>
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
-				                      			$num = 0;
+				                      			$num2 = getTeacherAmphur($am->AMPHUR_ID, $l->area_type_id, 'woman');
+							                      			
+							                    echo $num2;
 
-				                      			echo $num;
-				                      			$sum_num += $num;
-
-												//$ar[$l->area_code] = isset($ar[$l->area_code]) ?  $num + $ar[$l->area_code] : $num;
 				                      			
 				                      			?>
 				                      		</td>
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
-				                      			$num = 0;
+				                      			$total = $num1 + $num2;
+							                      			
+							                      			echo $total;
 
-				                      			echo $num;
-				                      			$sum_num += $num;
+							                      			$sum_num+= $total;
 
-												//$ar[$l->area_code] = isset($ar[$l->area_code]) ?  $num + $ar[$l->area_code] : $num;
+  $ar[$l->area_type_id]['man'] = isset($ar[$l->area_type_id]['man']) ? $ar[$l->area_type_id]['man'] + $num1 : $num1;
+  $ar[$l->area_type_id]['woman'] = isset($ar[$l->area_type_id]['woman']) ? $ar[$l->area_type_id]['woman'] + $num2 : $num2;
+
+   $ar[$l->area_type_id]['total'] = isset($ar[$l->area_type_id]['total']) ? $ar[$l->area_type_id]['total'] + $total : $total;
 				                      			
 				                      			?>
 				                      		</td>
@@ -93,10 +93,10 @@
 			                    	<?php 
 			                    	$total_sum = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		$total_sum += $v;
+			                    		echo '<td style="text-align: right;"><strong>'.$v['man'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['woman'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['total'].'</strong></td>';
+			                    		$total_sum += $v['total'];
 			                    	}
 			                    	?>
 			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>

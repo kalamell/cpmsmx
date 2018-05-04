@@ -49,16 +49,13 @@
 						                      			<?php 
 						                      			
 
-						                      			
-						                      			$num = 0;
-						                      			
+						                      			$num = getTeacherAcademicAmphur($am->AMPHUR_ID, $aca->as_name, $l['level_name']);
+
 						                      			echo $num;
-						                      			
-						                      			$sum+= $num;
+						                      			$sum+=$num;
 
-						                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
-						                 
+						                 $ar[$l['level_id']] = isset($ar[$l['level_id']]) ? $ar[$l['level_id']] + $num : $num;
+						
 
 						                      			?>
 						                      		</td>

@@ -5,10 +5,10 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">ข้อมูลรหัสโรงเรียน</div>
+	  <div class="panel-heading">ข้อมูลรหัสสถานศึกษา</div>
 	  <div class="panel-body">
 		<div class="form-group col-md-6">
-			<label for="username">รหัสโรงเรียน</label>
+			<label for="username">รหัสสถานศึกษา</label>
 		    <input type="text" class="form-control required" name="f6" value="<?php echo $rs->f6;?>" readonly placeholder="">
 		</div>
 		<div class="form-group col-md-6">
@@ -26,11 +26,11 @@
 		 </div>
 
 		 <div class="form-group col-md-6">
-			<label for="username">ชื่อโรงเรียน (ภาษาไทย)</label>
+			<label for="username">ชื่อสถานศึกษา (ภาษาไทย)</label>
 		    <input type="text" class="form-control required" value="<?php echo $rs->f3;?>" name="f3" placeholder="">
 		</div>
 		<div class="form-group col-md-6">
-			<label for="username">ชื่อโรงเรียน (ภาษาอังกฤษ)</label>
+			<label for="username">ชื่อสถานศึกษา (ภาษาอังกฤษ)</label>
 		    <input type="text" class="form-control required" value="<?php echo $rs->f4;?>" name="f4" placeholder="">
 		 </div>
 	  </div>
@@ -85,7 +85,7 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-		<div class="panel-heading">ข้อมูลพื้นฐานโรงเรียน</div>
+		<div class="panel-heading">ข้อมูลพื้นฐานสถานศึกษา</div>
 		<div class="panel-body">
 			<div class="form-group col-md-12">
 				<label for="username">ชื่อผู้อำนวยการ</label>
@@ -167,7 +167,7 @@
 			</div>
 
 			<div class="form-group col-md-6">
-				<label for="username">เว็บไซต์โรงเรียน</label>
+				<label for="username">เว็บไซต์สถานศึกษา</label>
 		    	<input type="text" class="form-control" name="f17" value="<?php echo $rs->f17;?>" placeholder="">
 			</div>
 
@@ -197,7 +197,7 @@
 
 <div class='col-md-6'>
 	<div class="panel panel-default">
-		<div class="panel-heading">ภาพป้ายหน้าโรงเรียน</div>
+		<div class="panel-heading">ภาพป้ายหน้าสถานศึกษา</div>
 		<div class="panel-body">
 			<?php if ($rs->sign_school !=''):?>
 				<img src="<?php echo base_url();?>upload/<?php echo $rs->sign_school;?>" class="img-responsive"> <br />
@@ -214,7 +214,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-		<div class="panel-heading">แผนที่โรงเรียน</div>
+		<div class="panel-heading">แผนที่สถานศึกษา</div>
 		<div class="panel-body">
 			
 		</div>

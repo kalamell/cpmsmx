@@ -61,25 +61,100 @@
 			                    		<td style='' colspan="">
 			                    			<?php echo $am->AMPHUR_NAME;?>
 			                    		</td>
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
+			                    		<td style="text-align: right">
+	                    					<?php 
+	                    					$num1 = getAge7Amphur($am->AMPHUR_ID, 3, 'boy');
+	                    					if (count($num1) ==0) {
+	                    						$num1 = 0;
+	                    						echo $num1;
+	                    					} else {
+	                    						$num1 = $num1->count_boy;
+	                    						echo $num1;
+	                    					}
+	                    					?>
+	                    				</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+	                    					$num2 = getAge7Amphur($am->AMPHUR_ID, 3, 'girl');
+	                    					if (count($num2) ==0) {
+	                    						$num2 = 0;
+	                    						echo $num2;
+	                    					} else {
+	                    						$num2 = $num2->count_girl;
+	                    						echo $num2;
+	                    					}
+	                    					?>
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php $total = $num1 + $num2;
+			                    			echo $total;
+			                    			?>
+
+			                    		</td>
 
 			                    		<td style="text-align: right">0</td>
 
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$num3 = getLevelA1Amphur($am->AMPHUR_ID, 'boy');
+			                    			echo $num3;
+			                    			?>
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$num4 = getLevelA1Amphur($am->AMPHUR_ID, 'girl');
+			                    			echo $num4;
+			                    			?>
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$total = $num3 + $num4;
+			                    			echo $total;
+			                    			?>
+			                    		</td>
 
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$num5 = getLevelA1Amphur($am->AMPHUR_ID, 'boy', 'spt');
+			                    			echo $num5;
+			                    			?>
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$num6 = getLevelA1Amphur($am->AMPHUR_ID, 'girl', 'spt');
+			                    			echo $num6;
+			                    			?>
 
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
-			                    		<td style="text-align: right">0</td>
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$total1 = $num5 + $num6;
+			                    			echo $total1;
+			                    			?>
+			                    		</td>
 
-				                    	<td style="text-align: right"><strong>0:0</strong></td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$num7 = getLevelA1Amphur($am->AMPHUR_ID, 'boy', 'oth');
+			                    			echo $num7;
+			                    			?>
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$num8 = getLevelA1Amphur($am->AMPHUR_ID, 'girl', 'oth');
+			                    			echo $num8;
+			                    			?>
+
+			                    		</td>
+			                    		<td style="text-align: right">
+			                    			<?php 
+			                    			$total2 = $num7 + $num8;
+			                    			echo $total2;
+			                    			?>
+			                    		</td>
+
+
+				                    	<td style="text-align: right"><strong><?php echo $total1;?>:<?php echo $total2;?></strong></td>
 				                    </tr>
 			                    <?php endforeach;?>
 

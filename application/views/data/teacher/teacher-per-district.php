@@ -53,20 +53,23 @@
 					                    			<td>ตำบล <?php echo $ds->DISTRICT_NAME;?></td>
 					                    			<?php 
 					                    			$sum = 0;
+					                    			$teacher1 = 0;
+					                    			$student1 = 0;
 					                    			foreach($level as $l):?>
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
 							                      			
 
 							                      			
+							                      			if ($l['level_id'] == '01') {
+							                      				$teacher = getTeacherTypeSchoolDistrict($ds->DISTRICT_ID, 'spt');
+							                      			} else {
+							                      				$teacher = getTeacherTypeSchoolDistrict($ds->DISTRICT_ID, 'oth');
+							                      			}
 
-							                      			$num = 0;
-							                      			
-							                      			echo $num;
-							                      			
-							                      			$sum+= $num;
+							                      			$teacher1+=$teacher;
 
-							                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
+							                      			echo $teacher;
 
 							                 
 
@@ -74,29 +77,28 @@
 							                      		</td>
 
 							                      		<td width="100" style="text-align: right;">
-							                      			0
+							                      			<?php 
+							                      			if ($l['level_id'] == '01') {
+							                      				$student = getStudentTypeDistrict($ds->DISTRICT_ID, 'spt');
+							                      				
+							                      			} else {
+							                      				$student = getStudentTypeDistrict($ds->DISTRICT_ID, 'oth');
+							                      			}
+							                      			$student1 +=$student;
+							                      			echo $student;
+							                      			?>
 							                      		</td>
 							                      	
 
-							                      	<td width="100" style="text-align: right;">
+							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
 							                      			
 
-							                      			if ($l['level_id'] == '01') {
-							                      				$num = countSchoolDistrictOnly($ds->DISTRICT_ID);
-							                      			
-							                      			} else {
-							                      				$num = 0;
-							                      			}
+$ar[$l['level_id']]['teacher'] = isset($ar[$l['level_id']]['teacher']) ? $ar[$l['level_id']]['teacher'] + $teacher : $teacher;
 
-							                      			$num = 0;
-							                      			
-							                      			echo '0:0';
-							                      			
-							                      			$sum+= $num;
+$ar[$l['level_id']]['student'] = isset($ar[$l['level_id']]['student']) ? $ar[$l['level_id']]['student'] + $student : $student;
 
-							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
+							                      			echo getRatio($teacher, $student);
 							                 
 
 							                      			?>
@@ -104,9 +106,9 @@
 							                      	
 							                      	
 							                    	<?php endforeach;?>
-							                    	<td width="100" style="text-align: right;"><strong>0</strong></td>
-							                    	<td width="100" style="text-align: right;"><strong>0</strong></td>
-							                    	<td width="100" style="text-align: right;"><strong>0:0</strong></td>
+							                    	<td width="100" style="text-align: right;"><strong><?php echo $teacher1;?></strong></td>
+							                    	<td width="100" style="text-align: right;"><strong><?php echo $student1;?></strong></td>
+							                    	<td width="100" style="text-align: right;"><strong><?php echo getRatio($teacher1, $student1);?></strong></td>
 							                    </tr>
 						                    <?php endif;?>
 					                    <?php endforeach;?>
@@ -115,20 +117,29 @@
 			                    <?php endforeach;?>
 			                   
 			                    <tr>
-			                    	<td style="text-align: right;"><strong>รวม</strong></td>
-			                    	<?php 
-			                    	$total_sum = 0;
-			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>0:0</strong></td>';
-			                    		$total_sum += $v;
-			                    	}
-			                    	?>
-			                    	<td style="text-align: right;"><strong>0</strong></td>
-			                    	<td style="text-align: right;"><strong>0</strong></td>
-			                    	<td style="text-align: right;"><strong>0:0</strong></td>
-			                    </tr>
+				                    	<td style="text-align: right">รวม</td>
+				                    	<?php 
+				                    	$total_sum = 0;
+				                    	$student = 0;
+				                    	$teacher = 0;
+
+				                    	
+
+				                    	foreach($ar as $_a => $v) {
+				                    		echo '<td style="text-align: right;"><strong>'.$v['teacher'].'</strong></td>';
+				                    		echo '<td style="text-align: right;"><strong>'.$v['student'].'</strong></td>';
+				                    		echo '<td style="text-align: right;"><strong>'.getRatio($v['teacher'], $v['student']).'</strong></td>';
+				                    		
+				                    		$student+=$v['student'];
+				                    		$teacher+=$v['teacher'];
+
+				                    		
+				                    	}
+				                    	?>
+				                    	<td style="text-align: right"><strong><?php echo $teacher;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $student;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo getRatio($teacher, $student);?></strong></td>
+				                    </tr>
 			                  </tbody>
 			                  
 			                </table>

@@ -47,7 +47,6 @@
 				<tr>
 					<th rowspan="2" width="300">ชั้น</th>
 					<th colspan="2">จำนวนนักเรียน</th>
-					<th rowspan="2" width="80">&nbsp;</th>
 				</tr>
 				<tr>
 					<th width="150">ชาย</th>
@@ -56,24 +55,11 @@
 			</thead>
 			<tbody>
 				<?php foreach($room_level as $rl):?>
-					<?php if ($rl->rmid >= $rs->rmid_start && $rl->rmid <= $rs->rmid_end):?>
-						<tr>
-							<td colspan="4"><strong>ข้อมูลระดับชั้น <?php echo $rl->rm_name;?></strong> <a data-toggle="modal" href="<?php echo site_url('member/add_room_level/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$rl->rmid);?>" class="btn btn-sm btn-default pull-right" data-remote="false" data-target="#md"><i class="fa fa-plus"></i> เพิ่มข้อมูลห้อง</a></td>
-						</tr>
-
-						<?php $getroom = getRoomLevel($rs->school_id, $this->uri->segment(3), $this->uri->segment(4), $rl->rmid);?>
-
-						<?php if(count($getroom)>0):?>
-							<?php foreach($getroom as $gr):?>
-								<tr>
-									<td>- <?php echo $gr->room_no;?></td>
-									<td><?php echo $gr->room_boy;?></td>
-									<td><?php echo $gr->room_girl;?></td>
-								</tr>
-							<?php endforeach;?>
-						<?php endif;?>
-
-					<?php endif;?>
+					<tr>
+						<td><?php echo $rl->rm_name;?></td>
+						<td><input class="form-control" style="text-align: right;" type="text" name="<?php echo $rl->rm_short.'_boy';?>"  value="<?php echo $school_room2[$rl->rm_short.'_boy'];?>"></td>
+						<td><input class="form-control" style="text-align: right;" type="text" name="<?php echo $rl->rm_short.'_girl';?>"  value="<?php echo $school_room2[$rl->rm_short.'_girl'];?>"></td>
+					</tr>
 				<?php endforeach;?>
 			</tbody>
 			</table>

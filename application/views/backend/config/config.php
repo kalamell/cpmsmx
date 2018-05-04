@@ -31,3 +31,80 @@
 	<?php endif;?>
 	<input type="file" name="logo" class="form-control">
 </div>
+
+<div class='col-md-12'>
+	<div class="panel panel-default">
+		<div class="panel-heading">แผนที่จังหวัด</div>
+		<div class="panel-body">
+			<input type="text" class="form-control" id="lat" name="lat" value="<?php echo $r->lat == '0' ? '15.806900' : $r->lat;?>">
+			<input type="text" class="form-control" id="lng" name="lng" value="<?php echo $r->lng == '0' ? '102.031559' : $r->lng;?>">
+			<p class="text-center" style="color: red;">** ท่านสามารถกดลากเพื่อเปลี่ยนหมุดได้</p>
+
+			<div id="map" class='col-md-12' style='min-height: 500px;'></div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+
+var msg = document.getElementById('msg');
+var lat, lng = 0;
+var marker, map = null;
+
+getLocation();
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+
+    } else {
+        msg.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    changeMarkerPosition(lat, lng)
+}
+
+function changeMarkerPosition(lat, lng) {
+   map.setZoom(12);
+}
+
+function panTo(lat, lng) {
+	 map.panTo( new google.maps.LatLng( lat, lng ) );
+	 map.setZoom(14);
+}
+
+function initMap() {
+  var myLatLng = {lat: <?php echo $r->lat == 0 ? '15.806900' : $r->lat;?>, lng: <?php echo $r->lng == 0 ? '102.031559' : $r->lng;?>};
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: myLatLng
+  });
+
+  marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'ที่ตั้งของท่าน',
+    draggable: true
+  });
+
+  google.maps.event.addListener(marker, 'dragend', function(evt){
+  	document.getElementById('lat').value = evt.latLng.lat();
+    document.getElementById('lng').value = evt.latLng.lng();
+
+   	panTo(evt.latLng.lat(), evt.latLng.lng());
+
+  	//document.getElementById('msg').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+  });
+
+  google.maps.event.addListener(marker, 'dragstart', function(evt){
+  	//document.getElementById('msg').innerHTML = '<p>Currently dragging marker...</p>';
+  });
+
+}
+
+    </script>
+

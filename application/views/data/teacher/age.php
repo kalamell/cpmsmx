@@ -50,15 +50,12 @@
 						                      			
 
 						                      			
-						                      			$num = 0;
-						                      			
+						                      			$num = getTeacherAgeAmphur($am->AMPHUR_ID, $ag['age_id'], $l['level_name']);
+
 						                      			echo $num;
-						                      			
-						                      			$sum+= $num;
-
-						                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
-						                 
+						                      			$sum+=$num;
+						                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ? $ar[$l['level_id']] + $num : $num;
+						
 
 						                      			?>
 						                      		</td>

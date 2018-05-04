@@ -5,10 +5,10 @@
 			<ol class="breadcrumb">
 			  <li><a href="<?php echo site_url();?>">หน้าหลัก</a></li>
 			  <li><a href="<?php echo site_url('data');?>">ข้อมูลสารสนเทศ</a></li>
-			  <li class="active">ข้อมูลโรงเรียน</li>
+			  <li class="active">ข้อมูลสถานศึกษา</li>
 			</ol>
 
-			<h2 class="page-header">ข้อมูลพื้นฐานโรงเรียน</h2>
+			<h2 class="page-header">ข้อมูลพื้นฐานสถานศึกษา</h2>
 
 			<div class="panel panel-default">
 	  			<div class="panel-heading">ช่วงปีการศึกษา</div>

@@ -11,7 +11,7 @@ class Banner extends Backend {
 	{
 
 		
-		$this->rs = $this->db->get('banner')->result();
+		$this->rs = $this->db->where('config_id', $this->config_id)->get('banner')->result();
 		$this->render('banner/index', $this);
 	}
 
@@ -37,7 +37,7 @@ class Banner extends Backend {
 	{
 		$config = array(
 			'upload_path' => './upload/banner/',
-			'file_name' => 'banner-'.time(),
+			'file_name' => 'banner-'.$this->province_id.'-'.time(),
 			'allowed_types' => 'jpg|gif|png|JPEG|JPG',
 		);
 		if(is_file($config['upload_path']))
@@ -49,6 +49,7 @@ class Banner extends Backend {
 			$data = $this->upload->data();
 			$this->db->insert('banner', array(
 				'path' => $data['file_name'],
+				'config_id' => $this->config_id
 			));
 
 			//chmod($config['upload_path'], 755); ## this should change the permissions

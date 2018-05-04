@@ -68,15 +68,7 @@
 				  </div>
 
 
-				  <div class="form-group col-md-12">
-				    <label class="" for="school_id">โรงเรียน</label>
-				    <select class="form-control required" name="school_id2" id="school_id">
-				    	
-				    </select>
-				  </div>
-
 				 
-
 
 
 				

@@ -51,7 +51,7 @@
 
 <div class='col-md-12'>
 	<div class="panel panel-default">
-	  <div class="panel-heading">โรงเรียนมีคอมพิวเตอร์</div>
+	  <div class="panel-heading">สถานศึกษามีคอมพิวเตอร์</div>
 	  <div class="panel-body">
 	  	
 

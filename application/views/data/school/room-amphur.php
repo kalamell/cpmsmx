@@ -43,7 +43,7 @@
 				                      		<td width="100" style="text-align: right;">
 				                      			<?php 
 
-				                      			$num = 0;
+				                      			$num = getRoomAmphur($l['level_id'], $am->AMPHUR_ID);
 
 				                      			echo $num;
 				                      			$sum_num += $num;

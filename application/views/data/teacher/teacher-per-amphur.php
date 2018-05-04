@@ -51,17 +51,22 @@
 				                    	
 				                    		<?php 
 				                    		$sum_num = 0;
+				                    		$teacher1 = 0;
+				                    		$student1 = 0;
 				                    		foreach($level as $l):?>
 					                      		<td width="100" style="text-align: right;">
 					                      			<?php 
 
 					                      			
-					                      			$num = 0;
+					                      			if ($l['level_id'] == '01') {
+					                      				$teacher = getTeacherTypeSchoolAmphur($am->AMPHUR_ID, 'spt');
+					                      			} else {
+					                      				$teacher = getTeacherTypeSchoolAmphur($am->AMPHUR_ID, 'oth');
+					                      			}
 
-					                      			echo $num;
-					                      			$sum_num += $num;
+					                      			echo $teacher;
+					                      			$teacher1+=$teacher;
 
-													$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
 					                      			
 					                      			?>
 					                      		</td>
@@ -69,19 +74,28 @@
 
 					                      		<td width="100" style="text-align: right;">
 					                      			<?php 
+					                      			if ($l['level_id'] == '01') {
+					                      				$student = getStudentTypeAmphur($am->AMPHUR_ID, 'spt');
+					                      				
+					                      			} else {
+					                      				$student = getStudentTypeAmphur($am->AMPHUR_ID, 'oth');
+					                      			}
 
-					                      			$num = 0;
-
-					                      			echo $num;
-					                      			$sum_num += $num;
-
-													//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-					                      			
+					                      			echo $student;
+					                      			$student1+=$student;
 					                      			?>
 					                      		</td>
 
 					                      		<td width="100" style="text-align: right;">
-					                      			0:0
+					                      			<?php 
+
+$ar[$l['level_id']]['teacher'] = isset($ar[$l['level_id']]['teacher']) ? $ar[$l['level_id']]['teacher'] + $teacher : $teacher;
+
+$ar[$l['level_id']]['student'] = isset($ar[$l['level_id']]['student']) ? $ar[$l['level_id']]['student'] + $student : $student;
+
+
+							                      			echo getRatio($teacher, $student);
+							                      			?>
 					                      		</td>
 
 
@@ -89,9 +103,9 @@
 					                      		</td>
 
 					                    	<?php endforeach;?>
-					                    	<td width="100" style="text-align: right"><strong>0</strong></td>
-					                    	<td width="100" style="text-align: right"><strong>0</strong></td>
-					                    	<td width="100" style="text-align: right"><strong>0:0</strong></td>
+					                    	<td width="100" style="text-align: right;"><strong><?php echo $teacher1;?></strong></td>
+							                    	<td width="100" style="text-align: right;"><strong><?php echo $student1;?></strong></td>
+							                    	<td width="100" style="text-align: right;"><strong><?php echo getRatio($teacher1, $student1);?></strong></td>
 					                    </tr>
 				                    <?php endforeach;?>
 
@@ -99,16 +113,25 @@
 				                    	<td style="text-align: right">รวม</td>
 				                    	<?php 
 				                    	$total_sum = 0;
+				                    	$student = 0;
+				                    	$teacher = 0;
+
+				                    	
+
 				                    	foreach($ar as $_a => $v) {
-				                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-				                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-				                    		echo '<td style="text-align: right;"><strong>0:0</strong></td>';
-				                    		$total_sum += $v;
+				                    		echo '<td style="text-align: right;"><strong>'.$v['teacher'].'</strong></td>';
+				                    		echo '<td style="text-align: right;"><strong>'.$v['student'].'</strong></td>';
+				                    		echo '<td style="text-align: right;"><strong>'.getRatio($v['teacher'], $v['student']).'</strong></td>';
+				                    		
+				                    		$student+=$v['student'];
+				                    		$teacher+=$v['teacher'];
+
+				                    		
 				                    	}
 				                    	?>
-				                    	<td style="text-align: right"><strong>0</strong></td>
-				                    	<td style="text-align: right"><strong>0</strong></td>
-				                    	<td style="text-align: right"><strong>0:0</strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $teacher;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $student;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo getRatio($teacher, $student);?></strong></td>
 				                    </tr>
 				                  </tbody>
 				                  

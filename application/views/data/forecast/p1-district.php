@@ -67,25 +67,89 @@
 			                    			<?php if ($ds->AMPHUR_ID == $am->AMPHUR_ID):?>
 			                    				<tr>
 			                    					<td><?php echo $ds->DISTRICT_NAME;?></td>
-				                    				<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
+				                    				<td style="text-align: right">
+						                    			<?php 
+						                    			$num1 = getLevelA3District($ds->DISTRICT_ID, 'boy');
+						                    			echo $num1;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num2 = getLevelA3District($ds->DISTRICT_ID, 'girl');
+						                    			echo $num2;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$total = $num1 + $num2;
+						                    			echo $total;
+						                    			?>
+						                    		</td>
 
 						                    		<td style="text-align: right">0</td>
 
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
+						                    		
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num1 = getLevelP1District($ds->DISTRICT_ID, 'boy');
+						                    			echo $num1;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num2 = getLevelP1District($ds->DISTRICT_ID, 'girl');
+						                    			echo $num2;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$total = $num1 + $num2;
+						                    			echo $total;
+						                    			?>
+						                    		</td>
 
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num1 = getLevelP1District($ds->DISTRICT_ID, 'boy', 'spt');
+						                    			echo $num1;
 
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
-						                    		<td style="text-align: right">0</td>
 
-							                    	<td style="text-align: right"><strong>0:0</strong></td>
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num2 = getLevelP1District($ds->DISTRICT_ID, 'girl', 'spt');
+
+						                    			echo $num2;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$total1 = $num1 + $num2;
+						                    			echo $total1;
+						                    			?>
+						                    		</td>
+
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num1 = getLevelP1District($ds->DISTRICT_ID, 'boy', 'oth');
+						                    			echo $num1;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$num2 = getLevelP1District($ds->DISTRICT_ID, 'girl', 'oth');
+						                    			echo $num2;
+						                    			?>
+						                    		</td>
+						                    		<td style="text-align: right">
+						                    			<?php 
+						                    			$total2 = $num1 + $num2;
+						                    			echo $total2;
+						                    			?>
+						                    		</td>
+
+							                    	<td style="text-align: right"><strong><?php echo $total1;?>:<?php echo $total2;?></strong></td>
 							                    </tr>
 
 			                    			<?php endif;?>

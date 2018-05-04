@@ -48,11 +48,7 @@
 
 				  </div>
 
-				  <div class="form-group">
-				  	<label>ชื่อหน่วยงาน</label>
-				  	<input type="text" name="area_type_name" class="form-control" value="">
-				  </div>
-
+				 
 
 
 			  </div>

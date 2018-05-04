@@ -55,14 +55,11 @@
 							                      			<?php 
 							                      			
 
-							                      			$num = 0;
+							                      			$num1 = getRoomGenderDistrict($l['level_id'], $ds->DISTRICT_ID, 'boy');
 							                      			
-							                      			echo $num;
+							                      			echo $num1;
 							                      			
-							                      			$sum+= $num;
-
-							                      			$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
+							                      			
 							                 
 
 							                      			?>
@@ -72,12 +69,12 @@
 							                      			<?php 
 							                      			
 
-							                      			$num = 0;
+							                      			$num2 = getRoomGenderDistrict($l['level_id'], $ds->DISTRICT_ID, 'girl');
 							                      			
-							                      			echo $num;
 							                      			
-							                      			$sum+= $num;
-
+							                      			echo $num2;
+							                      			
+							                      			
 							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
 
 							                 
@@ -89,17 +86,21 @@
 							                      			<?php 
 							                      			
 
-							                      			$num = 0;
+							                      			$total = $num1 + $num2;
 							                      			
-							                      			echo $num;
+							                      			echo $total;
 							                      			
-							                      			$sum+= $num;
+							                      			$sum+= $total;
 
 							                      			//$ar[$l['level_id']] = isset($ar[$l['level_id']]) ?  $num + $ar[$l['level_id']] : $num;
-
-							                 
+  $ar[$l['level_id']]['boy'] = isset($ar[$l['level_id']]['boy']) ? $ar[$l['level_id']]['boy'] + $num1 : $num1;
+  $ar[$l['level_id']]['girl'] = isset($ar[$l['level_id']]['girl']) ? $ar[$l['level_id']]['girl'] + $num1 : $num1;
+  $ar[$l['level_id']]['total'] = isset($ar[$l['level_id']]['total']) ? $ar[$l['level_id']]['total'] + $total : $total;
 
 							                      			?>
+
+
+
 							                      		</td>
 							                      	
 							                    	<?php endforeach;?>
@@ -116,10 +117,10 @@
 			                    	<?php 
 			                    	$total_sum = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		$total_sum += $v;
+			                    		echo '<td style="text-align: right;"><strong>'.$v['boy'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['girl'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['total'].'</strong></td>';
+			                    		$total_sum += $v['total'];
 			                    	}
 			                    	?>
 			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>

@@ -50,7 +50,7 @@
 
 					                    			<?php foreach($school as $s):?>
 					                    				<tr>
-						                    			<td><?php echo 'โรงเรียน '.$s->school_name;?></td>
+						                    			<td><?php echo 'สถานศึกษา '.$s->school_name;?></td>
 						                    			<td style="text-align: right;">0</td>
 						                    			<td style="text-align: right;">0</td>					                    	
 					                    				<td style="text-align: right"><strong>0</strong></td>

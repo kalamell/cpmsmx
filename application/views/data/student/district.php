@@ -22,7 +22,7 @@
 			                    <tr>
 			                      <th width="120" rowspan="2">อำเภอ</th>
 			                      <?php foreach($area as $a):?>
-			                      	<th colspan="3"><?php echo $a->area_code_name;?></th>
+			                      	<th colspan="3"><?php echo $a->area_type_name;?></th>
 			                      <?php endforeach;?>
 			                      <th width="120" rowspan="2" style="text-align:  right;">รวม</th>
 			                    </tr>
@@ -45,34 +45,47 @@
 			                    		<?php
 			                    		
 			                    		foreach($district as $ds):?>
-			                    			<?php if ($ds->AMPHUR_ID == $am->AMPHUR_ID):?>
+			                    			<?php 
+
+			                    			$sum = 0;
+
+			                    			if ($ds->AMPHUR_ID == $am->AMPHUR_ID):?>
 			                    				<tr>
 					                    			<td>ตำบล <?php echo $ds->DISTRICT_NAME;?></td>
 					                    			<?php 
-					                    			$sum = 0;
+					                    			
 					                    			foreach($area as $a):?>
 							                      		<td width="100" style="text-align: right;">
 							                      			<?php 
-							                      			$num = countSchoolAreaCodeDistrcit($a->area_code, $ds->DISTRICT_ID);
-							                      			//echo $num == 0 ? '&nbsp;' : $num;
-							                      			$sum+= $num;
+							                      			$num1 = countDataStudentDistrict($a->area_type_id, $ds->DISTRICT_ID, 'boy');
+							                      			echo $num1;?>
+							                      			
+							                      		</td>
+							                      		<td width="100" style="text-align: right;">
+							                      			<?php 
+							                      			$num2 = countDataStudentDistrict($a->area_type_id, $ds->DISTRICT_ID, 'girl');
+							                      			echo $num2;?>
+							                      		</td>
+							                      		<td width="100" style="text-align: right;">
+							                      			<?php 
+							                      			$total = $num1 + $num2;
+							                      			$sum+=$total;
+							                      			echo $total;
 
-							                      			$ar[$a->area_code] = isset($ar[$a->area_code]) ?  $num + $ar[$a->area_code] : $num;
+							  $ar[$a->area_type_id]['boy'] = isset($ar[$a->area_type_id]['boy']) ?  $ar[$a->area_type_id]['boy'] + $num1 : $num1;
+				                      			
+				              $ar[$a->area_type_id]['girl'] = isset($ar[$a->area_type_id]['girl']) ?  $ar[$a->area_type_id]['girl'] + $num2 : $num2;
 
-							                 
+				              $ar[$a->area_type_id]['total'] = isset($ar[$a->area_type_id]['total']) ?  $ar[$a->area_type_id]['total'] + $total : $total;
+				                      			
+				                      			
 
+							                      			
 							                      			?>
-							                      			0
-							                      		</td>
-							                      		<td width="100" style="text-align: right;">
-							                      			0
-							                      		</td>
-							                      		<td width="100" style="text-align: right;">
-							                      			0
 							                      		</td>
 							                      	
 							                    	<?php endforeach;?>
-							                    	<td style="text-align: right;"><strong>0</strong></td>
+							                    	<td style="text-align: right;"><strong><?php echo $sum;?></strong></td>
 							                    </tr>
 						                    <?php endif;?>
 					                    <?php endforeach;?>
@@ -85,9 +98,11 @@
 			                    	<?php 
 			                    	$total_sum = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>0</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>0</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>0</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong style="font-size: 11px;">'.$v['boy'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong style="font-size: 11px;">'.$v['girl'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong style="font-size: 11px;">'.$v['total'].'</strong></td>';
+
+			                    		$total_sum+=$v['total'];
 			                    		
 			                    	}
 			                    	?>

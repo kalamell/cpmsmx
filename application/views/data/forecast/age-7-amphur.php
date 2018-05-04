@@ -51,64 +51,77 @@
 			                    	
 			                    		<?php 
 			                    		$sum_num = 0;
+			                    		$sum = 0;
 			                    		foreach($age as $l):?>
-				                      		<td width="100" style="text-align: right;">
-				                      			<?php 
+				                      		
+				                      		<?php 
+				                    			$data_age = getAge7Amphur($am->AMPHUR_ID, (int)$l['id']);
+				                    			$total = 0;
+				                    			$count_boy = 0;
+				                    			$count_girl = 0;
 
-				                      			$num = 0;
+				                    			if (count($data_age) == 0) {
+				                    				?>
 
-				                      			echo $num;
-				                      			$sum_num += $num;
+				                    				<td width="100" style="text-align: right;">0</td>
+				                    				<td width="100" style="text-align: right;">0</td>
+				                    				<td width="100" style="text-align: right;">0</td>
+				                    				<?php 
+				                    			} else {
+				                    				$count_boy = $data_age['count_boy'];
+				                    				$count_girl = $data_age['count_girl'];
+				                    				$total = $data_age['count_boy'] + $data_age['count_girl'];
+				                    				$sum_boy+=$count_boy;
+				                    				$sum_girl+=$count_girl;
+				                    				$sum_total+=$total;
+				                    				?>
+				                    				<td width="100" style="text-align: right;"><?php echo $count_boy;?></td>
+				                    				<td width="100" style="text-align: right;"><?php echo $count_girl;?></td>
+				                    				<td width="100" style="text-align: right;">
+				                    					<?php 
+				                    					
+				                    					echo '<strong style="color: green;">'.$total.'</strong>';
+				                    					$sum+=$total;
+				                    					?>
 
-												$ar[$l['id']] = isset($ar[$l['name']]) ?  $num + $ar[$l['name']] : $num;
-				                      			
-				                      			?>
-				                      		</td>
-				                      		<td width="100" style="text-align: right;">
-				                      			<?php 
+				                    					
+				                    				</td>
+				                    				<?php 
+				                    			}
 
-				                      			$num = 0;
+	$ar[$l['id']]['boy'] = isset($ar[$l['id']]['boy']) ? $ar[$l['id']]['boy'] + $count_boy : $count_boy;
 
-				                      			echo $num;
-				                      			$sum_num += $num;
+	$ar[$l['id']]['girl'] = isset($ar[$l['id']]['girl']) ? $ar[$l['id']]['girl'] + $count_girl : $count_girl;
 
-												//$ar[$l->area_code] = isset($ar[$l->area_code]) ?  $num + $ar[$l->area_code] : $num;
-				                      			
-				                      			?>
-				                      		</td>
-				                      		<td width="100" style="text-align: right;">
-				                      			<?php 
+	$ar[$l['id']]['total'] = isset($ar[$l['id']]['total']) ? $ar[$l['id']]['total'] + $total : $total;
+					                    			
+					                    			?>
 
-				                      			$num = 0;
-
-				                      			echo $num;
-				                      			$sum_num += $num;
-
-												//$ar[$l->area_code] = isset($ar[$l->area_code]) ?  $num + $ar[$l->area_code] : $num;
-				                      			
-				                      			?>
-				                      		</td>
 				                    	<?php endforeach;?>
-				                    	<td style="text-align: right"><strong><?php echo $sum_num;?></strong></td>
-				                    	<td style="text-align: right"><strong><?php echo $sum_num;?></strong></td>
-				                    	<td style="text-align: right"><strong><?php echo $sum_num;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $sum_boy;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $sum_girl;?></strong></td>
+				                    	<td style="text-align: right"><strong><?php echo $sum_total;?></strong></td>
 				                    </tr>
 			                    <?php endforeach;?>
 
 			                    <tr>
 			                    	<td style="text-align: right">รวม</td>
 			                    	<?php 
-			                    	$total_sum = 0;
+			                    	$total_sum1 = 0;
+			                    	$total_sum2 = 0;
+			                    	$all = 0;
 			                    	foreach($ar as $_a => $v) {
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		echo '<td style="text-align: right;"><strong>'.$v.'</strong></td>';
-			                    		$total_sum += $v;
+			                    		echo '<td style="text-align: right;"><strong>'.$v['boy'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['girl'].'</strong></td>';
+			                    		echo '<td style="text-align: right;"><strong>'.$v['total'].'</strong></td>';
+			                    		$total_sum += $v['total'];
+			                    		$total_sum1+=$v['boy'];
+			                    		$total_sum2+=$v['girl'];
 			                    	}
 			                    	?>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
-			                    	<td style="text-align: right"><strong><?php echo $total_sum;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo $total_sum1;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo $total_sum2;?></strong></td>
+			                    	<td style="text-align: right"><strong><?php echo $total_sum1 + $total_sum2;?></strong></td>
 			                    </tr>
 			                  </tbody>
 			                  
